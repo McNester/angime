@@ -7,9 +7,28 @@
     <title>Әңгіме — Крафтовый бар в Астане</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Added Bebas Neue for bold headings -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Righteous&family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Righteous&family=Inter:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
+    <!-- Added font-display: swap to prevent FOIT on Safari -->
+    <style>
+        /* Font display fix for Safari */
+        @font-face {
+            font-family: 'Righteous';
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Inter';
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Bebas Neue';
+            font-display: swap;
+        }
+    </style>
     <style>
         :root {
             --bg-dark: #0d0d0d;
@@ -92,6 +111,9 @@
             pointer-events: none;
             z-index: 1;
             overflow: hidden;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+            will-change: transform;
         }
 
         .float-item {
@@ -100,6 +122,77 @@
             width: 60px;
             height: 60px;
             will-change: transform;
+            animation-duration: 20s !important;
+        }
+
+        .float-item:nth-child(1) {
+            top: 8%;
+            left: 8%;
+            animation: smoothFloat 15s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            animation-delay: 0s;
+        }
+
+        .float-item:nth-child(2) {
+            top: 15%;
+            right: 12%;
+            animation: smoothFloat 18s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            animation-delay: 3s;
+        }
+
+        .float-item:nth-child(3) {
+            top: 55%;
+            left: 3%;
+            animation: smoothFloat 22s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            animation-delay: 6s;
+        }
+
+        .float-item:nth-child(4) {
+            bottom: 18%;
+            right: 8%;
+            animation: smoothFloat 16s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            animation-delay: 9s;
+        }
+
+        .float-item:nth-child(5) {
+            top: 35%;
+            left: 45%;
+            animation: smoothFloat 20s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            animation-delay: 4s;
+        }
+
+        .float-item:nth-child(6) {
+            top: 65%;
+            right: 28%;
+            animation: smoothFloat 19s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            animation-delay: 7s;
+        }
+
+        .float-item:nth-child(7) {
+            top: 25%;
+            left: 25%;
+            animation: smoothFloat 17s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            animation-delay: 2s;
+        }
+
+        .float-item:nth-child(8) {
+            top: 75%;
+            left: 15%;
+            animation: smoothFloat 21s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            animation-delay: 10s;
+        }
+
+        .float-item:nth-child(9) {
+            top: 45%;
+            right: 18%;
+            animation: smoothFloat 23s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            animation-delay: 5s;
+        }
+
+        .float-item:nth-child(10) {
+            bottom: 30%;
+            left: 35%;
+            animation: smoothFloat 18s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            animation-delay: 8s;
         }
 
         /* Smooth continuous animation with cubic-bezier */
@@ -128,76 +221,6 @@
                 transform: translate3d(0, 0, 0) rotate(360deg);
                 opacity: 0.06;
             }
-        }
-
-        .float-item:nth-child(1) {
-            top: 8%;
-            left: 8%;
-            animation: smoothFloat 45s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-            animation-delay: 0s;
-        }
-
-        .float-item:nth-child(2) {
-            top: 15%;
-            right: 12%;
-            animation: smoothFloat 50s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-            animation-delay: 3s;
-        }
-
-        .float-item:nth-child(3) {
-            top: 55%;
-            left: 3%;
-            animation: smoothFloat 48s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-            animation-delay: 6s;
-        }
-
-        .float-item:nth-child(4) {
-            bottom: 18%;
-            right: 8%;
-            animation: smoothFloat 52s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-            animation-delay: 9s;
-        }
-
-        .float-item:nth-child(5) {
-            top: 35%;
-            left: 45%;
-            animation: smoothFloat 47s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-            animation-delay: 4s;
-        }
-
-        .float-item:nth-child(6) {
-            top: 65%;
-            right: 28%;
-            animation: smoothFloat 49s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-            animation-delay: 7s;
-        }
-
-        .float-item:nth-child(7) {
-            top: 25%;
-            left: 25%;
-            animation: smoothFloat 51s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-            animation-delay: 2s;
-        }
-
-        .float-item:nth-child(8) {
-            top: 75%;
-            left: 15%;
-            animation: smoothFloat 46s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-            animation-delay: 10s;
-        }
-
-        .float-item:nth-child(9) {
-            top: 45%;
-            right: 18%;
-            animation: smoothFloat 53s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-            animation-delay: 5s;
-        }
-
-        .float-item:nth-child(10) {
-            bottom: 30%;
-            left: 35%;
-            animation: smoothFloat 48s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-            animation-delay: 8s;
         }
 
         /* Navigation */
@@ -243,13 +266,16 @@
         }
 
         .nav-logo-text {
-            font-family: 'Righteous', cursive;
-            font-size: 2rem;
+            font-family: 'Bebas Neue', cursive;
+            /* Changed to Bebas Neue */
+            font-size: 2.2rem;
+            /* Slightly larger */
             background: linear-gradient(135deg, var(--accent-gold), var(--accent-orange));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             letter-spacing: 2px;
+            font-weight: 700;
         }
 
         .nav-right {
@@ -267,12 +293,16 @@
         .nav-links a {
             color: var(--text-primary);
             text-decoration: none;
-            font-weight: 500;
-            font-size: 0.9rem;
+            font-weight: 600;
+            /* Bolder */
+            font-size: 0.95rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            /* Slightly more spacing */
             transition: all 0.3s ease;
             position: relative;
+            font-family: 'Bebas Neue', cursive;
+            /* Added Bebas Neue */
         }
 
         .nav-links a::after {
@@ -303,13 +333,16 @@
             background: none;
             border: none;
             color: var(--text-secondary);
-            font-weight: 600;
+            font-weight: 700;
+            /* Bolder */
             font-size: 0.85rem;
             cursor: pointer;
             padding: 0.3rem 0.8rem;
             border-radius: 15px;
             transition: all 0.3s ease;
             text-transform: uppercase;
+            font-family: 'Bebas Neue', cursive;
+            /* Added Bebas Neue */
         }
 
         .lang-btn.active {
@@ -323,6 +356,7 @@
             gap: 5px;
             cursor: pointer;
             position: relative;
+            z-index: 1001;
         }
 
         .burger span {
@@ -416,9 +450,12 @@
         }
 
         .hero-title {
-            font-family: 'Righteous', cursive;
-            font-size: clamp(4rem, 15vw, 10rem);
-            line-height: 0.9;
+            font-family: 'Bebas Neue', cursive;
+            /* Changed to Bebas Neue */
+            font-size: clamp(5rem, 18vw, 11rem);
+            /* Larger and more robust */
+            line-height: 0.85;
+            /* Tighter line height */
             margin-bottom: 1rem;
             background: linear-gradient(135deg, #ffd700, #ff6b35, #4ecdc4);
             background-size: 200% 200%;
@@ -426,8 +463,11 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             animation: gradientMove 5s ease infinite;
-            letter-spacing: 5px;
-            text-shadow: 0 0 80px rgba(255, 215, 0, 0.3);
+            letter-spacing: 6px;
+            /* More letter spacing for bar vibe */
+            text-shadow: 0 0 100px rgba(255, 215, 0, 0.4);
+            font-weight: 900;
+            text-transform: uppercase;
         }
 
         @keyframes gradientMove {
@@ -443,17 +483,22 @@
         }
 
         .hero-subtitle {
-            font-size: clamp(1.2rem, 3vw, 2rem);
+            font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+            /* Slightly larger */
             margin-bottom: 1rem;
             color: var(--text-secondary);
-            font-weight: 300;
-            letter-spacing: 3px;
+            font-weight: 400;
+            letter-spacing: 4px;
+            /* More spacing */
             text-transform: uppercase;
             animation: fadeInUp 1s ease 0.3s both;
+            font-family: 'Bebas Neue', cursive;
+            /* Added Bebas Neue */
         }
 
         .hero-description {
-            font-size: clamp(1rem, 2vw, 1.3rem);
+            font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+            /* Slightly larger */
             margin-bottom: 3rem;
             color: var(--text-primary);
             max-width: 700px;
@@ -497,6 +542,8 @@
             display: inline-block;
             position: relative;
             overflow: hidden;
+            font-family: 'Bebas Neue', cursive;
+            /* Added Bebas Neue */
         }
 
         .btn-primary {
@@ -542,23 +589,32 @@
 
         /* Section Styles */
         .section-title {
-            font-family: 'Righteous', cursive;
-            font-size: clamp(3rem, 8vw, 5rem);
+            font-family: 'Bebas Neue', cursive;
+            /* Changed to Bebas Neue */
+            font-size: clamp(3.5rem, 10vw, 6rem);
+            /* Larger and more robust */
             text-align: center;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            /* More spacing */
             background: linear-gradient(135deg, var(--accent-gold), var(--accent-orange));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
+            /* More spacing for bar vibe */
+            line-height: 0.9;
+            font-weight: 700;
+            text-transform: uppercase;
         }
 
         .section-subtitle {
             text-align: center;
             color: var(--text-secondary);
-            font-size: 1.2rem;
+            font-size: 1.3rem;
+            /* Slightly larger */
             margin-bottom: 5rem;
             font-weight: 300;
+            letter-spacing: 2px;
         }
 
         /* Reasons Grid */
@@ -641,6 +697,9 @@
             margin-bottom: 1rem;
             color: var(--accent-gold);
             font-weight: 700;
+            font-family: 'Bebas Neue', cursive;
+            /* Added Bebas Neue */
+            letter-spacing: 1.5px;
         }
 
         .reason-card p {
@@ -668,6 +727,10 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
+            font-family: 'Bebas Neue', cursive;
+            /* Added Bebas Neue */
+            font-size: 1.2rem;
+            /* Larger font */
         }
 
         .menu-tab.active {
@@ -825,6 +888,9 @@
             font-size: 1.5rem;
             font-weight: 700;
             color: var(--text-primary);
+            font-family: 'Bebas Neue', cursive;
+            /* Added Bebas Neue */
+            letter-spacing: 1px;
         }
 
         .menu-item-price {
@@ -833,6 +899,8 @@
             font-weight: 800;
             white-space: nowrap;
             margin-left: 1rem;
+            font-family: 'Bebas Neue', cursive;
+            /* Added Bebas Neue */
         }
 
         .menu-item-description {
@@ -1036,7 +1104,9 @@
             font-size: 2.5rem;
             font-weight: 700;
             color: var(--text-primary);
-            font-family: 'Righteous', cursive;
+            font-family: 'Bebas Neue', cursive;
+            /* Changed to Bebas Neue */
+            letter-spacing: 2px;
         }
 
         .modal-price {
@@ -1044,6 +1114,8 @@
             color: var(--accent-gold);
             font-weight: 800;
             white-space: nowrap;
+            font-family: 'Bebas Neue', cursive;
+            /* Added Bebas Neue */
         }
 
         .modal-description {
@@ -1083,7 +1155,7 @@
             font-size: 1.05rem;
         }
 
-        /* Bento Grid Gallery */
+        /* Apple-style Bento Grid Gallery */
         .bento-gallery {
             max-width: 1400px;
             margin: 0 auto;
@@ -1098,8 +1170,11 @@
             border-radius: 20px;
             overflow: hidden;
             cursor: pointer;
-            transition: all 0.4s ease;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            /* Apple-style easing */
             background: linear-gradient(135deg, #667eea, #764ba2);
+            isolation: isolate;
+            /* Better stacking context */
         }
 
         .bento-item::before {
@@ -1111,7 +1186,19 @@
             height: 100%;
             background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 107, 53, 0.3));
             opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            z-index: 1;
+        }
+
+        .bento-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 60%, rgba(0, 0, 0, 0.8) 100%);
+            opacity: 0.8;
             z-index: 1;
         }
 
@@ -1121,7 +1208,8 @@
 
         .bento-item:hover {
             transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+            /* Apple-style shadow */
             z-index: 10;
         }
 
@@ -1129,6 +1217,11 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .bento-item:hover img {
+            transform: scale(1.05);
         }
 
         .bento-item-overlay {
@@ -1137,13 +1230,8 @@
             left: 0;
             right: 0;
             padding: 2rem;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
             z-index: 2;
-            transform: translateY(100%);
-            transition: transform 0.4s ease;
-        }
-
-        .bento-item:hover .bento-item-overlay {
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
             transform: translateY(0);
         }
 
@@ -1151,60 +1239,75 @@
             font-size: 0.85rem;
             color: var(--accent-gold);
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
+            /* More spacing */
             font-weight: 700;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
+            /* More spacing */
+            font-family: 'Bebas Neue', cursive;
+            /* Added Bebas Neue */
+            display: inline-block;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
         }
 
         .bento-item-title {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
+            /* Larger */
             color: var(--text-primary);
             font-weight: 700;
+            font-family: 'Bebas Neue', cursive;
+            /* Added Bebas Neue */
+            letter-spacing: 1.5px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            line-height: 1.2;
         }
 
-        /* Dynamic Bento grid layout */
+        /* Dynamic Bento grid layout - Apple Style */
         .bento-item:nth-child(1) {
-            grid-column: span 6;
+            grid-column: span 8;
             grid-row: span 2;
         }
 
         .bento-item:nth-child(2) {
-            grid-column: span 6;
-            grid-row: span 1;
+            grid-column: span 4;
+            grid-row: span 2;
         }
 
         .bento-item:nth-child(3) {
-            grid-column: span 3;
+            grid-column: span 4;
             grid-row: span 1;
         }
 
         .bento-item:nth-child(4) {
-            grid-column: span 3;
+            grid-column: span 4;
             grid-row: span 1;
         }
 
         .bento-item:nth-child(5) {
             grid-column: span 4;
-            grid-row: span 2;
+            grid-row: span 1;
         }
 
         .bento-item:nth-child(6) {
-            grid-column: span 4;
+            grid-column: span 6;
             grid-row: span 1;
         }
 
         .bento-item:nth-child(7) {
-            grid-column: span 4;
+            grid-column: span 6;
             grid-row: span 1;
         }
 
         .bento-item:nth-child(8) {
-            grid-column: span 6;
+            grid-column: span 4;
             grid-row: span 1;
         }
 
         .bento-item:nth-child(9) {
-            grid-column: span 6;
+            grid-column: span 4;
             grid-row: span 1;
         }
 
@@ -1214,12 +1317,12 @@
         }
 
         .bento-item:nth-child(11) {
-            grid-column: span 4;
+            grid-column: span 6;
             grid-row: span 1;
         }
 
         .bento-item:nth-child(12) {
-            grid-column: span 4;
+            grid-column: span 6;
             grid-row: span 1;
         }
 
@@ -1292,6 +1395,9 @@
             font-weight: 700;
             margin-bottom: 0.5rem;
             color: var(--accent-gold);
+            font-family: 'Bebas Neue', cursive;
+            /* Added Bebas Neue */
+            letter-spacing: 1.5px;
         }
 
         .team-role {
@@ -1309,12 +1415,14 @@
             font-size: 0.95rem;
         }
 
-        /* Contact Section */
+        /* Contact Section - Improved */
         .contact-grid {
-            max-width: 1200px;
+            max-width: 1400px;
+            /* Wider container */
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
+            /* Equal width columns */
             gap: 3rem;
         }
 
@@ -1329,6 +1437,12 @@
             overflow: hidden;
             max-width: 100%;
             margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            min-height: 300px;
+            /* Equal height */
+            justify-content: center;
+            align-items: center;
         }
 
         .contact-card::before {
@@ -1368,15 +1482,83 @@
 
         .contact-card h3 {
             font-size: 1.5rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            /* More spacing */
             color: var(--accent-gold);
             font-weight: 700;
+            font-family: 'Bebas Neue', cursive;
+            /* Added Bebas Neue */
+            letter-spacing: 1.5px;
         }
 
         .contact-card p {
             color: var(--text-secondary);
             font-size: 1.1rem;
             line-height: 1.8;
+            width: 100%;
+        }
+
+        /* Contact Links - Beautiful Styling */
+        .contact-card a {
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 12px;
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            margin: 6px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-card a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent);
+            transition: left 0.6s;
+        }
+
+        .contact-card a:hover {
+            color: var(--bg-dark);
+            background: var(--accent-gold);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .contact-card a:hover::before {
+            left: 100%;
+        }
+
+        .contact-card a.instagram:hover {
+            background: linear-gradient(135deg, #833AB4, #FD1D1D, #F56040, #FFDC80);
+            color: white;
+        }
+
+        .contact-card a.telegram:hover {
+            background: #0088cc;
+            color: white;
+        }
+
+        .contact-card a.map:hover {
+            background: #34a853;
+            color: white;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
         }
 
         /* Footer */
@@ -1488,6 +1670,8 @@
             border-radius: 20px;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 215, 0, 0.2);
+            text-align: center;
+            max-width: 80%;
         }
 
         .lightbox-category {
@@ -1497,12 +1681,19 @@
             letter-spacing: 2px;
             margin-bottom: 0.5rem;
             font-weight: 700;
+            font-family: 'Bebas Neue', cursive;
+            /* Added Bebas Neue */
         }
 
         .lightbox-title {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
+            /* Larger */
             color: var(--text-primary);
             font-weight: 700;
+            font-family: 'Bebas Neue', cursive;
+            /* Added Bebas Neue */
+            letter-spacing: 1.5px;
+            line-height: 1.2;
         }
 
         /* Responsive */
@@ -1518,7 +1709,7 @@
 
             .bento-item:nth-child(2) {
                 grid-column: span 3;
-                grid-row: span 1;
+                grid-row: span 2;
             }
 
             .bento-item:nth-child(3) {
@@ -1527,8 +1718,8 @@
             }
 
             .bento-item:nth-child(4) {
-                grid-column: span 6;
-                grid-row: span 2;
+                grid-column: span 3;
+                grid-row: span 1;
             }
 
             .bento-item:nth-child(5) {
@@ -1541,26 +1732,34 @@
                 grid-row: span 1;
             }
 
-            .bento-item:nth-child(n+7) {
-                grid-column: span 6;
+            .bento-item:nth-child(7) {
+                grid-column: span 3;
                 grid-row: span 1;
+            }
+
+            .contact-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
         @media (max-width: 768px) {
             .nav-right {
                 position: fixed;
-                top: 80px;
+                top: 0;
                 right: -100%;
                 width: 100%;
-                background: rgba(13, 13, 13, 0.98);
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.98);
                 flex-direction: column;
-                padding: 2rem;
-                transition: right 0.3s ease;
+                padding: 5rem 2rem 2rem;
+                transition: right 0.4s cubic-bezier(0.23, 1, 0.32, 1);
                 align-items: stretch;
-                backdrop-filter: blur(15px);
-                -webkit-backdrop-filter: blur(15px);
-                background: rgba(10, 10, 10, 0.97) !important;
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                background: rgba(0, 0, 0, 0.98) !important;
+                z-index: 999;
+                justify-content: flex-start;
+                overflow-y: auto;
             }
 
             .nav-right.active {
@@ -1570,12 +1769,16 @@
             .nav-links {
                 flex-direction: column;
                 margin-bottom: 2rem;
+                gap: 1.5rem;
             }
 
             .nav-links a {
                 transform: translateX(-50px);
                 opacity: 0;
                 transition: all 0.4s ease;
+                font-size: 1.2rem;
+                padding: 0.8rem 0;
+                text-align: center;
             }
 
             .nav-right.active .nav-links a {
@@ -1607,6 +1810,12 @@
                 transition-delay: 0.35s;
             }
 
+            .nav-links a:hover {
+                color: var(--accent-gold) !important;
+                padding-left: 1.5rem !important;
+                border-left: 3px solid var(--accent-gold);
+            }
+
             .burger {
                 display: flex;
             }
@@ -1626,11 +1835,12 @@
                 grid-template-columns: 1fr;
             }
 
+            /* Mobile Bento Grid - Apple Style */
             .bento-gallery {
-                grid-template-columns: repeat(2, 1fr) !important;
-                gap: 0.75rem !important;
+                grid-template-columns: 1fr !important;
+                gap: 1rem !important;
                 padding: 0 1rem;
-                grid-auto-rows: auto;
+                grid-auto-rows: 250px;
             }
 
             .bento-item {
@@ -1638,6 +1848,16 @@
                 height: auto;
                 grid-column: span 1 !important;
                 grid-row: span 1 !important;
+            }
+
+            .bento-item-overlay {
+                padding: 1.5rem;
+                transform: translateY(0);
+            }
+
+            .bento-item-title {
+                font-size: 1.5rem;
+                line-height: 1.1;
             }
 
             .modal-body {
@@ -1673,6 +1893,11 @@
             .lightbox-info {
                 bottom: 1rem;
                 padding: 1rem 1.5rem;
+                max-width: 90%;
+            }
+
+            .lightbox-title {
+                font-size: 1.4rem;
             }
 
             .float-item {
@@ -1692,11 +1917,31 @@
                 overflow-x: hidden !important;
                 overflow-y: visible;
             }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .contact-card {
+                min-height: 250px;
+                padding: 2rem 1.5rem;
+            }
         }
 
         @media (max-width: 480px) {
             .bento-gallery {
-                gap: 0.5rem !important;
+                gap: 0.75rem !important;
+                grid-auto-rows: 220px;
+            }
+
+            .hero-title {
+                font-size: clamp(3.5rem, 15vw, 8rem);
+                letter-spacing: 4px;
+            }
+
+            .section-title {
+                font-size: clamp(2.5rem, 8vw, 4rem);
             }
         }
 
@@ -1704,7 +1949,7 @@
         .reveal {
             opacity: 0;
             transform: translateY(50px);
-            transition: all 0.8s ease;
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         .reveal.active {
@@ -1730,137 +1975,14 @@
             background: var(--accent-orange);
         }
 
-        /* ========================================
-           BUG FIXES - Applied to working version
-           ======================================== */
-
-        /* BUG FIX 1: Contact Links - Make them clickable and beautiful */
-        .contact-content a {
-            color: var(--accent-gold);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            display: inline-block;
-            position: relative;
-            padding-bottom: 2px;
-        }
-
-        .contact-content a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent-gold);
-            transition: width 0.3s ease;
-        }
-
-        .contact-content a:hover {
-            color: var(--accent-orange);
-            transform: translateX(2px);
-        }
-
-        .contact-content a:hover::after {
-            width: 100%;
-            background: var(--accent-orange);
-        }
-
-        /* BUG FIX 2: Floating Elements - Faster and more dynamic */
-        .float-item {
-            animation-duration: 20s !important;
-        }
-
-        .float-item:nth-child(1) {
-            animation-duration: 15s !important;
-        }
-
-        .float-item:nth-child(2) {
-            animation-duration: 18s !important;
-        }
-
-        .float-item:nth-child(3) {
-            animation-duration: 22s !important;
-        }
-
-        .float-item:nth-child(4) {
-            animation-duration: 16s !important;
-        }
-
-        .float-item:nth-child(5) {
-            animation-duration: 20s !important;
-        }
-
-        .float-item:nth-child(6) {
-            animation-duration: 19s !important;
-        }
-
-        .float-item:nth-child(7) {
-            animation-duration: 17s !important;
-        }
-
-        .float-item:nth-child(8) {
-            animation-duration: 21s !important;
-        }
-
-        .float-item:nth-child(9) {
-            animation-duration: 23s !important;
-        }
-
-        .float-item:nth-child(10) {
-            animation-duration: 18s !important;
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translate(0, 0) rotate(0deg) scale(1);
-                opacity: 0.06;
-            }
-
-            25% {
-                transform: translate(120px, -120px) rotate(90deg) scale(1.3);
-                opacity: 0.12;
-            }
-
-            50% {
-                transform: translate(-60px, -240px) rotate(180deg) scale(0.85);
-                opacity: 0.08;
-            }
-
-            75% {
-                transform: translate(-180px, -120px) rotate(270deg) scale(1.15);
-                opacity: 0.14;
-            }
-        }
-
-        /* BUG FIX 3: Floating elements container fix */
-        #floatingElements {
-            -webkit-transform: translateZ(0);
-            transform: translateZ(0);
-            will-change: transform;
-        }
-
-        /* BUG FIX 6: Burger Menu - Complete X animation */
-        .burger span {
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) !important;
-            transform-origin: center !important;
-        }
-
-        /* BUG FIX 7: Mobile Menu - Better styling */
-        .nav-links a:hover {
-            color: var(--accent-gold) !important;
-            padding-left: 1.5rem;
-            border-left: 3px solid var(--accent-gold);
-        }
-
         /* Prevent horizontal scroll globally */
         html,
         body {
             overflow-x: hidden !important;
             max-width: 100vw;
             position: relative;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         * {
@@ -1941,7 +2063,7 @@
 
     <section class="gallery-section reveal" id="gallery">
         <h2 class="section-title" data-i18n="galleryTitle">Атмосфера Ангиме</h2>
-        <p class="section-subtitle" data-i18n="gallerySubtitle">Место, г��е рождаются истории</p>
+        <p class="section-subtitle" data-i18n="gallerySubtitle">Место, где рождаются истории</p>
         <div class="bento-gallery" id="bentoGallery"></div>
     </section>
 

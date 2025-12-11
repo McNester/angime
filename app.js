@@ -540,10 +540,10 @@ function initContact() {
         const card = document.createElement('div');
         card.className = 'contact-card';
         card.innerHTML = `
-            <div class="contact-icon">${contact.icon}</div>
-            <h3 data-i18n="${contact.titleKey}">${TRANSLATIONS[currentLang][contact.titleKey]}</h3>
-            <p data-i18n="${contact.contentKey}">${TRANSLATIONS[currentLang][contact.contentKey]}</p>
-        `;
+                    <div class="contact-icon">${contact.icon}</div>
+                    <h3 data-i18n="${contact.titleKey}">${TRANSLATIONS[currentLang][contact.titleKey]}</h3>
+                    <p data-i18n="${contact.contentKey}">${TRANSLATIONS[currentLang][contact.contentKey]}</p>
+                `;
         grid.appendChild(card);
     });
 }
@@ -554,7 +554,37 @@ function updateContact() {
     cards.forEach((card, index) => {
         const contact = CONFIG.contact[index];
         card.querySelector('h3').textContent = TRANSLATIONS[currentLang][contact.titleKey];
-        card.querySelector('p').innerHTML = TRANSLATIONS[currentLang][contact.contentKey];
+
+        // Parse HTML content for links
+        const content = TRANSLATIONS[currentLang][contact.contentKey];
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(content, 'text/html');
+
+        // Find all links and add proper styling
+        const links = doc.querySelectorAll('a');
+        links.forEach(link => {
+            const href = link.getAttribute('href');
+            link.className = '';
+
+            if (href.includes('instagram')) {
+                link.className = 'instagram';
+                link.innerHTML = '📸 ' + link.textContent;
+            } else if (href.includes('t.me')) {
+                link.className = 'telegram';
+                link.innerHTML = '✈️ ' + link.textContent;
+            } else if (href.includes('2gis')) {
+                link.className = 'map';
+                link.innerHTML = '🗺️ ' + link.textContent;
+            }
+        });
+
+        // Create links container
+        const contactContent = document.createElement('div');
+        contactContent.innerHTML = doc.body.innerHTML;
+
+        // Replace paragraph with new content
+        const p = card.querySelector('p');
+        p.replaceWith(contactContent);
     });
 }
 
