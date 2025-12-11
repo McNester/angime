@@ -192,7 +192,7 @@ function initFloatingElements() {
         'billiards',
         'music',
         'beerBottle',
-        'beerHand',
+        // 'beerHand',
         'beerGlass',
         'beerMug',
         'billiards',
@@ -885,17 +885,17 @@ function initScrollEffects() {
     revealOnScroll(); // Initial check
 
     // Parallax effect for floating elements
-    document.addEventListener('mousemove', (e) => {
-        const floatItems = document.querySelectorAll('.float-item');
-        const mouseX = e.clientX / window.innerWidth;
-        const mouseY = e.clientY / window.innerHeight;
-
-        floatItems.forEach((item, index) => {
-            const speed = (index + 1) * 0.5;
-            const x = (mouseX - 0.5) * speed * 50;
-            const y = (mouseY - 0.5) * speed * 50;
-
-            item.style.transform = `translate(${x}px, ${y}px)`;
-        });
-    });
+    // document.addEventListener('mousemove', (e) => {
+    //     const floatItems = document.querySelectorAll('.float-item');
+    //     const mouseX = e.clientX / window.innerWidth;
+    //     const mouseY = e.clientY / window.innerHeight;
+    //
+    //     floatItems.forEach((item, index) => {
+    //         const speed = (index + 1) * 0.5;
+    //         const x = (mouseX - 0.5) * speed * 50;
+    //         const y = (mouseY - 0.5) * speed * 50;
+    //
+    //         item.style.transform = `translate(${x}px, ${y}px)`;
+    //     });
+    // });
 }
