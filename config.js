@@ -250,84 +250,84 @@ const CONFIG = {
                         price: '1700₸',
                         descKey: 'foodItem1Desc',
                         specs: [],
-                        image: 'https://placehold.co/400x300/667eea/ffffff?text=Орешки'
+                        images: ['./menu/nuts.JPG']
                     },
                     {
                         nameKey: 'foodItem2Name',
                         price: '1700₸',
                         descKey: 'foodItem2Desc',
                         specs: [],
-                        image: 'https://placehold.co/400x300/f5576c/ffffff?text=Курт'
+                        images: ['./menu/kurt.JPG']
                     },
                     {
                         nameKey: 'foodItem3Name',
                         price: '2000₸',
                         descKey: 'foodItem3Desc',
                         specs: [],
-                        image: 'https://placehold.co/400x300/4facfe/ffffff?text=Чипсы'
+                        images: ['./menu/chips.JPG']
                     },
                     {
                         nameKey: 'foodItem4Name',
                         price: '3700₸',
                         descKey: 'foodItem4Desc',
                         specs: [],
-                        image: 'https://placehold.co/400x300/43e97b/ffffff?text=Ассорти'
+                        images: ['./menu/assorti.JPG']
                     },
                     {
                         nameKey: 'foodItem5Name',
                         price: '1500₸',
                         descKey: 'foodItem5Desc',
                         specs: [],
-                        image: 'https://placehold.co/400x300/fa709a/ffffff?text=Чечел'
+                        images: ['./menu/chechel_fried.JPG']
                     },
                     {
                         nameKey: 'foodItem6Name',
                         price: '2800₸',
                         descKey: 'foodItem6Desc',
                         specs: [],
-                        image: 'https://placehold.co/400x300/764ba2/ffffff?text=Крылья'
+                        images: ['./menu/wings.JPG']
                     },
                     {
                         nameKey: 'foodItem7Name',
                         price: '2700₸',
                         descKey: 'foodItem7Desc',
                         specs: [],
-                        image: 'https://placehold.co/400x300/667eea/ffffff?text=Кесадилья'
+                        images: ['./menu/cesadil.JPG']
                     },
                     {
                         nameKey: 'foodItem8Name',
                         price: '3300₸',
                         descKey: 'foodItem8Desc',
                         specs: [],
-                        image: 'https://placehold.co/400x300/f5576c/ffffff?text=Бургер'
+                        images: ['./menu/burger.JPG']
                     },
                     {
                         nameKey: 'foodItem9Name',
                         price: '2500₸',
                         descKey: 'foodItem9Desc',
                         specs: [],
-                        image: 'https://placehold.co/400x300/4facfe/ffffff?text=Маргарита'
+                        images: ['./menu/margarita.JPG']
                     },
                     {
                         nameKey: 'foodItem10Name',
                         price: '3000₸',
                         descKey: 'foodItem10Desc',
                         specs: [],
-                        image: 'https://placehold.co/400x300/43e97b/ffffff?text=Пепперони'
+                        images: ['./menu/pepperoni.JPG']
                     },
                     {
                         nameKey: 'foodItem11Name',
                         price: '3200₸',
                         descKey: 'foodItem11Desc',
                         specs: [],
-                        image: 'https://placehold.co/400x300/fa709a/ffffff?text=С+курицей'
+                        images: ['./menu/chiken_pizza1.JPG', './menu/chicken_pizza2.JPG']
                     },
                     {
                         nameKey: 'foodItem12Name',
                         price: '3500₸',
                         descKey: 'foodItem12Desc',
                         specs: [],
-                        image: 'https://placehold.co/400x300/764ba2/ffffff?text=Мясная'
+                        images: ['./menu/meet_pizza.JPG']
                     }
                 ]
             }
@@ -337,59 +337,60 @@ const CONFIG = {
     // Gallery images with categories
     gallery: [
         {
-            image: 'https://placehold.co/600x600/667eea/ffffff?text=Bar+Interior',
             alt: 'Интерьер бара',
             category: 'vibe',
-            titleKey: 'gallery1Title'
+            titleKey: 'gallery1Title',
+            //images: ['./vibe/bar1.JPG', './vibe/bar2.JPG', './vibe/bar3.JPG']
+            image: './vibe/bar1.JPG'
         },
         {
-            image: 'https://placehold.co/600x600/f5576c/ffffff?text=Pool+Table',
+            image: './vibe/pool1.JPG',
             alt: 'Бильярдный стол',
             category: 'vibe',
             titleKey: 'gallery2Title'
         },
         {
-            image: 'https://placehold.co/600x600/4facfe/ffffff?text=Guests',
+            image: './vibe/guests1.JPG',
             alt: 'Гости',
             category: 'guests',
             titleKey: 'gallery3Title'
         },
         {
-            image: 'https://placehold.co/600x600/43e97b/ffffff?text=Music+Night',
+            image: './vibe/music.JPG',
             alt: 'Музыкальный вечер',
             category: 'events',
             titleKey: 'gallery4Title'
         },
+        // {
+        //     image: 'https://placehold.co/600x600/fa709a/ffffff?text=Food+Menu',
+        //     alt: 'Меню',
+        //     category: 'food',
+        //     titleKey: 'gallery5Title'
+        // },
         {
-            image: 'https://placehold.co/600x600/fa709a/ffffff?text=Food+Menu',
-            alt: 'Меню',
-            category: 'food',
-            titleKey: 'gallery5Title'
-        },
-        {
-            image: 'https://placehold.co/600x600/764ba2/ffffff?text=Party',
+            image: './vibe/party.JPG',
             alt: 'Вечеринка',
             category: 'events',
             titleKey: 'gallery6Title'
         },
-        {
-            image: 'https://placehold.co/600x600/667eea/ffffff?text=Craft+Beer',
-            alt: 'Крафтовое пиво',
-            category: 'food',
-            titleKey: 'gallery7Title'
-        },
-        {
-            image: 'https://placehold.co/600x600/f093fb/ffffff?text=Bar+Counter',
-            alt: 'Барная стойка',
-            category: 'vibe',
-            titleKey: 'gallery8Title'
-        },
-        {
-            image: 'https://placehold.co/600x600/4facfe/ffffff?text=Happy+Guests',
-            alt: 'Счастливые гости',
-            category: 'guests',
-            titleKey: 'gallery9Title'
-        }
+        // {
+        //     image: 'https://placehold.co/600x600/667eea/ffffff?text=Craft+Beer',
+        //     alt: 'Крафтовое пиво',
+        //     category: 'food',
+        //     titleKey: 'gallery7Title'
+        // },
+        // {
+        //     image: 'https://placehold.co/600x600/f093fb/ffffff?text=Bar+Counter',
+        //     alt: 'Барная стойка',
+        //     category: 'vibe',
+        //     titleKey: 'gallery8Title'
+        // },
+        // {
+        //     image: 'https://placehold.co/600x600/4facfe/ffffff?text=Happy+Guests',
+        //     alt: 'Счастливые гости',
+        //     category: 'guests',
+        //     titleKey: 'gallery9Title'
+        // }
     ],
 
     // Team members
@@ -398,19 +399,19 @@ const CONFIG = {
             nameKey: 'team1Name',
             roleKey: 'team1Role',
             descKey: 'team1Desc',
-            photo: 'https://placehold.co/400x400/667eea/ffffff?text=Team'
+            photo: './staff/team.JPG'
         },
         {
             nameKey: 'team2Name',
             roleKey: 'team2Role',
             descKey: 'team2Desc',
-            photo: 'https://placehold.co/400x400/f5576c/ffffff?text=Chef'
+            photo: './staff/chef.JPG'
         },
         {
             nameKey: 'team3Name',
             roleKey: 'team3Role',
             descKey: 'team3Desc',
-            photo: 'https://placehold.co/400x400/4facfe/ffffff?text=Bartender'
+            photo: './staff/barmen.JPG'
         }
     ],
 
