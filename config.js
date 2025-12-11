@@ -13,7 +13,11 @@ const CONFIG = {
 
         beerBottle: `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1024 1024"><path d="M327 202.1c-5 0-9.1 4.1-9.1 9.1v115.3c0 32.4-20.3 61.2-50.4 71.6-38.3 13.3-64 49.6-64 90.1v372.4c0 15.5 12.6 28.1 28.1 28.1h248.9c15.5 0 28.1-12.6 28.1-28.1V488.2c0-40.6-25.8-76.8-64.1-90.1-30.1-10.4-50.4-39.2-50.4-71.6V211.1c0-5-4.1-9.1-9.1-9.1h-58z" fill="#95C751"/><path d="M444.6 398c-30.1-10.4-50.4-39.2-50.4-71.6V202.1h-38.1v124.4c0 32.4 20.2 61.2 50.4 71.6 38.3 13.4 64.1 49.6 64.1 90.1v381.5c0 10.5-8.6 19.1-19.1 19.1h38.1c10.5 0 19.1-8.5 19.1-19.1V488.2c0-40.6-25.7-76.8-64.1-90.2z" fill="#6EB748"/><path d="M318 125.8h76.3v38.1H318z" fill="#FCD04E"/><path d="M356.1 125.8h38.1v38.1h-38.1z" fill="#F6BB33"/><path d="M480.1 888.7h-248c-15.8 0-28.6-12.8-28.6-28.6V687.4c0-15.2 12.4-27.6 27.6-27.6h250c15.2 0 27.6 12.4 27.6 27.6v172.7c0 15.8-12.8 28.6-28.6 28.6z" fill="#13AA5B"/><path d="M470.6 869.6c0 10.5-8.6 19.1-19.1 19.1h38.1c10.5 0 19.1-8.5 19.1-19.1V659.8h-38.1v209.8z" fill="#089648"/></svg>`,
 
-        beerHand: `<svg width="800px" height="800px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path d="M17.1,21a1,1,0,0,1-1-.945C16.036,18.754,16,17.39,16,16a1,1,0,0,1,2,0c0,1.354.035,2.681.1,3.945A1,1,0,0,1,17.159,21,.5.5,0,0,1,17.1,21Z" style="fill:#363636"/><path d="M46.9,21a.5.5,0,0,1-.055,0,1,1,0,0,1-.945-1.053c.069-1.264.1-2.591.1-3.945a1,1,0,0,1,2,0c0,1.39-.036,2.754-.106,4.055A1,1,0,0,1,46.9,21Z" style="fill:#363636"/><path d="M47.544,24.117A1,1,0,0,0,46.551,23H43a4.005,4.005,0,0,1-.28,1,1.994,1.994,0,0,1-2.056.973A1.947,1.947,0,0,1,39.3,24a3.786,3.786,0,0,1-.3-1H17.449a1,1,0,0,0-.993,1.117A57.092,57.092,0,0,0,19.546,37c.388,0,.732-.009,1.048-.029L20.6,37h4.9a2.5,2.5,0,0,1,0,5,2.5,2.5,0,0,1,0,5,2.5,2.5,0,0,1,0,5H24.3a2.145,2.145,0,0,0-1.515,0h-.038v.01a6.155,6.155,0,0,1-1.029.2,50.273,50.273,0,0,1-1.024,6.1A3,3,0,0,0,23.611,62H40.389a3,3,0,0,0,2.92-3.685A50.2,50.2,0,0,1,42,47c0-3.026.921-5.641,1.988-8.668a.975.975,0,0,0,.05-.324A9.1,9.1,0,0,1,43.045,38H38a3,3,0,0,1,0-6h6.987c.006-.023.012-.048.018-.07.306.036.639.055,1.016.062A54.206,54.206,0,0,0,47.544,24.117Z" style="fill:#ffbd4a"/></svg>`
+        beerHand: `<svg width="800px" height="800px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path d="M17.1,21a1,1,0,0,1-1-.945C16.036,18.754,16,17.39,16,16a1,1,0,0,1,2,0c0,1.354.035,2.681.1,3.945A1,1,0,0,1,17.159,21,.5.5,0,0,1,17.1,21Z" style="fill:#363636"/><path d="M46.9,21a.5.5,0,0,1-.055,0,1,1,0,0,1-.945-1.053c.069-1.264.1-2.591.1-3.945a1,1,0,0,1,2,0c0,1.39-.036,2.754-.106,4.055A1,1,0,0,1,46.9,21Z" style="fill:#363636"/><path d="M47.544,24.117A1,1,0,0,0,46.551,23H43a4.005,4.005,0,0,1-.28,1,1.994,1.994,0,0,1-2.056.973A1.947,1.947,0,0,1,39.3,24a3.786,3.786,0,0,1-.3-1H17.449a1,1,0,0,0-.993,1.117A57.092,57.092,0,0,0,19.546,37c.388,0,.732-.009,1.048-.029L20.6,37h4.9a2.5,2.5,0,0,1,0,5,2.5,2.5,0,0,1,0,5,2.5,2.5,0,0,1,0,5H24.3a2.145,2.145,0,0,0-1.515,0h-.038v.01a6.155,6.155,0,0,1-1.029.2,50.273,50.273,0,0,1-1.024,6.1A3,3,0,0,0,23.611,62H40.389a3,3,0,0,0,2.92-3.685A50.2,50.2,0,0,1,42,47c0-3.026.921-5.641,1.988-8.668a.975.975,0,0,0,.05-.324A9.1,9.1,0,0,1,43.045,38H38a3,3,0,0,1,0-6h6.987c.006-.023.012-.048.018-.07.306.036.639.055,1.016.062A54.206,54.206,0,0,0,47.544,24.117Z" style="fill:#ffbd4a"/></svg>`,
+
+        locationIcon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>`,
+        clockIcon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>`,
+        phoneIcon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>`
     },
 
     // Navigation menu items
@@ -335,100 +339,211 @@ const CONFIG = {
     },
 
     // Gallery images with categories
-    gallery: [
-        {
-            alt: 'Интерьер бара',
-            category: 'vibe',
-            titleKey: 'gallery1Title',
-            //images: ['./vibe/bar1.JPG', './vibe/bar2.JPG', './vibe/bar3.JPG']
-            image: './vibe/bar1.JPG'
-        },
-        {
-            image: './vibe/pool1.JPG',
-            alt: 'Бильярдный стол',
-            category: 'vibe',
-            titleKey: 'gallery2Title'
-        },
-        {
-            image: './vibe/guests1.JPG',
-            alt: 'Гости',
-            category: 'guests',
-            titleKey: 'gallery3Title'
-        },
-        {
-            image: './vibe/music.JPG',
-            alt: 'Музыкальный вечер',
-            category: 'events',
-            titleKey: 'gallery4Title'
-        },
-        // {
-        //     image: 'https://placehold.co/600x600/fa709a/ffffff?text=Food+Menu',
-        //     alt: 'Меню',
-        //     category: 'food',
-        //     titleKey: 'gallery5Title'
-        // },
-        {
-            image: './vibe/party.JPG',
-            alt: 'Вечеринка',
-            category: 'events',
-            titleKey: 'gallery6Title'
-        },
-        // {
-        //     image: 'https://placehold.co/600x600/667eea/ffffff?text=Craft+Beer',
-        //     alt: 'Крафтовое пиво',
-        //     category: 'food',
-        //     titleKey: 'gallery7Title'
-        // },
-        // {
-        //     image: 'https://placehold.co/600x600/f093fb/ffffff?text=Bar+Counter',
-        //     alt: 'Барная стойка',
-        //     category: 'vibe',
-        //     titleKey: 'gallery8Title'
-        // },
-        // {
-        //     image: 'https://placehold.co/600x600/4facfe/ffffff?text=Happy+Guests',
-        //     alt: 'Счастливые гости',
-        //     category: 'guests',
-        //     titleKey: 'gallery9Title'
-        // }
-    ],
+    // gallery: [
+    //     {
+    //         id: 'vibe',
+    //         titleKey: 'categoryVibe',
+    //         images: [
+    //             {
+    //                 image: './vibe/bar1.JPG',
+    //                 alt: 'Интерьер бара',
+    //                 titleKey: 'gallery1Title'
+    //             },
+    //             {
+    //                 image: './vibe/bar2.JPG',
+    //                 alt: 'Интерьер бара',
+    //                 titleKey: 'gallery2Title'
+    //             },
+    //             {
+    //                 image: './vibe/bar3.JPG',
+    //                 alt: 'Интерьер бара',
+    //                 titleKey: 'gallery3Title'
+    //             }
+    //         ]
+    //     },
+    //     {
+    //         image: './vibe/pool1.JPG',
+    //         alt: 'Бильярдный стол',
+    //         category: 'vibe',
+    //         titleKey: 'gallery2Title'
+    //     },
+    //     {
+    //         image: './vibe/guests1.JPG',
+    //         alt: 'Гости',
+    //         category: 'guests',
+    //         titleKey: 'gallery3Title'
+    //     },
+    //     {
+    //         image: './vibe/music.JPG',
+    //         alt: 'Музыкальный вечер',
+    //         category: 'events',
+    //         titleKey: 'gallery4Title'
+    //     },
+    //     // {
+    //     //     image: 'https://placehold.co/600x600/fa709a/ffffff?text=Food+Menu',
+    //     //     alt: 'Меню',
+    //     //     category: 'food',
+    //     //     titleKey: 'gallery5Title'
+    //     // },
+    //     {
+    //         image: './vibe/party.JPG',
+    //         alt: 'Вечеринка',
+    //         category: 'events',
+    //         titleKey: 'gallery6Title'
+    //     },
+    //     // {
+    //     //     image: 'https://placehold.co/600x600/667eea/ffffff?text=Craft+Beer',
+    //     //     alt: 'Крафтовое пиво',
+    //     //     category: 'food',
+    //     //     titleKey: 'gallery7Title'
+    //     // },
+    //     // {
+    //     //     image: 'https://placehold.co/600x600/f093fb/ffffff?text=Bar+Counter',
+    //     //     alt: 'Барная стойка',
+    //     //     category: 'vibe',
+    //     //     titleKey: 'gallery8Title'
+    //     // },
+    //     // {
+    //     //     image: 'https://placehold.co/600x600/4facfe/ffffff?text=Happy+Guests',
+    //     //     alt: 'Счастливые гости',
+    //     //     category: 'guests',
+    //     //     titleKey: 'gallery9Title'
+    //     // }
+    // ],
 
-    // Team members
+
+    gallery: {
+        categories: [
+            {
+                id: 'vibe',
+                titleKey: 'categoryVibe',
+                images: [
+                    {
+                        image: 'vibe/bar1.JPG',
+                        alt: 'Интерьер бара',
+                        titleKey: 'gallery1Title'
+                    },
+                    {
+                        image: 'vibe/bar2.JPG',
+                        alt: 'Интерьер бара',
+                        titleKey: 'gallery1Title'
+                    },
+                    {
+                        image: 'vibe/bar3.JPG',
+                        alt: 'Интерьер бара',
+                        titleKey: 'gallery1Title'
+                    }
+                ]
+            },
+
+
+            {
+                id: 'pool',
+                titleKey: 'categoryVibe',
+                images: [
+                    {
+                        image: 'vibe/pool1.JPG',
+                        alt: 'Интерьер бара',
+                        titleKey: 'gallery2Title'
+                    },
+                    {
+                        image: 'vibe/pool2.JPG',
+                        alt: 'Интерьер бара',
+                        titleKey: 'gallery2Title'
+                    }
+                ]
+            },
+
+            {
+                id: 'guests',
+                titleKey: 'categoryGuests',
+                images: [
+                    {
+                        image: 'vibe/guests1.JPG',
+                        alt: 'Гости',
+                        titleKey: 'gallery9Title'
+                    },
+                    {
+                        image: 'vibe/guests2.JPG',
+                        alt: 'Гости',
+                        titleKey: 'gallery9Title'
+                    },
+                    {
+                        image: 'vibe/guests3.JPG',
+                        alt: 'Гости',
+                        titleKey: 'gallery9Title'
+                    }
+                ]
+            },
+
+            {
+                id: 'events',
+                titleKey: 'categoryEvents',
+                images: [
+                    {
+                        image: 'vibe/music.JPG',
+                        alt: 'Музыкальный вечер',
+                        titleKey: 'gallery4Title'
+                    }
+                ]
+            },
+
+
+            {
+                id: 'halloween',
+                titleKey: 'categoryEvents',
+                images: [
+                    {
+                        image: 'vibe/party.JPG',
+                        alt: 'Музыкальный вечер',
+                        titleKey: 'gallery6Title'
+                    }
+                ]
+            },
+
+        ]
+    },
+
+
+
+
     team: [
         {
             nameKey: 'team1Name',
             roleKey: 'team1Role',
             descKey: 'team1Desc',
-            photo: './staff/team.JPG'
+            photos: ['staff/team.JPG']
         },
         {
             nameKey: 'team2Name',
             roleKey: 'team2Role',
             descKey: 'team2Desc',
-            photo: './staff/chef.JPG'
+            photos: ['staff/chef.JPG']
         },
         {
             nameKey: 'team3Name',
             roleKey: 'team3Role',
             descKey: 'team3Desc',
-            photo: './staff/barmen.JPG'
+            photos: ['staff/barmen.JPG']
         }
     ],
+
+
 
     // Contact information - REAL ANGIME DATA
     contact: [
         {
-            icon: '📍',
+            icon: 'locationIcon',
             titleKey: 'contactAddress',
             contentKey: 'contactAddressContent'
         },
         {
-            icon: '⏰',
+            icon: 'clockIcon',
             titleKey: 'contactHours',
             contentKey: 'contactHoursContent'
         },
         {
-            icon: '📱',
+            icon: 'phoneIcon',
             titleKey: 'contactPhone',
             contentKey: 'contactPhoneContent'
         }
@@ -556,9 +671,9 @@ const TRANSLATIONS = {
         gallery1Title: 'Интерьер бара',
         gallery2Title: 'Бильярдный стол',
         gallery3Title: 'Наши гости',
-        gallery4Title: 'Музыкальный вечер',
+        gallery4Title: 'Живая музыка',
         gallery5Title: 'Меню',
-        gallery6Title: 'Вечеринка',
+        gallery6Title: 'Хэллоуин',
         gallery7Title: 'Крафтовое пиво',
         gallery8Title: 'Барная стойка',
         gallery9Title: 'Счастливые гости',

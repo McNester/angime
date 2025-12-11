@@ -1,8 +1,84 @@
-// Main application JavaScript
+// Main application JavaScript - Updated for multiple photos and lazy loading
+//
+
+
+
+
+
+
+class ImageLoader {
+    constructor() {
+        this.observer = null;
+        this.initObserver();
+    }
+
+    initObserver() {
+        if ('IntersectionObserver' in window) {
+            this.observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        this.loadImage(img);
+                        this.observer.unobserve(img);
+                    }
+                });
+            }, {
+                rootMargin: '100px 0px',
+                threshold: 0.1
+            });
+        }
+    }
+
+    loadImage(img) {
+        const src = img.getAttribute('data-src');
+        if (!src) return;
+
+        // Add loading class
+        img.classList.add('loading');
+
+        // Create a new image to preload
+        const tempImg = new Image();
+        tempImg.onload = () => {
+            img.src = src;
+            img.classList.remove('loading');
+            img.classList.add('loaded');
+
+            // Remove data-src attribute
+            img.removeAttribute('data-src');
+        };
+
+        tempImg.onerror = () => {
+            console.error('Failed to load image:', src);
+            img.classList.remove('loading');
+        };
+
+        tempImg.src = src;
+    }
+
+    observe(img) {
+        if (this.observer && img.getAttribute('data-src')) {
+            this.observer.observe(img);
+        } else if (img.getAttribute('data-src')) {
+            // Fallback for browsers without IntersectionObserver
+            this.loadImage(img);
+        }
+    }
+
+    loadCriticalImages() {
+        // Load critical images immediately (above the fold)
+        document.querySelectorAll('.menu-item-image img[data-src], .hero img[data-src]').forEach(img => {
+            this.loadImage(img);
+        });
+    }
+}
+
 
 // Current language state
 let currentLang = 'ru';
 let currentGalleryIndex = 0;
+let currentGalleryCategory = 'vibe';
+
+const imageLoader = new ImageLoader();
 
 // Initialize app on DOM load
 document.addEventListener('DOMContentLoaded', () => {
@@ -23,13 +99,93 @@ document.addEventListener('DOMContentLoaded', () => {
     initLightbox();
     updateContent();
 
+
+
+    setTimeout(() => {
+        imageLoader.loadCriticalImages();
+    }, 100);
+
+
     console.log('Initialization complete!');
 });
+
+
+// Override specific functions for enhanced functionality
+const originalInitMenu = window.initMenu;
+window.initMenu = function() {
+    originalInitMenu?.();
+    // Observe menu images for lazy loading
+    document.querySelectorAll('.menu-item-image img[data-src]').forEach(img => {
+        imageLoader.observe(img);
+    });
+};
+
+const originalOpenMenuModal = window.openMenuModal;
+window.openMenuModal = function(item) {
+    originalOpenMenuModal?.(item);
+    // Load modal images immediately
+    document.querySelectorAll('#modalGallery img[data-src]').forEach(img => {
+        imageLoader.loadImage(img);
+    });
+};
+
+// const originalShowLightboxImage = window.showLightboxImage;
+// window.showLightboxImage = function() {
+//     const image = CONFIG.gallery[currentGalleryIndex];
+//     const lightboxImage = document.getElementById('lightboxImage');
+//
+//     if (lightboxImage) {
+//         lightboxImage.setAttribute('data-src', image.image);
+//         lightboxImage.alt = image.alt;
+//         imageLoader.loadImage(lightboxImage);
+//     }
+//
+//     const lightboxCategory = document.getElementById('lightboxCategory');
+//     const lightboxTitle = document.getElementById('lightboxTitle');
+//
+//     // Update category and title
+//     const categoryText = image.category ? TRANSLATIONS[currentLang][`category${image.category.charAt(0).toUpperCase() + image.category.slice(1)}`] || image.category : '';
+//     const titleText = image.titleKey ? TRANSLATIONS[currentLang][image.titleKey] : image.alt;
+//
+//     if (lightboxCategory) lightboxCategory.textContent = categoryText;
+//     if (lightboxTitle) lightboxTitle.textContent = titleText;
+// };
+
+// Fix lightbox close button
+const originalInitLightbox = window.initLightbox;
+window.initLightbox = function() {
+    originalInitLightbox?.();
+
+    const lightbox = document.getElementById('lightbox');
+    const lightboxClose = document.getElementById('lightboxClose');
+    const lightboxPrev = document.getElementById('lightboxPrev');
+    const lightboxNext = document.getElementById('lightboxNext');
+
+    lightboxClose?.addEventListener('click', closeLightbox);
+    lightboxPrev?.addEventListener('click', () => navigateLightbox(-1));
+    lightboxNext?.addEventListener('click', () => navigateLightbox(1));
+
+    // Close on background click
+    lightbox?.addEventListener('click', (e) => {
+        if (e.target === lightbox) {
+            closeLightbox();
+        }
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (!lightbox?.classList.contains('active')) return;
+
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') navigateLightbox(-1);
+        if (e.key === 'ArrowRight') navigateLightbox(1);
+    });
+};
+
 
 // Initialize floating SVG elements
 function initFloatingElements() {
     const container = document.getElementById('floatingElements');
-    // Use all available icons including the new ones
     const icons = [
         'beerGlass',
         'beerMug',
@@ -72,6 +228,7 @@ function initNavigation() {
     burger.addEventListener('click', () => {
         burger.classList.toggle('active');
         navRight.classList.toggle('active');
+        document.body.style.overflow = navRight.classList.contains('active') ? 'hidden' : '';
     });
 
     // Close menu on link click
@@ -79,6 +236,7 @@ function initNavigation() {
         link.addEventListener('click', () => {
             burger.classList.remove('active');
             navRight.classList.remove('active');
+            document.body.style.overflow = '';
         });
     });
 
@@ -173,14 +331,11 @@ function updateReasons() {
     });
 }
 
-// Initialize menu
+// Initialize menu with lazy loading
 function initMenu() {
     console.log('Initializing menu...');
     const tabsContainer = document.getElementById('menuTabs');
     const contentContainer = document.getElementById('menuContent');
-    console.log('menuTabs:', tabsContainer);
-    console.log('menuContent:', contentContainer);
-    console.log('CONFIG.menu:', CONFIG.menu);
 
     // Create tabs
     CONFIG.menu.categories.forEach((category, index) => {
@@ -203,12 +358,12 @@ function initMenu() {
             const menuItem = document.createElement('div');
             menuItem.className = 'menu-item';
 
-            // Use first image from array or fallback to image property
+            // Use first image from array
             const firstImage = item.images ? item.images[0] : (item.image || 'https://placehold.co/400x300/667eea/ffffff?text=No+Image');
 
             menuItem.innerHTML = `
                 <div class="menu-item-image">
-                    <img src="${firstImage}" alt="${TRANSLATIONS[currentLang][item.nameKey]}" onerror="this.style.display='none'">
+                    <img data-src="${firstImage}" alt="${TRANSLATIONS[currentLang][item.nameKey]}" loading="lazy">
                 </div>
                 <div class="menu-item-content">
                     <div class="menu-item-header">
@@ -295,7 +450,7 @@ function openMenuModal(item) {
     images.forEach((img, index) => {
         const slide = document.createElement('div');
         slide.className = 'modal-gallery-slide';
-        slide.innerHTML = `<img src="${img}" alt="${TRANSLATIONS[currentLang][item.nameKey]}" onerror="this.parentElement.style.background='linear-gradient(135deg, #667eea, #764ba2)'; this.style.display='none';">`;
+        slide.innerHTML = `<img data-src="${img}" alt="${TRANSLATIONS[currentLang][item.nameKey]}" loading="lazy">`;
         galleryContainer.appendChild(slide);
 
         const dot = document.createElement('div');
@@ -389,58 +544,77 @@ function initMenuModal() {
     });
 }
 
-// Initialize gallery (Bento Grid)
+// Initialize gallery with category navigation
 function initGallery() {
-    console.log('Initializing gallery...');
+    console.log('Initializing gallery (one card per category)...');
     const grid = document.getElementById('bentoGallery');
-    console.log('bentoGallery element:', grid);
-    console.log('CONFIG.gallery:', CONFIG.gallery);
+
     if (!grid) {
         console.error('bentoGallery element not found!');
         return;
     }
 
-    CONFIG.gallery.forEach((image, index) => {
-        const item = document.createElement('div');
-        item.className = 'bento-item';
-        item.setAttribute('data-index', index);
+    grid.innerHTML = '';
 
-        const categoryText = image.category ? TRANSLATIONS[currentLang][`category${image.category.charAt(0).toUpperCase() + image.category.slice(1)}`] || image.category : '';
-        const titleText = image.titleKey ? TRANSLATIONS[currentLang][image.titleKey] : image.alt;
+    CONFIG.gallery.categories.forEach((category, catIndex) => {
+        const firstImageObj = (category.images && category.images.length > 0) ? category.images[0] : null;
+        // Skip category if it has no images
+        if (!firstImageObj) return;
+
+        const item = document.createElement('div');
+        item.className = 'bento-item category-card';
+        item.dataset.category = category.id;
+        item.dataset.index = 0; // always show first image on card
+
+        // Title from translations (fall back to category.id)
+        const categoryTitle = TRANSLATIONS[currentLang][category.titleKey] || category.titleKey || category.id;
 
         item.innerHTML = `
-            <img src="${image.image}" alt="${image.alt}" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg, #667eea, #764ba2)';">
+            <img data-src="${firstImageObj.image}" alt="${firstImageObj.alt || categoryTitle}" loading="lazy">
             <div class="bento-item-overlay">
-                <div class="bento-item-category">${categoryText}</div>
-                <div class="bento-item-title">${titleText}</div>
+                <div class="bento-item-category">${categoryTitle}</div>
+                <div class="bento-item-title">${firstImageObj.titleKey ? (TRANSLATIONS[currentLang][firstImageObj.titleKey] || firstImageObj.alt) : firstImageObj.alt}</div>
             </div>
         `;
-        item.addEventListener('click', () => openLightbox(index));
+
+        // Open lightbox for this category, starting at index 0
+        item.addEventListener('click', () => {
+            openLightbox(category.id, 0);
+        });
+
         grid.appendChild(item);
+
+        // Observe lazy load for the card image
+        const imgEl = item.querySelector('img');
+        if (imgEl) imageLoader.observe(imgEl);
     });
 }
 
-// Initialize lightbox
+
+
+// Initialize lightbox with fixed close button
 function initLightbox() {
     const lightbox = document.getElementById('lightbox');
     const lightboxClose = document.getElementById('lightboxClose');
     const lightboxPrev = document.getElementById('lightboxPrev');
     const lightboxNext = document.getElementById('lightboxNext');
 
-    lightboxClose.addEventListener('click', closeLightbox);
-    lightboxPrev.addEventListener('click', () => navigateLightbox(-1));
-    lightboxNext.addEventListener('click', () => navigateLightbox(1));
+    if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+    if (lightboxPrev) lightboxPrev.addEventListener('click', () => navigateLightbox(-1));
+    if (lightboxNext) lightboxNext.addEventListener('click', () => navigateLightbox(1));
 
     // Close on background click
-    lightbox.addEventListener('click', (e) => {
-        if (e.target === lightbox) {
-            closeLightbox();
-        }
-    });
+    if (lightbox) {
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+    }
 
     // Keyboard navigation
     document.addEventListener('keydown', (e) => {
-        if (!lightbox.classList.contains('active')) return;
+        if (!lightbox || !lightbox.classList.contains('active')) return;
 
         if (e.key === 'Escape') closeLightbox();
         if (e.key === 'ArrowLeft') navigateLightbox(-1);
@@ -449,26 +623,42 @@ function initLightbox() {
 }
 
 // Open lightbox
-function openLightbox(index) {
-    currentGalleryIndex = index;
+function openLightbox(categoryId, index) {
+    const category = CONFIG.gallery.categories.find(cat => cat.id === categoryId);
+    if (!category || !category.images || category.images.length === 0) return;
+
+    currentGalleryCategory = categoryId;
+    // Clamp index to available images
+    currentGalleryIndex = Math.max(0, Math.min(index, category.images.length - 1));
+
     showLightboxImage();
-    document.getElementById('lightbox').classList.add('active');
-    document.body.style.overflow = 'hidden';
+
+    const lightbox = document.getElementById('lightbox');
+    if (lightbox) {
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
 }
 
 // Close lightbox
 function closeLightbox() {
-    document.getElementById('lightbox').classList.remove('active');
+    const lightbox = document.getElementById('lightbox');
+    if (lightbox) {
+        lightbox.classList.remove('active');
+    }
     document.body.style.overflow = '';
 }
 
 // Navigate lightbox
 function navigateLightbox(direction) {
+    const category = CONFIG.gallery.categories.find(cat => cat.id === currentGalleryCategory);
+    if (!category || !category.images || category.images.length === 0) return;
+
     currentGalleryIndex += direction;
 
     if (currentGalleryIndex < 0) {
-        currentGalleryIndex = CONFIG.gallery.length - 1;
-    } else if (currentGalleryIndex >= CONFIG.gallery.length) {
+        currentGalleryIndex = category.images.length - 1;
+    } else if (currentGalleryIndex >= category.images.length) {
         currentGalleryIndex = 0;
     }
 
@@ -477,35 +667,60 @@ function navigateLightbox(direction) {
 
 // Show current lightbox image
 function showLightboxImage() {
-    const image = CONFIG.gallery[currentGalleryIndex];
+    const category = CONFIG.gallery.categories.find(cat => cat.id === currentGalleryCategory);
+    if (!category || !category.images || !category.images[currentGalleryIndex]) return;
+
+    const image = category.images[currentGalleryIndex];
     const lightboxImage = document.getElementById('lightboxImage');
     const lightboxCategory = document.getElementById('lightboxCategory');
     const lightboxTitle = document.getElementById('lightboxTitle');
 
-    lightboxImage.src = image.image;
-    lightboxImage.alt = image.alt;
+    if (lightboxImage) {
+        // Use data-src so imageLoader could handle if you want, but for lightbox we load immediately:
+        lightboxImage.removeAttribute('data-src');
+        lightboxImage.alt = image.alt || '';
+        lightboxImage.classList.remove('loaded');
 
-    // Update category and title
-    const categoryText = image.category ? TRANSLATIONS[currentLang][`category${image.category.charAt(0).toUpperCase() + image.category.slice(1)}`] || image.category : '';
-    const titleText = image.titleKey ? TRANSLATIONS[currentLang][image.titleKey] : image.alt;
+        // Preload then assign
+        const tempImg = new Image();
+        tempImg.onload = () => {
+            lightboxImage.src = image.image;
+            lightboxImage.classList.add('loaded');
+        };
+        tempImg.onerror = () => {
+            console.error('Failed to load lightbox image:', image.image);
+        };
+        tempImg.src = image.image;
+    }
+
+    // Update category & title text
+    const categoryText = TRANSLATIONS[currentLang][category.titleKey] || category.titleKey || category.id;
+    const titleText = image.titleKey ? (TRANSLATIONS[currentLang][image.titleKey] || image.alt) : image.alt || '';
 
     if (lightboxCategory) lightboxCategory.textContent = categoryText;
     if (lightboxTitle) lightboxTitle.textContent = titleText;
 }
 
-// Initialize team
+// Initialize team with multiple photos
 function initTeam() {
     console.log('Initializing team...');
     const grid = document.getElementById('teamGrid');
-    console.log('teamGrid element:', grid);
-    console.log('CONFIG.team:', CONFIG.team);
 
-    CONFIG.team.forEach(member => {
+    CONFIG.team.forEach((member, memberIndex) => {
         const card = document.createElement('div');
         card.className = 'team-card';
+        card.dataset.memberIndex = memberIndex;
+
+        const firstPhoto = member.photos[0] || 'https://placehold.co/400x400/667eea/ffffff?text=Team';
+
         card.innerHTML = `
             <div class="team-photo">
-                <img src="${member.photo}" alt="${TRANSLATIONS[currentLang][member.nameKey]}" onerror="this.style.display='none'; this.parentElement.innerHTML='👤';">
+                <img data-src="${firstPhoto}" alt="${TRANSLATIONS[currentLang][member.nameKey]}" loading="lazy">
+                ${member.photos.length > 1 ? `
+                    <div class="team-photo-nav team-photo-prev">‹</div>
+                    <div class="team-photo-nav team-photo-next">›</div>
+                    <div class="team-photo-dots"></div>
+                ` : ''}
             </div>
             <div class="team-info">
                 <h3 class="team-name" data-i18n="${member.nameKey}">${TRANSLATIONS[currentLang][member.nameKey]}</h3>
@@ -513,8 +728,33 @@ function initTeam() {
                 <p class="team-description" data-i18n="${member.descKey}">${TRANSLATIONS[currentLang][member.descKey]}</p>
             </div>
         `;
+
+        // 🔥 FIX: enable lazy loading for team photo!
+        const imgEl = card.querySelector('.team-photo img');
+        if (imgEl) imageLoader.observe(imgEl);
+
         grid.appendChild(card);
     });
+}
+
+
+function updateTeamPhoto(card, memberIndex, photoIndex) {
+    const member = CONFIG.team[memberIndex];
+    const photoElement = card.querySelector('.team-photo img');
+    const dots = card.querySelectorAll('.team-photo-dot');
+
+    if (photoElement && member.photos[photoIndex]) {
+        photoElement.setAttribute('data-src', member.photos[photoIndex]);
+        photoElement.alt = `${TRANSLATIONS[currentLang][member.nameKey]} - фото ${photoIndex + 1}`;
+
+        // Update dots
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === photoIndex);
+        });
+
+        // Store current photo index
+        card.dataset.photoIndex = photoIndex;
+    }
 }
 
 // Update team text
@@ -529,21 +769,52 @@ function updateTeam() {
     });
 }
 
-// Initialize contact
+// Initialize contact with custom icons
 function initContact() {
     console.log('Initializing contact...');
     const grid = document.getElementById('contactGrid');
-    console.log('contactGrid element:', grid);
-    console.log('CONFIG.contact:', CONFIG.contact);
 
     CONFIG.contact.forEach(contact => {
         const card = document.createElement('div');
         card.className = 'contact-card';
+
+        const iconSvg = CONFIG.svgIcons[contact.icon] || contact.icon;
+        const content = TRANSLATIONS[currentLang][contact.contentKey];
+
+        // Parse HTML and create links
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(content, 'text/html');
+        const links = doc.querySelectorAll('a');
+
+        let linksHtml = '';
+        links.forEach(link => {
+            const href = link.href;
+            const text = link.textContent;
+            let className = '';
+            let icon = '';
+
+            // if (href.includes('instagram')) {
+            //     className = 'instagram';
+            //     icon = '📸';
+            // } else if (href.includes('t.me')) {
+            //     className = 'telegram';
+            //     icon = '✈️';
+            // } else if (href.includes('2gis')) {
+            //     className = 'map';
+            //     icon = '🗺️';
+            // } else {
+            //     icon = '🔗';
+            // }
+
+            linksHtml += `<a href="${href}" target="_blank" class="${className}">${icon} ${text}</a>`;
+        });
+
         card.innerHTML = `
-                    <div class="contact-icon">${contact.icon}</div>
-                    <h3 data-i18n="${contact.titleKey}">${TRANSLATIONS[currentLang][contact.titleKey]}</h3>
-                    <p data-i18n="${contact.contentKey}">${TRANSLATIONS[currentLang][contact.contentKey]}</p>
-                `;
+            <div class="contact-icon">${iconSvg}</div>
+            <h3 data-i18n="${contact.titleKey}">${TRANSLATIONS[currentLang][contact.titleKey]}</h3>
+            <div class="contact-content">${content.replace(/<a[^>]*>([^<]+)<\/a>/g, '$1')}</div>
+            ${linksHtml ? `<div class="contact-links">${linksHtml}</div>` : ''}
+        `;
         grid.appendChild(card);
     });
 }
@@ -555,36 +826,41 @@ function updateContact() {
         const contact = CONFIG.contact[index];
         card.querySelector('h3').textContent = TRANSLATIONS[currentLang][contact.titleKey];
 
-        // Parse HTML content for links
         const content = TRANSLATIONS[currentLang][contact.contentKey];
         const parser = new DOMParser();
         const doc = parser.parseFromString(content, 'text/html');
-
-        // Find all links and add proper styling
         const links = doc.querySelectorAll('a');
-        links.forEach(link => {
-            const href = link.getAttribute('href');
-            link.className = '';
 
-            if (href.includes('instagram')) {
-                link.className = 'instagram';
-                link.innerHTML = '📸 ' + link.textContent;
-            } else if (href.includes('t.me')) {
-                link.className = 'telegram';
-                link.innerHTML = '✈️ ' + link.textContent;
-            } else if (href.includes('2gis')) {
-                link.className = 'map';
-                link.innerHTML = '🗺️ ' + link.textContent;
-            }
+        let linksHtml = '';
+        links.forEach(link => {
+            const href = link.href;
+            const text = link.textContent;
+            let className = '';
+            let icon = '';
+
+            // if (href.includes('instagram')) {
+            //     className = 'instagram';
+            //     icon = '📸';
+            // } else if (href.includes('t.me')) {
+            //     className = 'telegram';
+            //     icon = '✈️';
+            // } else if (href.includes('2gis')) {
+            //     className = 'map';
+            //     icon = '🗺️';
+            // } else {
+            //     icon = '🔗';
+            // }
+
+            linksHtml += `<a href="${href}" target="_blank" class="${className}">${icon} ${text}</a>`;
         });
 
-        // Create links container
-        const contactContent = document.createElement('div');
-        contactContent.innerHTML = doc.body.innerHTML;
+        const contentElement = card.querySelector('.contact-content');
+        contentElement.innerHTML = content.replace(/<a[^>]*>([^<]+)<\/a>/g, '$1');
 
-        // Replace paragraph with new content
-        const p = card.querySelector('p');
-        p.replaceWith(contactContent);
+        const linksContainer = card.querySelector('.contact-links');
+        if (linksContainer) {
+            linksContainer.innerHTML = linksHtml;
+        }
     });
 }
 
