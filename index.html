@@ -1540,6 +1540,52 @@
             }
         }
 
+
+        /* Simple mobile touch effects using :active */
+        @media (max-width: 768px) {
+
+            .menu-item:active,
+            .reason-card:active,
+            .team-card:active,
+            .contact-card:active,
+            .bento-item:active {
+                transform: translateY(-5px) !important;
+                border-color: var(--accent-gold) !important;
+                box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2) !important;
+            }
+
+            .bento-item:active {
+                transform: translateY(-5px) scale(1.01) !important;
+                box-shadow: 0 15px 30px -8px rgba(0, 0, 0, 0.6) !important;
+            }
+
+            /* Reduce the effect for menu items slightly */
+            .menu-item:active {
+                transform: translateY(-3px) scale(0.99) !important;
+            }
+
+            /* Make sure transitions work */
+            .menu-item,
+            .reason-card,
+            .team-card,
+            .contact-card,
+            .bento-item {
+                transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease !important;
+            }
+
+            /* Prevent text selection */
+            .menu-item,
+            .reason-card,
+            .team-card,
+            .contact-card,
+            .bento-item {
+                -webkit-tap-highlight-color: transparent;
+                -webkit-touch-callout: none;
+                -webkit-user-select: none;
+                user-select: none;
+            }
+        }
+
         /* Mobile Layout */
         @media (max-width: 768px) {
             .gallery-section {

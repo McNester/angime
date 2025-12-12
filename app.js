@@ -101,9 +101,105 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollEffects();
     initLightbox();
     updateContent();
+    initMobileTouchSupport();
 
     console.log('Initialization complete!');
 });
+
+
+function initMobileTouchSupport() {
+    // Select all interactive cards
+    const interactiveCards = document.querySelectorAll(
+        '.menu-item, .reason-card, .team-card, .contact-card, .bento-item'
+    );
+
+    interactiveCards.forEach(card => {
+        let touchStartTime = 0;
+        let isTouchActive = false;
+
+        // Touch start
+        card.addEventListener('touchstart', (e) => {
+            touchStartTime = Date.now();
+            isTouchActive = true;
+            card.classList.add('touch-active');
+
+            // Prevent default to avoid scrolling while touching
+            if (e.cancelable) {
+                e.preventDefault();
+            }
+
+            // Remove the class after animation completes
+            setTimeout(() => {
+                if (isTouchActive) {
+                    card.classList.remove('touch-active');
+                    isTouchActive = false;
+                }
+            }, 300);
+        }, { passive: false });
+
+        // Touch end
+        card.addEventListener('touchend', (e) => {
+            const touchDuration = Date.now() - touchStartTime;
+            isTouchActive = false;
+
+            // Only remove class if it was a short tap (not a scroll)
+            if (touchDuration < 200) {
+                setTimeout(() => {
+                    card.classList.remove('touch-active');
+                }, 300);
+            } else {
+                card.classList.remove('touch-active');
+            }
+
+            // Prevent default if needed
+            if (e.cancelable && touchDuration < 200) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        // Touch cancel (if user scrolls instead of taps)
+        card.addEventListener('touchcancel', () => {
+            isTouchActive = false;
+            card.classList.remove('touch-active');
+        });
+
+        // Also handle mouse events for desktop
+        card.addEventListener('mouseenter', () => {
+            if (!isTouchActive) {
+                card.classList.add('hover-active');
+            }
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.classList.remove('hover-active');
+        });
+    });
+
+    // Prevent text selection on touch devices
+    document.addEventListener('touchstart', (e) => {
+        if (e.target.classList.contains('menu-item') ||
+            e.target.classList.contains('reason-card') ||
+            e.target.classList.contains('team-card') ||
+            e.target.classList.contains('contact-card') ||
+            e.target.classList.contains('bento-item') ||
+            e.target.closest('.menu-item') ||
+            e.target.closest('.reason-card') ||
+            e.target.closest('.team-card') ||
+            e.target.closest('.contact-card') ||
+            e.target.closest('.bento-item')) {
+
+            // Add a class to body to indicate touch mode
+            document.body.classList.add('touch-mode');
+        }
+    });
+
+    document.addEventListener('touchend', () => {
+        // Remove touch mode after a delay
+        setTimeout(() => {
+            document.body.classList.remove('touch-mode');
+        }, 100);
+    });
+}
 
 // Initialize floating SVG elements
 function initFloatingElements() {
