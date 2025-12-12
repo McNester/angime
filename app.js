@@ -101,9 +101,79 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollEffects();
     initLightbox();
     updateContent();
+    initMobileTapSupport();
 
     console.log('Initialization complete!');
 });
+
+
+function initMobileTapSupport() {
+    // Check if we're on a touch device
+    const isTouchDevice = 'ontouchstart' in window ||
+        navigator.maxTouchPoints > 0 ||
+        navigator.msMaxTouchPoints > 0;
+
+    if (!isTouchDevice) return; // Only run on touch devices
+
+    const interactiveCards = document.querySelectorAll(
+        '.menu-item, .reason-card, .team-card, .contact-card, .bento-item'
+    );
+
+    interactiveCards.forEach(card => {
+        // Store original styles
+        const originalTransform = card.style.transform;
+        const originalBoxShadow = card.style.boxShadow;
+        const originalBorderColor = card.style.borderColor;
+
+        card.addEventListener('click', function(e) {
+            // Don't prevent default - allow normal click behavior
+            e.stopPropagation();
+
+            // Remove active class from all other cards
+            interactiveCards.forEach(c => {
+                if (c !== card) {
+                    c.classList.remove('mobile-active');
+                    // Restore original styles
+                    c.style.transform = originalTransform;
+                    c.style.boxShadow = originalBoxShadow;
+                    c.style.borderColor = originalBorderColor;
+                }
+            });
+
+            // Toggle active state on this card
+            const isActive = card.classList.toggle('mobile-active');
+
+            if (isActive) {
+                // Apply hover styles
+                card.style.transform = 'translateY(-5px)';
+                card.style.boxShadow = '0 10px 30px rgba(255, 215, 0, 0.2)';
+                card.style.borderColor = 'var(--accent-gold)';
+
+                // For bento items
+                if (card.classList.contains('bento-item')) {
+                    card.style.transform = 'translateY(-5px) scale(1.01)';
+                    card.style.boxShadow = '0 15px 30px -8px rgba(0, 0, 0, 0.6)';
+                }
+            } else {
+                // Restore original styles
+                card.style.transform = originalTransform;
+                card.style.boxShadow = originalBoxShadow;
+                card.style.borderColor = originalBorderColor;
+            }
+        });
+
+        // Also close active state when clicking elsewhere
+        document.addEventListener('click', function(e) {
+            if (!card.contains(e.target)) {
+                card.classList.remove('mobile-active');
+                // Restore original styles
+                card.style.transform = originalTransform;
+                card.style.boxShadow = originalBoxShadow;
+                card.style.borderColor = originalBorderColor;
+            }
+        });
+    });
+}
 
 
 
