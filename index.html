@@ -1541,50 +1541,49 @@
         }
 
 
-        /* Simple mobile touch effects using :active */
+        /* Mobile touch effects - Simple CSS-only solution */
         @media (max-width: 768px) {
 
+            /* Add active state for touch feedback */
             .menu-item:active,
             .reason-card:active,
             .team-card:active,
             .contact-card:active,
             .bento-item:active {
-                transform: translateY(-5px) !important;
-                border-color: var(--accent-gold) !important;
-                box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2) !important;
+                transform: translateY(-5px);
+                border-color: var(--accent-gold);
+                box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
             }
 
             .bento-item:active {
-                transform: translateY(-5px) scale(1.01) !important;
-                box-shadow: 0 15px 30px -8px rgba(0, 0, 0, 0.6) !important;
+                transform: translateY(-5px) scale(1.01);
+                box-shadow: 0 15px 30px -8px rgba(0, 0, 0, 0.6);
             }
 
-            /* Reduce the effect for menu items slightly */
-            .menu-item:active {
-                transform: translateY(-3px) scale(0.99) !important;
-            }
-
-            /* Make sure transitions work */
+            /* Make sure transitions are fast for touch feedback */
             .menu-item,
             .reason-card,
             .team-card,
             .contact-card,
             .bento-item {
-                transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease !important;
+                transition: transform 0.15s ease,
+                    box-shadow 0.15s ease,
+                    border-color 0.15s ease;
             }
 
-            /* Prevent text selection */
+            /* Remove any text selection prevention */
             .menu-item,
             .reason-card,
             .team-card,
             .contact-card,
             .bento-item {
-                -webkit-tap-highlight-color: transparent;
-                -webkit-touch-callout: none;
-                -webkit-user-select: none;
-                user-select: none;
+                -webkit-tap-highlight-color: rgba(255, 215, 0, 0.2);
+                /* Subtle tap highlight */
+                touch-action: auto;
+                /* Allow all touch actions including scroll */
             }
         }
+
 
         /* Mobile Layout */
         @media (max-width: 768px) {
