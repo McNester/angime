@@ -1,6 +1,12 @@
 // Configuration file for Әңgіме Bar Website
 
 const CONFIG = {
+    // Logo configuration
+    logo: {
+        path: 'pictures/IMG_2146.PNG',
+        alt: 'Әңgіме Bar Logo'
+    },
+
     // SVG Icons (embedded from your uploaded files)
     svgIcons: {
         beerGlass: `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24"><g fill="none"><path fill="#ffef5e" d="M8.513 20.13V23h6.974v-2.87"/><path stroke="#191919" stroke-linecap="round" stroke-linejoin="round" d="M8.513 20.13V23h6.974v-2.87"/><path fill="#fff9bf" d="m17.878 4.826l-2.391 15.305H8.512L6.122 4.826z"/><path fill="#ffef5e" d="M12 15.153a8.3 8.3 0 0 1-4.465-1.296l.98 6.277h6.975l.981-6.277A8.33 8.33 0 0 1 12 15.152"/><path stroke="#191919" stroke-linecap="round" stroke-linejoin="round" d="m17.878 4.826l-2.391 15.305H8.512L6.122 4.826z"/><path fill="#c2f3ff" stroke="#191919" stroke-linecap="round" stroke-linejoin="round" d="m18.386 1.548l-.508 3.278H6.121l-.518-3.278a.44.44 0 0 1 .12-.378A.48.48 0 0 1 6.1 1h11.787a.52.52 0 0 1 .389.17a.43.43 0 0 1 .11.378"/><path fill="#78eb7b" stroke="#191919" stroke-linecap="round" stroke-linejoin="round" d="M12 11.522a2.44 2.44 0 0 0 2.49-2.391a2.491 2.491 0 0 0-4.981 0a2.44 2.44 0 0 0 2.49 2.39"/><path stroke="#191919" stroke-linecap="round" stroke-linejoin="round" d="M5.523 23h12.953"/></g></svg>`,
@@ -12,8 +18,6 @@ const CONFIG = {
         music: `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none"><g fill="none" stroke="#FFD700" stroke-linecap="round" stroke-width="2.5"><circle cx="6" cy="18" r="3" stroke-linejoin="round"/><path stroke-linejoin="round" d="M9 18V5"/><path d="M21 3L9 5m12 2L9 9"/><circle cx="18" cy="16" r="3" stroke-linejoin="round"/><path stroke-linejoin="round" d="M21 16V3"/></g></svg>`,
 
         beerBottle: `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1024 1024"><path d="M327 202.1c-5 0-9.1 4.1-9.1 9.1v115.3c0 32.4-20.3 61.2-50.4 71.6-38.3 13.3-64 49.6-64 90.1v372.4c0 15.5 12.6 28.1 28.1 28.1h248.9c15.5 0 28.1-12.6 28.1-28.1V488.2c0-40.6-25.8-76.8-64.1-90.1-30.1-10.4-50.4-39.2-50.4-71.6V211.1c0-5-4.1-9.1-9.1-9.1h-58z" fill="#95C751"/><path d="M444.6 398c-30.1-10.4-50.4-39.2-50.4-71.6V202.1h-38.1v124.4c0 32.4 20.2 61.2 50.4 71.6 38.3 13.4 64.1 49.6 64.1 90.1v381.5c0 10.5-8.6 19.1-19.1 19.1h38.1c10.5 0 19.1-8.5 19.1-19.1V488.2c0-40.6-25.7-76.8-64.1-90.2z" fill="#6EB748"/><path d="M318 125.8h76.3v38.1H318z" fill="#FCD04E"/><path d="M356.1 125.8h38.1v38.1h-38.1z" fill="#F6BB33"/><path d="M480.1 888.7h-248c-15.8 0-28.6-12.8-28.6-28.6V687.4c0-15.2 12.4-27.6 27.6-27.6h250c15.2 0 27.6 12.4 27.6 27.6v172.7c0 15.8-12.8 28.6-28.6 28.6z" fill="#13AA5B"/><path d="M470.6 869.6c0 10.5-8.6 19.1-19.1 19.1h38.1c10.5 0 19.1-8.5 19.1-19.1V659.8h-38.1v209.8z" fill="#089648"/></svg>`,
-
-        // beerHand: `<svg width="800px" height="800px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path d="M17.1,21a1,1,0,0,1-1-.945C16.036,18.754,16,17.39,16,16a1,1,0,0,1,2,0c0,1.354.035,2.681.1,3.945A1,1,0,0,1,17.159,21,.5.5,0,0,1,17.1,21Z" style="fill:#363636"/><path d="M46.9,21a.5.5,0,0,1-.055,0,1,1,0,0,1-.945-1.053c.069-1.264.1-2.591.1-3.945a1,1,0,0,1,2,0c0,1.39-.036,2.754-.106,4.055A1,1,0,0,1,46.9,21Z" style="fill:#363636"/><path d="M47.544,24.117A1,1,0,0,0,46.551,23H43a4.005,4.005,0,0,1-.28,1,1.994,1.994,0,0,1-2.056.973A1.947,1.947,0,0,1,39.3,24a3.786,3.786,0,0,1-.3-1H17.449a1,1,0,0,0-.993,1.117A57.092,57.092,0,0,0,19.546,37c.388,0,.732-.009,1.048-.029L20.6,37h4.9a2.5,2.5,0,0,1,0,5,2.5,2.5,0,0,1,0,5,2.5,2.5,0,0,1,0,5H24.3a2.145,2.145,0,0,0-1.515,0h-.038v.01a6.155,6.155,0,0,1-1.029.2,50.273,50.273,0,0,1-1.024,6.1A3,3,0,0,0,23.611,62H40.389a3,3,0,0,0,2.92-3.685A50.2,50.2,0,0,1,42,47c0-3.026.921-5.641,1.988-8.668a.975.975,0,0,0,.05-.324A9.1,9.1,0,0,1,43.045,38H38a3,3,0,0,1,0-6h6.987c.006-.023.012-.048.018-.07.306.036.639.055,1.016.062A54.206,54.206,0,0,0,47.544,24.117Z" style="fill:#ffbd4a"/></svg>`,
 
         locationIcon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>`,
         clockIcon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>`,
@@ -76,7 +80,7 @@ const CONFIG = {
                         price: '1500₸',
                         descKey: 'beerItem1Desc',
                         specs: ['400мл'],
-                        images: ['https://placehold.co/800x600/667eea/ffffff?text=ANIME'],
+                        images: ['pictures/отработка меню/пиво аниме.JPG'],
                         details: { 'Объем': '400мл' }
                     },
                     {
@@ -92,7 +96,7 @@ const CONFIG = {
                         price: '2300₸',
                         descKey: 'beerItem3Desc',
                         specs: ['IPL', '400мл'],
-                        images: ['https://placehold.co/800x600/f093fb/ffffff?text=Негейское'],
+                        images: ['pictures/отработка меню/пиво негейское, бланш, .JPG'],
                         details: { 'Тип': 'IPL', 'Объем': '400мл' }
                     },
                     {
@@ -108,7 +112,7 @@ const CONFIG = {
                         price: '2300₸',
                         descKey: 'beerItem5Desc',
                         specs: ['Бельгийское', '400мл'],
-                        images: ['https://placehold.co/800x600/43e97b/ffffff?text=BLANCH'],
+                        images: ['pictures/отработка меню/пиво негейское, бланш, .JPG'],
                         details: { 'Стиль': 'Бельгийское', 'Объем': '400мл' }
                     },
                     {
@@ -116,7 +120,7 @@ const CONFIG = {
                         price: '1800₸',
                         descKey: 'beerItem6Desc',
                         specs: ['400мл'],
-                        images: ['https://placehold.co/800x600/fa709a/ffffff?text=КЁЛЬШ'],
+                        images: ['pictures/отработка меню/пиво кельш.JPG'],
                         details: { 'Объем': '400мл' }
                     },
                     {
@@ -124,7 +128,7 @@ const CONFIG = {
                         price: '2000₸',
                         descKey: 'beerItem7Desc',
                         specs: ['Фруктовое', '400мл'],
-                        images: ['https://placehold.co/800x600/764ba2/ffffff?text=КРИК'],
+                        images: ['pictures/отработка меню/пиво крик.JPG'],
                         details: { 'Вкус': 'Вишня', 'Объем': '400мл' }
                     },
                     {
@@ -132,7 +136,7 @@ const CONFIG = {
                         price: '2000₸',
                         descKey: 'beerItem8Desc',
                         specs: ['Сидр', '400мл'],
-                        images: ['https://placehold.co/800x600/667eea/ffffff?text=АПОРТ'],
+                        images: ['pictures/отработка меню/пиво сидр.JPG'],
                         details: { 'Тип': 'Сидр', 'Объем': '400мл' }
                     },
                     {
@@ -148,7 +152,7 @@ const CONFIG = {
                         price: '1400₸',
                         descKey: 'beerItem10Desc',
                         specs: ['400мл'],
-                        images: ['https://placehold.co/800x600/4facfe/ffffff?text=HELLES'],
+                        images: ['pictures/отработка меню/пиво хеллес.JPG'],
                         details: { 'Стиль': 'Баварский', 'Объем': '400мл' }
                     },
                     {
@@ -164,7 +168,7 @@ const CONFIG = {
                         price: '1000₸',
                         descKey: 'beerItem12Desc',
                         specs: ['Безалкогольный', '400мл'],
-                        images: ['https://placehold.co/800x600/fa709a/ffffff?text=Квас'],
+                        images: ['pictures/отработка меню/пиво квас.JPG'],
                         details: { 'Тип': 'Квас', 'Объем': '400мл' }
                     }
                 ]
@@ -178,70 +182,70 @@ const CONFIG = {
                         price: '2000₸',
                         descKey: 'barItem1Desc',
                         specs: ['40мл'],
-                        image: 'https://placehold.co/400x300/667eea/ffffff?text=OAKHEART'
+                        images: ['https://placehold.co/400x300/8B4513/ffffff?text=OAKHEART+RUM']
                     },
                     {
                         nameKey: 'barItem2Name',
                         price: '3000₸',
                         descKey: 'barItem2Desc',
                         specs: ['40мл'],
-                        image: 'https://placehold.co/400x300/f5576c/ffffff?text=JAMESON'
+                        images: ['https://placehold.co/400x300/D4AF37/ffffff?text=JAMESON']
                     },
                     {
                         nameKey: 'barItem3Name',
                         price: '2500₸',
                         descKey: 'barItem3Desc',
                         specs: ['40мл'],
-                        image: 'https://placehold.co/400x300/4facfe/ffffff?text=BALLANTINES'
+                        images: ['https://placehold.co/400x300/C19A6B/ffffff?text=BALLANTINES']
                     },
                     {
                         nameKey: 'barItem4Name',
                         price: '2000₸',
                         descKey: 'barItem4Desc',
                         specs: ['40мл'],
-                        image: 'https://placehold.co/400x300/43e97b/ffffff?text=WILLIAM+LAWSON'
+                        images: ['https://placehold.co/400x300/8B7355/ffffff?text=WILLIAM+LAWSON']
                     },
                     {
                         nameKey: 'barItem5Name',
                         price: '1500₸',
                         descKey: 'barItem5Desc',
                         specs: ['40мл'],
-                        image: 'https://placehold.co/400x300/fa709a/ffffff?text=OLMECA+SILVER'
+                        images: ['https://placehold.co/400x300/B8860B/ffffff?text=OLMECA+SILVER']
                     },
                     {
                         nameKey: 'barItem6Name',
                         price: '1700₸',
                         descKey: 'barItem6Desc',
                         specs: ['40мл'],
-                        image: 'https://placehold.co/400x300/764ba2/ffffff?text=OLMECA+GOLD'
+                        images: ['https://placehold.co/400x300/DAA520/ffffff?text=OLMECA+GOLD']
                     },
                     {
                         nameKey: 'barItem7Name',
                         price: '1800₸',
                         descKey: 'barItem7Desc',
                         specs: ['40мл'],
-                        image: 'https://placehold.co/400x300/667eea/ffffff?text=JAGERMEISTER'
+                        images: ['https://placehold.co/400x300/2F4F4F/ffffff?text=JAGERMEISTER']
                     },
                     {
                         nameKey: 'barItem8Name',
                         price: '8500₸',
                         descKey: 'barItem8Desc',
                         specs: ['330мл', '~15%'],
-                        image: 'https://placehold.co/400x300/f093fb/ffffff?text=SOJU'
+                        images: ['https://placehold.co/400x300/E8F5E9/333333?text=SOJU']
                     },
                     {
                         nameKey: 'barItem9Name',
                         price: '9000₸',
                         descKey: 'barItem9Desc',
                         specs: ['750мл'],
-                        image: 'https://placehold.co/400x300/4facfe/ffffff?text=WINE'
+                        images: ['https://placehold.co/400x300/8B0000/ffffff?text=WINE']
                     },
                     {
                         nameKey: 'barItem10Name',
                         price: '10000₸',
                         descKey: 'barItem10Desc',
                         specs: ['750мл', 'Игристое'],
-                        image: 'https://placehold.co/400x300/43e97b/ffffff?text=WINE+COCKTAIL'
+                        images: ['https://placehold.co/400x300/FFD700/333333?text=WINE+COCKTAIL']
                     }
                 ]
             },
@@ -251,166 +255,204 @@ const CONFIG = {
                 items: [
                     {
                         nameKey: 'foodItem1Name',
-                        price: '1700₸',
+                        price: '1800₸',
                         descKey: 'foodItem1Desc',
                         specs: [],
-                        images: ['./menu/nuts.JPG']
+                        images: ['pictures/отработка меню/ассорти орешков.JPG']
                     },
                     {
                         nameKey: 'foodItem2Name',
-                        price: '1700₸',
+                        price: '1800₸',
                         descKey: 'foodItem2Desc',
                         specs: [],
-                        images: ['./menu/kurt.JPG']
-                    },
-                    {
-                        nameKey: 'foodItem3Name',
-                        price: '2000₸',
-                        descKey: 'foodItem3Desc',
-                        specs: [],
-                        images: ['./menu/chips.JPG']
+                        images: ['pictures/отработка меню/ ассорти Куртов.JPG']
                     },
                     {
                         nameKey: 'foodItem4Name',
-                        price: '3700₸',
+                        price: '4000₸',
                         descKey: 'foodItem4Desc',
                         specs: [],
-                        images: ['./menu/assorti.JPG']
+                        images: ['pictures/отработка меню/пивное ассорти.JPG']
                     },
                     {
-                        nameKey: 'foodItem5Name',
+                        nameKey: 'foodItemNachos',
+                        price: '1800₸',
+                        descKey: 'foodItemNachosDesc',
+                        specs: [],
+                        images: ['pictures/отработка меню/начос-nachos.JPG']
+                    },
+                    {
+                        nameKey: 'foodItemChechel',
                         price: '1500₸',
-                        descKey: 'foodItem5Desc',
+                        descKey: 'foodItemChechelDesc',
                         specs: [],
-                        images: ['./menu/chechel_fried.JPG']
+                        images: ['pictures/отработка меню/чечил.JPG']
                     },
                     {
-                        nameKey: 'foodItem6Name',
-                        price: '2800₸',
-                        descKey: 'foodItem6Desc',
+                        nameKey: 'foodItemOnionRings',
+                        price: '1800₸',
+                        descKey: 'foodItemOnionRingsDesc',
                         specs: [],
-                        images: ['./menu/wings.JPG']
+                        images: ['pictures/отработка меню/луковые кольца.JPG']
                     },
                     {
-                        nameKey: 'foodItem7Name',
-                        price: '2700₸',
-                        descKey: 'foodItem7Desc',
+                        nameKey: 'foodItemFries',
+                        price: '1200₸',
+                        descKey: 'foodItemFriesDesc',
                         specs: [],
-                        images: ['./menu/cesadil.JPG']
+                        images: ['pictures/отработка меню/фрикенштейн.JPG']
                     },
                     {
-                        nameKey: 'foodItem8Name',
-                        price: '3300₸',
-                        descKey: 'foodItem8Desc',
+                        nameKey: 'foodItemWedges',
+                        price: '1200₸',
+                        descKey: 'foodItemWedgesDesc',
                         specs: [],
-                        images: ['./menu/burger.JPG']
+                        images: ['pictures/отработка меню/сырная деревушка.JPG']
+                    },
+                    {
+                        nameKey: 'foodItemCroutons',
+                        price: '1500₸',
+                        descKey: 'foodItemCroutonsDesc',
+                        specs: [],
+                        images: ['pictures/отработка меню/гренки.JPG']
+                    },
+                    {
+                        nameKey: 'foodItemBaursaki',
+                        price: '2000₸',
+                        descKey: 'foodItemBaursakiDesc',
+                        specs: [],
+                        images: ['pictures/отработка меню/баурсаки с сыром.JPG']
+                    },
+                    {
+                        nameKey: 'foodItemGarlicBaursaki',
+                        price: '1800₸',
+                        descKey: 'foodItemGarlicBaursakiDesc',
+                        specs: [],
+                        images: ['pictures/отработка меню/чесночные баурсаки.JPG']
                     },
                     {
                         nameKey: 'foodItem9Name',
-                        price: '2500₸',
+                        price: '3000₸',
                         descKey: 'foodItem9Desc',
                         specs: [],
-                        images: ['./menu/margarita.JPG']
+                        images: ['pictures/отработка меню/пицца маргарита.JPG']
                     },
                     {
                         nameKey: 'foodItem10Name',
-                        price: '3000₸',
+                        price: '3200₸',
                         descKey: 'foodItem10Desc',
                         specs: [],
-                        images: ['./menu/pepperoni.JPG']
+                        images: ['pictures/отработка меню/пицца пеперрони.JPG']
                     },
                     {
                         nameKey: 'foodItem11Name',
                         price: '3200₸',
                         descKey: 'foodItem11Desc',
                         specs: [],
-                        images: ['./menu/chiken_pizza1.JPG', './menu/chicken_pizza2.JPG']
+                        images: ['pictures/отработка меню/пицца с курицей и грибами.JPG']
+                    },
+                    {
+                        nameKey: 'foodItemBBQChicken',
+                        price: '3200₸',
+                        descKey: 'foodItemBBQChickenDesc',
+                        specs: [],
+                        images: ['pictures/отработка меню/пицца с цыпленком барбекью.JPG']
                     },
                     {
                         nameKey: 'foodItem12Name',
                         price: '3500₸',
                         descKey: 'foodItem12Desc',
                         specs: [],
-                        images: ['./menu/meet_pizza.JPG']
+                        images: ['menu/meet_pizza.JPG']
+                    },
+                    {
+                        nameKey: 'foodItemShrimp',
+                        price: '3200₸',
+                        descKey: 'foodItemShrimpDesc',
+                        specs: [],
+                        images: ['pictures/отработка меню/тигровые креветки.JPG']
+                    },
+                    {
+                        nameKey: 'foodItemYannem',
+                        price: '3000₸',
+                        descKey: 'foodItemYannemDesc',
+                        specs: [],
+                        images: ['pictures/отработка меню/яннем чикен.JPG']
+                    },
+                    {
+                        nameKey: 'foodItem6Name',
+                        price: '2800₸',
+                        descKey: 'foodItem6Desc',
+                        specs: [],
+                        images: ['pictures/отработка меню/крылья бафаало.JPG']
+                    },
+                    {
+                        nameKey: 'foodItemBBQWings',
+                        price: '2800₸',
+                        descKey: 'foodItemBBQWingsDesc',
+                        specs: [],
+                        images: ['pictures/отработка меню/крылья барбекю.JPG']
+                    },
+                    {
+                        nameKey: 'foodItemCheburek',
+                        price: '3000₸',
+                        descKey: 'foodItemCheburekDesc',
+                        specs: [],
+                        images: ['pictures/отработка меню/чебуреки.JPG']
+                    },
+                    {
+                        nameKey: 'foodItemDumplings',
+                        price: '3000₸',
+                        descKey: 'foodItemDumplingsDesc',
+                        specs: [],
+                        images: ['https://placehold.co/400x300/E8F5E9/333333?text=Жаренные пельмени']
+                    },
+                    {
+                        nameKey: 'foodItemPannucio',
+                        price: '3000₸',
+                        // descKey: 'foodItemDumplingsDesc',
+                        specs: [],
+                        images: ['pictures/отработка меню/пануоццо с говядиной.JPG']
+                    },
+                    {
+                        nameKey: 'foodItemHotDog',
+                        price: '3000₸',
+                        descKey: 'foodItemHotDogDesc',
+                        specs: [],
+                        images: ['pictures/отработка меню/хот дог.JPG']
+                    },
+                    {
+                        nameKey: 'foodItemClubSandwich',
+                        price: '3000₸',
+                        descKey: 'foodItemClubSandwichDesc',
+                        specs: [],
+                        images: ['pictures/отработка меню/клаб сендвич.JPG']
+                    },
+                    {
+                        nameKey: 'foodItemHamSandwich',
+                        price: '3200₸',
+                        descKey: 'foodItemHamSandwichDesc',
+                        specs: [],
+                        images: ['pictures/отработка меню/сэндвич с ветчиной.JPG']
+                    },
+                    {
+                        nameKey: 'foodItemSausages',
+                        price: '3200₸',
+                        descKey: 'foodItemSausagesDesc',
+                        specs: [],
+                        images: ['pictures/отработка меню/сосиски.JPG']
+                    },
+                    {
+                        nameKey: 'foodItemChefDish',
+                        price: '5000₸',
+                        descKey: 'foodItemChefDishDesc',
+                        specs: [],
+                        images: ['https://placehold.co/400x300/E8F5E9/333333?text=БЛЮДО ОТ ШЕФА']
                     }
                 ]
             }
         ]
     },
-
-    // Gallery images with categories
-    // gallery: [
-    //     {
-    //         id: 'vibe',
-    //         titleKey: 'categoryVibe',
-    //         images: [
-    //             {
-    //                 image: './vibe/bar1.JPG',
-    //                 alt: 'Интерьер бара',
-    //                 titleKey: 'gallery1Title'
-    //             },
-    //             {
-    //                 image: './vibe/bar2.JPG',
-    //                 alt: 'Интерьер бара',
-    //                 titleKey: 'gallery2Title'
-    //             },
-    //             {
-    //                 image: './vibe/bar3.JPG',
-    //                 alt: 'Интерьер бара',
-    //                 titleKey: 'gallery3Title'
-    //             }
-    //         ]
-    //     },
-    //     {
-    //         image: './vibe/pool1.JPG',
-    //         alt: 'Бильярдный стол',
-    //         category: 'vibe',
-    //         titleKey: 'gallery2Title'
-    //     },
-    //     {
-    //         image: './vibe/guests1.JPG',
-    //         alt: 'Гости',
-    //         category: 'guests',
-    //         titleKey: 'gallery3Title'
-    //     },
-    //     {
-    //         image: './vibe/music.JPG',
-    //         alt: 'Музыкальный вечер',
-    //         category: 'events',
-    //         titleKey: 'gallery4Title'
-    //     },
-    //     // {
-    //     //     image: 'https://placehold.co/600x600/fa709a/ffffff?text=Food+Menu',
-    //     //     alt: 'Меню',
-    //     //     category: 'food',
-    //     //     titleKey: 'gallery5Title'
-    //     // },
-    //     {
-    //         image: './vibe/party.JPG',
-    //         alt: 'Вечеринка',
-    //         category: 'events',
-    //         titleKey: 'gallery6Title'
-    //     },
-    //     // {
-    //     //     image: 'https://placehold.co/600x600/667eea/ffffff?text=Craft+Beer',
-    //     //     alt: 'Крафтовое пиво',
-    //     //     category: 'food',
-    //     //     titleKey: 'gallery7Title'
-    //     // },
-    //     // {
-    //     //     image: 'https://placehold.co/600x600/f093fb/ffffff?text=Bar+Counter',
-    //     //     alt: 'Барная стойка',
-    //     //     category: 'vibe',
-    //     //     titleKey: 'gallery8Title'
-    //     // },
-    //     // {
-    //     //     image: 'https://placehold.co/600x600/4facfe/ffffff?text=Happy+Guests',
-    //     //     alt: 'Счастливые гости',
-    //     //     category: 'guests',
-    //     //     titleKey: 'gallery9Title'
-    //     // }
-    // ],
-
 
     gallery: {
         categories: [
@@ -435,8 +477,6 @@ const CONFIG = {
                     }
                 ]
             },
-
-
             {
                 id: 'pool',
                 titleKey: 'categoryVibe',
@@ -453,7 +493,6 @@ const CONFIG = {
                     }
                 ]
             },
-
             {
                 id: 'guests',
                 titleKey: 'categoryGuests',
@@ -475,7 +514,6 @@ const CONFIG = {
                     }
                 ]
             },
-
             {
                 id: 'events',
                 titleKey: 'categoryEvents',
@@ -487,8 +525,6 @@ const CONFIG = {
                     }
                 ]
             },
-
-
             {
                 id: 'halloween',
                 titleKey: 'categoryEvents',
@@ -500,12 +536,8 @@ const CONFIG = {
                     }
                 ]
             },
-
         ]
     },
-
-
-
 
     team: [
         {
@@ -528,9 +560,6 @@ const CONFIG = {
         }
     ],
 
-
-
-    // Contact information - REAL ANGIME DATA
     contact: [
         {
             icon: 'locationIcon',
@@ -646,12 +675,12 @@ const TRANSLATIONS = {
         foodItem2Desc: 'Копченный, классический с паприкой.',
         foodItem3Name: 'Ассорти чипсов',
         foodItem3Desc: 'Картофельные, начос, мини баурсачки и кетчуп.',
-        foodItem4Name: 'Ассорти пенное',
-        foodItem4Desc: 'Сырные шарики, чечел, пастрами, жаренные колбаски, чесночные гренки и соус тар-тар.',
+        foodItem4Name: 'Пивное ассорти',
+        foodItem4Desc: 'Сырные шарики, чечел, колбаски, жареная колбаса, чесночный гренок (гренки).',
         foodItem5Name: 'Жаренный чечел',
         foodItem5Desc: 'Хрустящий жареный сыр',
-        foodItem6Name: 'Крылья Буффало / BBQ',
-        foodItem6Desc: 'Сочные куриные крылышки с острым или BBQ соусом',
+        foodItem6Name: 'Крылья Баффало',
+        foodItem6Desc: 'Сочные куриные крылышки с острым соусом',
         foodItem7Name: 'Кесадилья с курицей',
         foodItem7Desc: 'Тортилья, сыр моцарелла, филе курицы, шампиньоны, лук репчатый, болгарский перец, томатный соус.',
         foodItem8Name: 'Бургер с говядиной',
@@ -663,7 +692,49 @@ const TRANSLATIONS = {
         foodItem11Name: 'Пицца с курицей и грибами',
         foodItem11Desc: 'Сыр моцарелла, неаполитанский соус, куриное филе, шампиньоны.',
         foodItem12Name: 'Мясная пикантная',
-        foodItem12Desc: 'Сыр моцарелла, неаполитанский соус, шрирача соус, BBQ соус, пепперони, рванная говядина.',
+        foodItem12Desc: 'Сыр моцарелла, пепперони, говядина, острый и барбекю соус.',
+
+        // Additional food items from menu
+        foodItemNachos: 'Начос',
+        foodItemNachosDesc: 'Кукурузные чипсы с соусом',
+        foodItemChechel: 'Чечел',
+        foodItemChechelDesc: 'Классический сырный деликатес',
+        foodItemOnionRings: 'Луковые кольца',
+        foodItemOnionRingsDesc: 'Хрустящие луковые кольца',
+        foodItemFries: 'Картофель фри',
+        foodItemFriesDesc: 'Классический картофель фри',
+        foodItemWedges: 'Картофельные дольки',
+        foodItemWedgesDesc: 'Запеченные картофельные дольки',
+        foodItemCroutons: 'Чесночные гренки',
+        foodItemCroutonsDesc: 'Хрустящие гренки с чесноком',
+        foodItemBaursaki: 'Баурсаки с моцареллой',
+        foodItemBaursakiDesc: 'Традиционные баурсаки с сыром',
+        foodItemGarlicBaursaki: 'Чесночные баурсаки',
+        foodItemGarlicBaursakiDesc: 'Баурсаки с чесночным маслом',
+        foodItemBBQChicken: 'Цыпленок Барбекю',
+        foodItemBBQChickenDesc: 'Сыр моцарелла, неаполитанский соус, соус барбекю, жареный лук',
+        foodItemShrimp: 'Тигровые креветки с соусом демиглас',
+        foodItemShrimpDesc: 'Креветки с пикантным соусом',
+        foodItemYannem: 'Яннем чикен',
+        foodItemYannemDesc: 'Острые куриные крылышки',
+        foodItemBBQWings: 'Крылья BBQ',
+        foodItemBBQWingsDesc: 'Крылышки в соусе барбекю',
+        foodItemCheburek: 'Жаренные чебуреки',
+        foodItemCheburekDesc: 'Хрустящие чебуреки',
+        foodItemDumplings: 'Жаренные пельмени',
+        foodItemDumplingsDesc: 'Золотистые жареные пельмени',
+        foodItemPannucio: 'Пануоццо с говядиной',
+        foodItemPannucioDesc: 'Итальянский сэндвич с говядиной, томатами и моцареллой',
+        foodItemHotDog: 'Хот-дог',
+        foodItemHotDogDesc: 'Говяжья сосиска в пшеной булке',
+        foodItemClubSandwich: 'Клаб сэндвич',
+        foodItemClubSandwichDesc: 'Тостерный хлеб с курицей, огурцами и помидорами',
+        foodItemHamSandwich: 'Сэндвич с ветчиной',
+        foodItemHamSandwichDesc: 'Ветчина, помидоры, огурцы, лист салата и соус тар-тар',
+        foodItemSausages: 'Ассорти колбасок',
+        foodItemSausagesDesc: 'Говяжьи и куриные колбаски, мюнхенская капуста, картофельные дольки',
+        foodItemChefDish: 'Блюдо от шефа',
+        foodItemChefDishDesc: 'Ассорти мясных деликатесов',
 
         // Gallery section
         galleryTitle: 'Атмосфера Әңгіме',
@@ -749,6 +820,144 @@ const TRANSLATIONS = {
         menuBarTab: 'Күшті алкоголь',
         menuFoodTab: 'Тағам',
 
+        // Beer menu items - Kazakh
+        beerItem1Name: 'ANIME',
+        beerItem1Desc: 'Нағыз лагер. Ашық, жеңіл, сергітетін.',
+        beerItem2Name: 'БИДАЙ',
+        beerItem2Desc: 'Ашық сүзілмеген бидай сырасы.',
+        beerItem3Name: 'Негейское',
+        beerItem3Desc: 'Құрғақ қымыздандырылған IPL ашық лагері.',
+        beerItem4Name: 'MEN KAZAKH',
+        beerItem4Desc: 'Қазақ сыра қайнату авторлық технологиясы бойынша ашық лагер.',
+        beerItem5Name: 'BLANCH',
+        beerItem5Desc: 'Бельгия стиліндегі классикалық бидай сырасы.',
+        beerItem6Name: 'КЁЛЬШ',
+        beerItem6Desc: 'Премиум неміс солоды мен қымыздан қайнатылған ашық және алтын сыра.',
+        beerItem7Name: 'КРИК',
+        beerItem7Desc: 'Қышқыл шие жемістерімен ламбик ашыту арқылы дайындалған бельгия сыра стилі.',
+        beerItem8Name: 'АПОРТ',
+        beerItem8Desc: 'Алма сидрі. Алма шырынын ашыту арқылы алынатын әлсіз алкогольді сусын.',
+        beerItem9Name: 'HAVI',
+        beerItem9Desc: 'Классикалық бидай сүзілмеген сыра.',
+        beerItem10Name: 'HELLES',
+        beerItem10Desc: 'Бавария стиліндегі классикалық ашық сыра.',
+        beerItem11Name: 'KOMIR',
+        beerItem11Desc: 'Премиум солод пен қымыздан жасалған қою қараңғы ағылшын элі.',
+        beerItem12Name: 'Квас',
+        beerItem12Desc: 'Дәстүрлі рецепт бойынша дайындалған балалық шақтың дәмі.',
+
+        // Bar menu items - Kazakh
+        barItem1Name: 'OAKHEART 40мл',
+        barItem1Desc: 'Ром',
+        barItem2Name: 'JAMESON 40мл',
+        barItem2Desc: 'Виски',
+        barItem3Name: 'BALLANTINES 40мл',
+        barItem3Desc: 'Виски',
+        barItem4Name: 'WILLIAM LAWSON 40мл',
+        barItem4Desc: 'Виски',
+        barItem5Name: 'OLMECA SILVER 40мл',
+        barItem5Desc: 'Текила',
+        barItem6Name: 'OLMECA GOLD 40мл',
+        barItem6Desc: 'Текила',
+        barItem7Name: 'JAGERMEISTER 40мл',
+        barItem7Desc: 'Ликер',
+        barItem8Name: 'SOJU 330мл',
+        barItem8Desc: '15% дейінгі корей күріш арағы.',
+        barItem9Name: 'WINE 750мл',
+        barItem9Desc: 'Грузин үй шарабы ақ немесе қызыл таңдау бойынша.',
+        barItem10Name: 'WINE COCKTAIL 750мл',
+        barItem10Desc: 'BELLINI және MIMOSA көпіршікті коктейльдері.',
+
+        // Food items - Kazakh
+        foodItem1Name: 'Жаңғақ ассортименті',
+        foodItem1Desc: 'Бадам, жержаңғақ, фисташка.',
+        foodItem2Name: 'Құрт ассортименті',
+        foodItem2Desc: 'Ысталған, паприкамен классикалық.',
+        foodItem4Name: 'Сыра ассортименті',
+        foodItem4Desc: 'Ірімшік доптары, чечил, шұжықтар, қуырылған шұжық, сарымсақ гренкалары.',
+        foodItem6Name: 'Баффало қанаттары',
+        foodItem6Desc: 'Өткір соусты шырынды тауық қанаттары',
+        foodItem9Name: 'Маргарита пиццасы',
+        foodItem9Desc: 'Моцарелла ірімшігі, неаполь соусы.',
+        foodItem10Name: 'Пепперони пиццасы',
+        foodItem10Desc: 'Моцарелла ірімшігі, неаполь соусы, пепперони.',
+        foodItem11Name: 'Тауық және саңырауқұлақпен пицца',
+        foodItem11Desc: 'Моцарелла ірімшігі, неаполь соусы, тауық филесі, шампиньондар.',
+        foodItem12Name: 'Етті пикантты',
+        foodItem12Desc: 'Моцарелла ірімшігі, пепперони, сиыр еті, өткір және барбекю соусы.',
+
+        // Additional food items - Kazakh
+        foodItemNachos: 'Начос',
+        foodItemNachosDesc: 'Ірімшік соусымен',
+        foodItemChechel: 'Чечил',
+        foodItemChechelDesc: 'Классикалық ірімшік деликатесі',
+        foodItemOnionRings: 'Пияз сақиналары',
+        foodItemOnionRingsDesc: 'Қытырлақ пияз сақиналары',
+        foodItemFries: 'Картоп фри',
+        foodItemFriesDesc: 'Классикалық картоп фри',
+        foodItemWedges: 'Картоп дольдары',
+        foodItemWedgesDesc: 'Піскен картоп дольдары',
+        foodItemCroutons: 'Сарымсақты гренкалар',
+        foodItemCroutonsDesc: 'Сарымсақпен қытырлақ гренкалар',
+        foodItemBaursaki: 'Моцареллалы баурсақтар',
+        foodItemBaursakiDesc: 'Ірімшікпен дәстүрлі баурсақтар',
+        foodItemGarlicBaursaki: 'Сарымсақты баурсақтар',
+        foodItemGarlicBaursakiDesc: 'Сарымсақ майымен баурсақтар',
+        foodItemBBQChicken: 'Барбекю тауық',
+        foodItemBBQChickenDesc: 'Моцарелла ірімшігі, неаполь соусы, барбекю соусы, қуырылған пияз',
+        foodItemShrimp: 'Демиглас соусымен жолбарыс асшаяндары',
+        foodItemShrimpDesc: 'Пикантты соусты асшаяндар',
+        foodItemYannem: 'Яннем тауық',
+        foodItemYannemDesc: 'Өткір тауық қанаттары',
+        foodItemBBQWings: 'BBQ қанаттары',
+        foodItemBBQWingsDesc: 'Барбекю соусындағы қанаттар',
+        foodItemCheburek: 'Қуырылған шеберектер',
+        foodItemCheburekDesc: 'Қытырлақ шеберектер',
+        foodItemDumplings: 'Қуырылған пельмендер',
+        foodItemDumplingsDesc: 'Алтын қуырылған пельмендер',
+        foodItemPannucio: 'Сиыр етімен пануоццо',
+        foodItemPannucioDesc: 'Сиыр еті, қызанақ және моцареллалы итальяндық сэндвич',
+        foodItemHotDog: 'Хот-дог',
+        foodItemHotDogDesc: 'Бидай нанындағы сиыр шұжығы',
+        foodItemClubSandwich: 'Клаб сэндвич',
+        foodItemClubSandwichDesc: 'Тауықпен, қияр және қызанақпен тостерлі нан',
+        foodItemHamSandwich: 'Ветчиналы сэндвич',
+        foodItemHamSandwichDesc: 'Ветчина, қызанақ, қияр, салат жапырағы және тар-тар соусы',
+        foodItemSausages: 'Шұжық ассортименті',
+        foodItemSausagesDesc: 'Сиыр және тауық шұжықтары, мюнхен қырыққабаты, картоп дольдары',
+        foodItemChefDish: 'Шефтен тағам',
+        foodItemChefDishDesc: 'Етті деликатестер ассортименті',
+
+        // Gallery - Kazakh
+        galleryTitle: 'Әңгіме атмосферасы',
+        gallerySubtitle: 'Әңгімелердің туатын жері',
+        gallery1Title: 'Бар интерьері',
+        gallery2Title: 'Бильярд үстелі',
+        gallery3Title: 'Біздің қонақтар',
+        gallery4Title: 'Тірі музыка',
+        gallery5Title: 'Мәзір',
+        gallery6Title: 'Хэллоуин',
+        gallery7Title: 'Крафттық сыра',
+        gallery8Title: 'Бар тұғыры',
+        gallery9Title: 'Бақытты қонақтар',
+        categoryGuests: 'Қонақтар',
+        categoryVibe: 'Атмосфера',
+        categoryFood: 'Тамақ',
+        categoryEvents: 'Оқиғалар',
+
+        // Team - Kazakh
+        teamTitle: 'Біздің команда',
+        teamSubtitle: 'Атмосфера жасайтын адамдар',
+        team1Name: 'Әңгіме командасы',
+        team1Role: 'Бар командасы',
+        team1Desc: 'Кешіңізді ұмытылмас ету үшін дайын кәсіби команда.',
+        team2Name: 'Ас үй шебері',
+        team2Role: 'Аспаз',
+        team2Desc: 'Қазақ колоритімен бірегей тағамдар жасайды.',
+        team3Name: 'Бармендер',
+        team3Role: 'Бармендер',
+        team3Desc: 'Крафттық коктейльдер мен сыра шеберлері.',
+
         // Contact section - REAL DATA
         contactTitle: 'Байланыс',
         contactSubtitle: 'Келіңіздер қонаққа',
@@ -802,6 +1011,144 @@ const TRANSLATIONS = {
         menuBeerTab: 'Draft Beer',
         menuBarTab: 'Strong Alcohol',
         menuFoodTab: 'Food',
+
+        // Beer menu items - English
+        beerItem1Name: 'ANIME',
+        beerItem1Desc: 'True lager. Light, easy, refreshing.',
+        beerItem2Name: 'BIDAI',
+        beerItem2Desc: 'Light unfiltered wheat beer.',
+        beerItem3Name: 'Negeyskoye',
+        beerItem3Desc: 'Light lager with dry hopping IPL (Indian Pale Lager).',
+        beerItem4Name: 'MEN KAZAKH',
+        beerItem4Desc: 'Light lager using authentic Kazakh brewing technology.',
+        beerItem5Name: 'BLANCH',
+        beerItem5Desc: 'Classic wheat beer in Belgian style.',
+        beerItem6Name: 'KÖLSCH',
+        beerItem6Desc: 'Light and golden beer brewed from premium German malt and hops.',
+        beerItem7Name: 'KRIEK',
+        beerItem7Desc: 'Belgian beer style made by fermenting lambic with sour cherry fruits.',
+        beerItem8Name: 'APORT',
+        beerItem8Desc: 'Apple cider. Low-alcohol drink obtained by fermenting apple juice.',
+        beerItem9Name: 'HAVI',
+        beerItem9Desc: 'Classic unfiltered wheat beer.',
+        beerItem10Name: 'HELLES',
+        beerItem10Desc: 'Classic light beer in Bavarian style.',
+        beerItem11Name: 'KOMIR',
+        beerItem11Desc: 'Dark rich English ale made from premium malt and hops.',
+        beerItem12Name: 'Kvass',
+        beerItem12Desc: 'Childhood taste made according to traditional recipe.',
+
+        // Bar menu items - English
+        barItem1Name: 'OAKHEART 40ml',
+        barItem1Desc: 'Rum',
+        barItem2Name: 'JAMESON 40ml',
+        barItem2Desc: 'Whiskey',
+        barItem3Name: 'BALLANTINES 40ml',
+        barItem3Desc: 'Whiskey',
+        barItem4Name: 'WILLIAM LAWSON 40ml',
+        barItem4Desc: 'Whiskey',
+        barItem5Name: 'OLMECA SILVER 40ml',
+        barItem5Desc: 'Tequila',
+        barItem6Name: 'OLMECA GOLD 40ml',
+        barItem6Desc: 'Tequila',
+        barItem7Name: 'JAGERMEISTER 40ml',
+        barItem7Desc: 'Liqueur',
+        barItem8Name: 'SOJU 330ml',
+        barItem8Desc: 'Korean rice vodka up to 15% alc.',
+        barItem9Name: 'WINE 750ml',
+        barItem9Desc: 'Georgian homemade wine white or red by choice.',
+        barItem10Name: 'WINE COCKTAIL 750ml',
+        barItem10Desc: 'Sparkling cocktails BELLINI and MIMOSA.',
+
+        // Food items - English
+        foodItem1Name: 'Nuts Assortment',
+        foodItem1Desc: 'Almonds, peanuts, pistachios.',
+        foodItem2Name: 'Kurt Assortment',
+        foodItem2Desc: 'Smoked, classic with paprika.',
+        foodItem4Name: 'Beer Assortment',
+        foodItem4Desc: 'Cheese balls, chechel, sausages, fried sausage, garlic croutons.',
+        foodItem6Name: 'Buffalo Wings',
+        foodItem6Desc: 'Juicy chicken wings with spicy sauce',
+        foodItem9Name: 'Margarita Pizza',
+        foodItem9Desc: 'Mozzarella cheese, Neapolitan sauce.',
+        foodItem10Name: 'Pepperoni Pizza',
+        foodItem10Desc: 'Mozzarella cheese, Neapolitan sauce, pepperoni.',
+        foodItem11Name: 'Chicken and Mushroom Pizza',
+        foodItem11Desc: 'Mozzarella cheese, Neapolitan sauce, chicken fillet, champignons.',
+        foodItem12Name: 'Spicy Meat Pizza',
+        foodItem12Desc: 'Mozzarella cheese, pepperoni, beef, spicy and BBQ sauce.',
+
+        // Additional food items - English
+        foodItemNachos: 'Nachos',
+        foodItemNachosDesc: 'With cheese sauce',
+        foodItemChechel: 'Chechel',
+        foodItemChechelDesc: 'Classic cheese delicacy',
+        foodItemOnionRings: 'Onion Rings',
+        foodItemOnionRingsDesc: 'Crispy onion rings',
+        foodItemFries: 'French Fries',
+        foodItemFriesDesc: 'Classic french fries',
+        foodItemWedges: 'Potato Wedges',
+        foodItemWedgesDesc: 'Baked potato wedges',
+        foodItemCroutons: 'Garlic Croutons',
+        foodItemCroutonsDesc: 'Crispy garlic croutons',
+        foodItemBaursaki: 'Baursaks with Mozzarella',
+        foodItemBaursakiDesc: 'Traditional baursaks with cheese',
+        foodItemGarlicBaursaki: 'Garlic Baursaks',
+        foodItemGarlicBaursakiDesc: 'Baursaks with garlic butter',
+        foodItemBBQChicken: 'BBQ Chicken Pizza',
+        foodItemBBQChickenDesc: 'Mozzarella cheese, Neapolitan sauce, BBQ sauce, fried onions',
+        foodItemShrimp: 'Tiger Shrimp with Demi-glace Sauce',
+        foodItemShrimpDesc: 'Shrimp with spicy sauce',
+        foodItemYannem: 'Yannem Chicken',
+        foodItemYannemDesc: 'Spicy chicken wings',
+        foodItemBBQWings: 'BBQ Wings',
+        foodItemBBQWingsDesc: 'Wings in BBQ sauce',
+        foodItemCheburek: 'Fried Chebureks',
+        foodItemCheburekDesc: 'Crispy chebureks',
+        foodItemDumplings: 'Fried Dumplings',
+        foodItemDumplingsDesc: 'Golden fried dumplings',
+        foodItemPannucio: 'Panuozzo with Beef',
+        foodItemPannucioDesc: 'Italian sandwich with beef, tomatoes and mozzarella',
+        foodItemHotDog: 'Hot Dog',
+        foodItemHotDogDesc: 'Beef sausage in wheat bun',
+        foodItemClubSandwich: 'Club Sandwich',
+        foodItemClubSandwichDesc: 'Toasted bread with chicken, cucumbers and tomatoes',
+        foodItemHamSandwich: 'Ham Sandwich',
+        foodItemHamSandwichDesc: 'Ham, tomatoes, cucumbers, lettuce and tartar sauce',
+        foodItemSausages: 'Sausage Assortment',
+        foodItemSausagesDesc: 'Beef and chicken sausages, Munich cabbage, potato wedges',
+        foodItemChefDish: 'Chef\'s Platter',
+        foodItemChefDishDesc: 'Assortment of meat delicacies',
+
+        // Gallery - English
+        galleryTitle: 'Әңgіме Atmosphere',
+        gallerySubtitle: 'Where stories are born',
+        gallery1Title: 'Bar Interior',
+        gallery2Title: 'Billiard Table',
+        gallery3Title: 'Our Guests',
+        gallery4Title: 'Live Music',
+        gallery5Title: 'Menu',
+        gallery6Title: 'Halloween',
+        gallery7Title: 'Craft Beer',
+        gallery8Title: 'Bar Counter',
+        gallery9Title: 'Happy Guests',
+        categoryGuests: 'Guests',
+        categoryVibe: 'Atmosphere',
+        categoryFood: 'Food',
+        categoryEvents: 'Events',
+
+        // Team - English
+        teamTitle: 'Our Team',
+        teamSubtitle: 'People who create the atmosphere',
+        team1Name: 'Әңgіме Team',
+        team1Role: 'Bar Team',
+        team1Desc: 'Professional team ready to make your evening unforgettable.',
+        team2Name: 'Chef',
+        team2Role: 'Cook',
+        team2Desc: 'Creates unique dishes with Kazakh flavor.',
+        team3Name: 'Bartenders',
+        team3Role: 'Bartenders',
+        team3Desc: 'Masters of craft cocktails and beer.',
 
         // Contact section - REAL DATA
         contactTitle: 'Contact',

@@ -368,6 +368,29 @@
             gap: 1rem;
         }
 
+        .nav-logo-img {
+            height: 100px;
+            width: auto;
+            transition: height 0.3s ease;
+            filter: invert(1);
+            /* Makes black logo white */
+        }
+
+        nav.scrolled .nav-logo-img {
+            height: 70px;
+        }
+
+        /* Mobile: Even bigger navbar logo */
+        @media (max-width: 768px) {
+            .nav-logo-img {
+                height: 90px;
+            }
+
+            nav.scrolled .nav-logo-img {
+                height: 80px;
+            }
+        }
+
         .nav-logo-svg {
             height: 45px;
             width: auto;
@@ -550,12 +573,22 @@
             padding: 0 1rem;
         }
 
+        .hero-logo-img {
+            width: min(400px, 80vw);
+            height: auto;
+            margin: 0 auto 2rem;
+            animation: fadeInUp 1s ease both;
+            filter: invert(1) drop-shadow(0 0 40px rgba(255, 215, 0, 0.3));
+            /* invert(1) makes the black logo white */
+        }
+
         .hero-logo-svg {
             width: 140px;
             height: auto;
             margin: 0 auto 2rem;
             animation: fadeInUp 1s ease both;
-            filter: drop-shadow(0 0 40px rgba(255, 215, 0, 0.3));
+            filter: invert(1) drop-shadow(0 0 40px rgba(255, 215, 0, 0.3));
+            /* invert(1) makes the black logo white */
         }
 
         .hero-title {
@@ -2461,14 +2494,7 @@
     <nav id="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <svg class="nav-logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 651"
-                    preserveAspectRatio="xMidYMid meet">
-                    <g transform="translate(0,651) scale(0.1,-0.1)" fill="#FFD700" stroke="none">
-                        <path
-                            d="M1345 4564 c-311 -45 -511 -129 -728 -304 -337 -271 -530 -747 -478 -1176 41 -329 170 -594 399 -816 153 -149 312 -245 515 -313 267 -89 576 -89 842 0 371 124 675 410 819 771 74 186 102 353 93 558 -11 261 -81 475 -222 685 -246 367 -633 582 -1070 595 -77 3 -153 2 -170 0z" />
-                    </g>
-                </svg>
-                <span class="nav-logo-text" data-i18n="siteName">ӘҢГІМЕ</span>
+                <img src="pictures/IMG_7382.PNG" alt="Әңgіме" class="nav-logo-img">
             </div>
             <div class="nav-right" id="navRight">
                 <ul class="nav-links" id="navLinks"></ul>
@@ -2490,14 +2516,7 @@
     <section class="hero" id="home">
         <div class="hero-bg"></div>
         <div class="hero-content">
-            <svg class="hero-logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 651"
-                preserveAspectRatio="xMidYMid meet">
-                <g transform="translate(0,651) scale(0.1,-0.1)" fill="#FFD700" stroke="none">
-                    <path
-                        d="M1345 4564 c-311 -45 -511 -129 -728 -304 -337 -271 -530 -747 -478 -1176 41 -329 170 -594 399 -816 153 -149 312 -245 515 -313 267 -89 576 -89 842 0 371 124 675 410 819 771 74 186 102 353 93 558 -11 261 -81 475 -222 685 -246 367 -633 582 -1070 595 -77 3 -153 2 -170 0z" />
-                </g>
-            </svg>
-            <h1 class="hero-title" data-i18n="siteName">ӘҢГІМЕ</h1>
+            <img src="pictures/IMG_7382.PNG" alt="Әңгіме Logo" class="hero-logo-img">
             <p class="hero-subtitle" data-i18n="heroSubtitle">Крафтовый бар • Астана</p>
             <p class="hero-description" data-i18n="heroDescription">
                 Место, где рождаются обсуждения. Крафтовое пиво, американский пул,
