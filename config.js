@@ -104,7 +104,7 @@ const CONFIG = {
                         price: '2000₸',
                         descKey: 'beerItem4Desc',
                         specs: ['400мл'],
-                        images: ['https://placehold.co/800x600/4facfe/ffffff?text=MEN+KAZAKH'],
+                        images: ['pictures/отработка меню/пиво аниме.JPG'],
                         details: { 'Объем': '400мл' }
                     },
                     {
