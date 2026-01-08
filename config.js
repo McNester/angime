@@ -591,27 +591,27 @@ const TRANSLATIONS = {
         navTeam: 'Команда',
         navContact: 'Контакты',
 
-        // Hero section
-        heroSubtitle: 'Крафтовый бар • Астана',
-        heroDescription: 'Место, где рождаются разговоры. Крафтовое пиво собственного производства, бильярд и уютная атмосфера в сердце Астаны.',
+        // Hero section - UPDATED
+        heroSubtitle: 'Крафтовый бар - Астана',
+        heroDescription: 'Место, где рождаются разговоры. Крафтовое пиво, отечественного производства и уютная атмосфера в сердце Астаны.',
         viewMenuBtn: 'Посмотреть меню',
         bookTableBtn: 'Забронировать стол',
 
-        // Why visit section
+        // Why visit section - UPDATED
         whyVisitTitle: 'Почему стоит нас посетить?',
         whyVisitSubtitle: 'Что делает Әңгіме особенным местом',
-        reason1Title: 'Собственное крафтовое пиво',
-        reason1Desc: '12 сортов авторского пива собственного производства. От легких лагеров до насыщенных элей.',
+        reason1Title: 'Крафтовое пиво',
+        reason1Desc: '12 сортов отечественного производства. От легких лагеров до насыщенных элей.',
         reason2Title: 'Бильярд',
-        reason2Desc: 'Профессиональные столы для игры с друзьями. Создайте свою компанию.',
+        reason2Desc: 'Настоящий американский пул. Создайте свою компанию и выигрывайте.',
         reason3Title: 'Живая музыка',
-        reason3Desc: 'Регулярные выступления местных музыкантов. Атмосфера для настоящих разговоров.',
+        reason3Desc: 'Регулярные выступления местных музыкантов.',
         reason4Title: 'Уютная атмосфера',
-        reason4Desc: 'Современный дизайн с казахскими мотивами. Место для встреч и общения.',
+        reason4Desc: 'Современный дизайн с этническими мотивами и андеграундным граффити. Место для встреч и общения.',
         reason5Title: 'Авторская кухня',
-        reason5Desc: 'Закуски и блюда, которые идеально дополняют наши напитки.',
+        reason5Desc: 'Закуски и блюда, которые идеально дополняют ваши напитки.',
         reason6Title: 'События',
-        reason6Desc: 'Регулярные тематические вечера и мероприятия. Следите за нашими новостями.',
+        reason6Desc: 'Регулярные тематические мероприятия, дегустации и многое другое. Подписывайтесь и следите за обновлениями.',
 
         // Menu section
         menuTitle: 'Наше меню',
@@ -791,27 +791,27 @@ const TRANSLATIONS = {
         navTeam: 'Команда',
         navContact: 'Байланыс',
 
-        // Hero section
-        heroSubtitle: 'Крафттық бар • Астана',
-        heroDescription: 'Әңгімелердің туатын жері. Өзіміздің өндірісіміздің крафттық сырасы, бильярд және Астананың жүрегіндегі жайлы атмосфера.',
+        
+        heroSubtitle: 'Крафттық бар - Астана',
+        heroDescription: 'Әңгімелердің туатын жері. Отандық өндірістің крафттық сырасы және Астананың жүрегіндегі жайлы атмосфера.',
         viewMenuBtn: 'Мәзірді қарау',
         bookTableBtn: 'Үстел брондау',
 
-        // Why visit section
+        
         whyVisitTitle: 'Неліктен бізге келу керек?',
         whyVisitSubtitle: 'Әңгіме ерекше ететін нәрсе',
-        reason1Title: 'Өзіміздің крафттық сырамыз',
-        reason1Desc: 'Өзіміздің өндірісіміздің 12 түрлі авторлық сырасы. Жеңіл лагерден қанық эльге дейін.',
+        reason1Title: 'Крафттық сыра',
+        reason1Desc: 'Отандық өндірістің 12 түрі. Жеңіл лагерден қанық эльге дейін.',
         reason2Title: 'Бильярд',
-        reason2Desc: 'Достармен ойнауға арналған кәсіби үстелдер. Өз компанияңызды құрыңыз.',
+        reason2Desc: 'Нағыз америкалық пул. Өз компанияңызды құрыңыз және жеңіңіз.',
         reason3Title: 'Тірі музыка',
-        reason3Desc: 'Жергілікті музыканттардың тұрақты өнерлері. Шынайы әңгімелерге арналған атмосфера.',
+        reason3Desc: 'Жергілікті музыканттардың тұрақты өнерлері.',
         reason4Title: 'Жайлы атмосфера',
-        reason4Desc: 'Қазақ мотивтерімен заманауи дизайн. Кездесулер мен қарым-қатынас орны.',
+        reason4Desc: 'Этникалық мотивтер мен андеграунд граффитимен заманауи дизайн. Кездесулер мен қарым-қатынас орны.',
         reason5Title: 'Авторлық ас',
-        reason5Desc: 'Біздің сусындарды керемет толықтыратын тағамдар мен тамақтар.',
+        reason5Desc: 'Сусындарыңызды керемет толықтыратын тағамдар мен тамақтар.',
         reason6Title: 'Оқиғалар',
-        reason6Desc: 'Тұрақты тақырыптық кештер мен іс-шаралар. Біздің жаңалықтарды қадағалаңыз.',
+        reason6Desc: 'Тұрақты тақырыптық іс-шаралар, дегустациялар және т.б. Жазылыңыз және жаңартуларды қадағалаңыз.',
 
         // Menu section
         menuTitle: 'Біздің мәзір',
@@ -983,27 +983,27 @@ const TRANSLATIONS = {
         navTeam: 'Team',
         navContact: 'Contact',
 
-        // Hero section
-        heroSubtitle: 'Craft Bar • Astana',
-        heroDescription: 'Where conversations are born. Our own craft beer, billiards and cozy atmosphere in the heart of Astana.',
+        // Hero section - UPDATED
+        heroSubtitle: 'Craft Bar - Astana',
+        heroDescription: 'Where conversations are born. Domestic craft beer and cozy atmosphere in the heart of Astana.',
         viewMenuBtn: 'View Menu',
         bookTableBtn: 'Book a Table',
 
-        // Why visit section
+        // Why visit section - UPDATED
         whyVisitTitle: 'Why Visit Us?',
         whyVisitSubtitle: 'What makes Әңgіме special',
-        reason1Title: 'Our Own Craft Beer',
-        reason1Desc: '12 varieties of our own craft beer. From light lagers to rich ales.',
+        reason1Title: 'Craft Beer',
+        reason1Desc: '12 varieties of domestic production. From light lagers to rich ales.',
         reason2Title: 'Billiards',
-        reason2Desc: 'Professional tables for playing with friends. Create your own company.',
+        reason2Desc: 'Authentic American pool. Create your company and win.',
         reason3Title: 'Live Music',
-        reason3Desc: 'Regular performances by local musicians. Atmosphere for genuine conversations.',
+        reason3Desc: 'Regular performances by local musicians.',
         reason4Title: 'Cozy Atmosphere',
-        reason4Desc: 'Modern design with Kazakh motifs. A place for meetings and communication.',
+        reason4Desc: 'Modern design with ethnic motifs and underground graffiti. A place for meetings and communication.',
         reason5Title: 'Author\'s Cuisine',
-        reason5Desc: 'Snacks and dishes that perfectly complement our drinks.',
+        reason5Desc: 'Snacks and dishes that perfectly complement your drinks.',
         reason6Title: 'Events',
-        reason6Desc: 'Regular themed nights and events. Follow our news.',
+        reason6Desc: 'Regular themed events, tastings and more. Subscribe and follow the updates.',
 
         // Menu section
         menuTitle: 'Our Menu',
