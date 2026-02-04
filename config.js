@@ -155,7 +155,7 @@ const CONFIG = {
                 items: [
                     {
                         nameKey: 'barItem1Name',
-                        price: '2000₸',
+                        price: '1800₸',
                         descKey: 'barItem1Desc',
                         specs: ['40мл'],
                         images: ['https://placehold.co/400x300/8B4513/ffffff?text=OAKHEART+RUM']
@@ -197,14 +197,14 @@ const CONFIG = {
                     },
                     {
                         nameKey: 'barItem7Name',
-                        price: '1800₸',
+                        price: '2000₸',
                         descKey: 'barItem7Desc',
                         specs: ['40мл'],
                         images: ['https://placehold.co/400x300/2F4F4F/ffffff?text=JAGERMEISTER']
                     },
                     {
                         nameKey: 'barItem8Name',
-                        price: '8500₸',
+                        price: '5000',
                         descKey: 'barItem8Desc',
                         specs: ['330мл', '~15%'],
                         images: ['https://placehold.co/400x300/E8F5E9/333333?text=SOJU']
