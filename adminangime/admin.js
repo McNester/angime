@@ -19,9 +19,9 @@ function initLogin() {
     const loginScreen = document.getElementById('loginScreen');
     const adminPanel = document.getElementById('adminPanel');
     const loginBtn = document.getElementById('loginBtn');
+    const usernameInput = document.getElementById('usernameInput');
     const passwordInput = document.getElementById('passwordInput');
     const loginError = document.getElementById('loginError');
-    const usernameInput = document.getElementById('usernameInput');
 
     // Check if already logged in
     if (localStorage.getItem('adminLoggedIn') === 'true') {
@@ -43,15 +43,7 @@ function initLogin() {
         } else {
             loginError.textContent = 'Неверный логин или пароль';
             usernameInput.value = '';
-            usernameInput.value = '';
             passwordInput.value = '';
-        }
-    });
-
-    // Enter key support
-    usernameInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            passwordInput.focus();
         }
     });
 
