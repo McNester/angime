@@ -1,0 +1,14 @@
+# Admin Panel Access
+# This file ensures admin panel works correctly on Apache servers
+
+# Enable directory index
+DirectoryIndex index.html
+
+# Prevent directory listing
+Options -Indexes
+
+# Security headers (optional)
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+</IfModule>

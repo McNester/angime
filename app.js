@@ -85,9 +85,33 @@ class ImageLoader {
 
 const imageLoader = new ImageLoader();
 
+// Load menu data (from menu.json if exists, otherwise from CONFIG)
+let menuConfig = null;
+
+async function loadMenuData() {
+    try {
+        const response = await fetch('./menu.json');
+        if (response.ok) {
+            const data = await response.json();
+            menuConfig = data.menu || data;
+            console.log('Menu loaded from menu.json');
+            return true;
+        }
+    } catch (e) {
+        console.log('menu.json not found, using CONFIG');
+    }
+    
+    // Fallback to CONFIG
+    menuConfig = CONFIG.menu;
+    return false;
+}
+
 // Initialize app on DOM load
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     console.log('Initializing Angime website...');
+
+    // Load menu data first
+    await loadMenuData();
 
     initFloatingElements();
     initNavigation();
@@ -328,8 +352,11 @@ function initMenu() {
     const tabsContainer = document.getElementById('menuTabs');
     const contentContainer = document.getElementById('menuContent');
 
+    // Use menuConfig if loaded, otherwise fallback to CONFIG.menu
+    const menuData = menuConfig || CONFIG.menu;
+
     // Create tabs
-    CONFIG.menu.categories.forEach((category, index) => {
+    menuData.categories.forEach((category, index) => {
         const tab = document.createElement('div');
         tab.className = `menu-tab ${index === 0 ? 'active' : ''}`;
         tab.setAttribute('data-tab', category.id);
@@ -414,14 +441,17 @@ function initMenu() {
 
 // Update menu text
 function updateMenu() {
+    // Use menuConfig if loaded, otherwise fallback to CONFIG.menu
+    const menuData = menuConfig || CONFIG.menu;
+
     // Update tab titles
     document.querySelectorAll('.menu-tab').forEach((tab, index) => {
-        const category = CONFIG.menu.categories[index];
+        const category = menuData.categories[index];
         tab.textContent = TRANSLATIONS[currentLang][category.titleKey];
     });
 
     // Update menu items
-    CONFIG.menu.categories.forEach((category, catIndex) => {
+    menuData.categories.forEach((category, catIndex) => {
         const items = document.querySelectorAll(`#${category.id} .menu-item`);
         items.forEach((item, itemIndex) => {
             const menuItem = category.items[itemIndex];

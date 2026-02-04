@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ-панель — Управление меню Әңgіме</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-screen">
+        <div class="login-box">
+            <h1>Админ-панель</h1>
+            <p>Введите пароль для доступа</p>
+            <input type="password" id="passwordInput" placeholder="Пароль" autocomplete="off">
+            <button id="loginBtn" class="btn btn-primary">Войти</button>
+            <p id="loginError" class="error-message"></p>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="adminPanel" class="admin-panel" style="display: none;">
+        <!-- Header -->
+        <header class="admin-header">
+            <h1>Управление меню Әңgіме</h1>
+            <div class="header-actions">
+                <button id="saveBtn" class="btn btn-success">💾 Сохранить изменения</button>
+                <button id="exportBtn" class="btn btn-secondary">📥 Экспорт JSON</button>
+                <button id="logoutBtn" class="btn btn-danger">Выйти</button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Categories Tabs -->
+            <div class="categories-tabs" id="categoriesTabs"></div>
+
+            <!-- Menu Editor -->
+            <div class="menu-editor">
+                <div class="editor-header">
+                    <h2 id="currentCategoryTitle">Выберите категорию</h2>
+                    <button id="addItemBtn" class="btn btn-primary" style="display: none;">+ Добавить позицию</button>
+                </div>
+
+                <!-- Items List -->
+                <div class="items-list" id="itemsList">
+                    <div class="empty-state">
+                        <p>Выберите категорию для редактирования меню</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Status Bar -->
+        <div class="status-bar" id="statusBar">
+            <span id="statusText">Готов к работе</span>
+            <span id="unsavedIndicator" class="unsaved-indicator" style="display: none;">● Несохраненные изменения</span>
+        </div>
+    </div>
+
+    <!-- Item Edit Modal -->
+    <div id="itemModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Редактировать позицию</h2>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="itemForm">
+                    <!-- Name (RU) -->
+                    <div class="form-group">
+                        <label>Название (RU) *</label>
+                        <input type="text" id="nameRu" required>
+                    </div>
+
+                    <!-- Name (KK) -->
+                    <div class="form-group">
+                        <label>Название (ҚЗ)</label>
+                        <input type="text" id="nameKk">
+                    </div>
+
+                    <!-- Name (EN) -->
+                    <div class="form-group">
+                        <label>Название (EN)</label>
+                        <input type="text" id="nameEn">
+                    </div>
+
+                    <!-- Price -->
+                    <div class="form-group">
+                        <label>Цена *</label>
+                        <input type="text" id="price" placeholder="1700₸" required>
+                    </div>
+
+                    <!-- Description (RU) -->
+                    <div class="form-group">
+                        <label>Описание (RU)</label>
+                        <textarea id="descRu" rows="3"></textarea>
+                    </div>
+
+                    <!-- Description (KK) -->
+                    <div class="form-group">
+                        <label>Описание (ҚЗ)</label>
+                        <textarea id="descKk" rows="3"></textarea>
+                    </div>
+
+                    <!-- Description (EN) -->
+                    <div class="form-group">
+                        <label>Описание (EN)</label>
+                        <textarea id="descEn" rows="3"></textarea>
+                    </div>
+
+                    <!-- Specs -->
+                    <div class="form-group">
+                        <label>Характеристики (через запятую)</label>
+                        <input type="text" id="specs" placeholder="400мл, Светлое">
+                        <small>Пример: 400мл, Светлое, Фруктовое</small>
+                    </div>
+
+                    <!-- Images -->
+                    <div class="form-group">
+                        <label>Изображения (пути через запятую)</label>
+                        <textarea id="images" rows="3" placeholder="pictures/отработка меню/пиво аниме.JPG"></textarea>
+                        <small>Одно изображение на строку или через запятую</small>
+                    </div>
+
+                    <!-- Details -->
+                    <div class="form-group">
+                        <label>Дополнительные детали (JSON формат)</label>
+                        <textarea id="details" rows="3" placeholder='{"Объем": "400мл", "Тип": "IPL"}'></textarea>
+                        <small>Необязательно. Формат: {"Ключ": "Значение"}</small>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" id="cancelBtn">Отмена</button>
+                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="../config.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
