@@ -1,12 +1,15 @@
-// Admin Panel JavaScript
-// Password for admin access (change this!)
+// Admin Panel JavaScript - Modern Version with Video Support
+// Login credentials
 const ADMIN_USERNAME = 'arseblan';
+const ADMIN_PASSWORD = 'yakonch2026';
 const ADMIN_PASSWORD = 'yakonch2026';
 
 let menuData = null;
 let currentCategory = null;
 let currentEditingItem = null;
 let hasUnsavedChanges = false;
+let currentImages = [];
+let currentVideos = [];
 
 // Initialize on load
 document.addEventListener('DOMContentLoaded', () => {
@@ -18,10 +21,11 @@ document.addEventListener('DOMContentLoaded', () => {
 function initLogin() {
     const loginScreen = document.getElementById('loginScreen');
     const adminPanel = document.getElementById('adminPanel');
-    const loginBtn = document.getElementById('loginBtn');
+    const usernameInput = document.getElementById('usernameInput');    const loginBtn = document.getElementById('loginBtn');
+    const usernameInput = document.getElementById('usernameInput');
+    const usernameInput = document.getElementById('usernameInput');
     const passwordInput = document.getElementById('passwordInput');
     const loginError = document.getElementById('loginError');
-    const usernameInput = document.getElementById('usernameInput');
 
     // Check if already logged in
     if (localStorage.getItem('adminLoggedIn') === 'true') {
@@ -29,9 +33,6 @@ function initLogin() {
         adminPanel.style.display = 'flex';
         loadMenuData();
         return;
-    }
-
-    loginBtn.addEventListener('click', () => {
         const username = usernameInput.value.trim();
         const password = passwordInput.value;
         
@@ -43,16 +44,19 @@ function initLogin() {
         } else {
             loginError.textContent = 'Неверный логин или пароль';
             usernameInput.value = '';
-            usernameInput.value = '';
             passwordInput.value = '';
-        }
-    });
-
     // Enter key support
     usernameInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
             passwordInput.focus();
         }
+    });
+
+    passwordInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            loginBtn.click();
+        }
+    });        }
     });
 
     // Enter key support
@@ -77,9 +81,6 @@ document.getElementById('logoutBtn')?.addEventListener('click', () => {
 
 // Load menu data
 function loadMenuData() {
-    // Try to load from menu.json first, fallback to CONFIG
-    // menu.json is in root, not in admin folder
-    // Use absolute path for production compatibility
     const menuJsonPath = window.location.pathname.includes('/adminangime') 
         ? '/menu.json' 
         : '../menu.json';
@@ -96,7 +97,6 @@ function loadMenuData() {
             renderAdmin();
         })
         .catch(() => {
-            // Use CONFIG from config.js
             menuData = JSON.parse(JSON.stringify(CONFIG.menu));
             renderAdmin();
         });
@@ -105,20 +105,21 @@ function loadMenuData() {
 // Render admin interface
 function renderAdmin() {
     renderCategories();
+    updateStats();
     updateStatus('Меню загружено');
 }
 
-// Render category tabs
+// Render categories in sidebar
 function renderCategories() {
-    const tabsContainer = document.getElementById('categoriesTabs');
-    tabsContainer.innerHTML = '';
+    const categoriesList = document.getElementById('categoriesList');
+    categoriesList.innerHTML = '';
 
     menuData.categories.forEach((category, index) => {
-        const tab = document.createElement('button');
-        tab.className = `category-tab ${index === 0 ? 'active' : ''}`;
-        tab.textContent = getCategoryTitle(category);
-        tab.addEventListener('click', () => selectCategory(category, index));
-        tabsContainer.appendChild(tab);
+        const item = document.createElement('div');
+        item.className = `category-item ${index === 0 ? 'active' : ''}`;
+        item.textContent = getCategoryTitle(category);
+        item.addEventListener('click', () => selectCategory(category, index));
+        categoriesList.appendChild(item);
     });
 
     // Select first category by default
@@ -127,9 +128,8 @@ function renderCategories() {
     }
 }
 
-// Get category title from translations
+// Get category title
 function getCategoryTitle(category) {
-    // Try to get from TRANSLATIONS if available
     if (typeof TRANSLATIONS !== 'undefined' && TRANSLATIONS.ru) {
         return TRANSLATIONS.ru[category.titleKey] || category.titleKey;
     }
@@ -140,33 +140,39 @@ function getCategoryTitle(category) {
 function selectCategory(category, index) {
     currentCategory = { category, index };
     
-    // Update tabs
-    document.querySelectorAll('.category-tab').forEach((tab, i) => {
-        tab.classList.toggle('active', i === index);
+    // Update sidebar
+    document.querySelectorAll('.category-item').forEach((item, i) => {
+        item.classList.toggle('active', i === index);
     });
 
     // Update header
     document.getElementById('currentCategoryTitle').textContent = getCategoryTitle(category);
-    document.getElementById('addItemBtn').style.display = 'block';
+    document.getElementById('addItemBtn').style.display = 'flex';
 
     // Render items
     renderItems(category.items);
+    updateStats();
 }
 
-// Render items list
+// Render items grid
 function renderItems(items) {
-    const itemsList = document.getElementById('itemsList');
+    const itemsGrid = document.getElementById('itemsGrid');
     
     if (items.length === 0) {
-        itemsList.innerHTML = '<div class="empty-state"><p>В этой категории пока нет позиций</p></div>';
+        itemsGrid.innerHTML = `
+            <div class="empty-state">
+                <div class="empty-icon">📋</div>
+                <p>В этой категории пока нет позиций</p>
+            </div>
+        `;
         return;
     }
 
-    itemsList.innerHTML = '';
+    itemsGrid.innerHTML = '';
 
     items.forEach((item, itemIndex) => {
         const itemCard = createItemCard(item, itemIndex);
-        itemsList.appendChild(itemCard);
+        itemsGrid.appendChild(itemCard);
     });
 }
 
@@ -177,23 +183,23 @@ function createItemCard(item, itemIndex) {
 
     const imageSrc = item.images && item.images.length > 0 
         ? item.images[0] 
-        : 'https://placehold.co/120x120/667eea/ffffff?text=No+Image';
+        : 'https://placehold.co/400x300/667eea/ffffff?text=No+Image';
 
     const nameRu = getTranslation(item.nameKey, 'ru') || item.nameKey;
     const descRu = item.descKey ? (getTranslation(item.descKey, 'ru') || '') : '';
 
     card.innerHTML = `
-        <img src="${imageSrc}" alt="${nameRu}" class="item-image" onerror="this.src='https://placehold.co/120x120/667eea/ffffff?text=Error'">
-        <div class="item-content">
-            <div class="item-header">
-                <h3 class="item-name">${nameRu}</h3>
-                <span class="item-price">${item.price}</span>
+        <img src="${imageSrc}" alt="${nameRu}" class="item-card-image" onerror="this.src='https://placehold.co/400x300/667eea/ffffff?text=Error'">
+        <div class="item-card-content">
+            <div class="item-card-header">
+                <h3 class="item-card-name">${nameRu}</h3>
+                <span class="item-card-price">${item.price}</span>
             </div>
-            <p class="item-description">${descRu}</p>
-            <div class="item-specs">
+            <p class="item-card-description">${descRu}</p>
+            <div class="item-card-specs">
                 ${item.specs ? item.specs.map(spec => `<span class="spec-badge">${spec}</span>`).join('') : ''}
             </div>
-            <div class="item-actions">
+            <div class="item-card-actions">
                 <button class="btn btn-primary btn-small" onclick="editItem(${itemIndex})">✏️ Редактировать</button>
                 <button class="btn btn-danger btn-small" onclick="deleteItem(${itemIndex})">🗑️ Удалить</button>
             </div>
@@ -216,6 +222,10 @@ function editItem(itemIndex) {
     const item = currentCategory.category.items[itemIndex];
     currentEditingItem = { item, itemIndex };
 
+    // Reset media arrays
+    currentImages = item.images ? [...item.images] : [];
+    currentVideos = item.videos ? [...item.videos] : [];
+
     // Populate form
     document.getElementById('nameRu').value = getTranslation(item.nameKey, 'ru') || '';
     document.getElementById('nameKk').value = getTranslation(item.nameKey, 'kk') || '';
@@ -225,21 +235,41 @@ function editItem(itemIndex) {
     document.getElementById('descKk').value = item.descKey ? (getTranslation(item.descKey, 'kk') || '') : '';
     document.getElementById('descEn').value = item.descKey ? (getTranslation(item.descKey, 'en') || '') : '';
     document.getElementById('specs').value = item.specs ? item.specs.join(', ') : '';
-    document.getElementById('images').value = item.images ? item.images.join('\n') : '';
     document.getElementById('details').value = item.details ? JSON.stringify(item.details, null, 2) : '';
+
+    // Render media previews
+    renderImagePreviews();
+    renderVideoPreviews();
 
     // Show modal
     document.getElementById('itemModal').classList.add('active');
-    document.getElementById('modalTitle').textContent = 'Редактировать позицию';
+    document.getElementById('modalTitle').innerHTML = `
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+        </svg>
+        Редактировать позицию
+    `;
 }
 
 // Add new item
 function addNewItem() {
     currentEditingItem = { item: null, itemIndex: -1 };
+    currentImages = [];
+    currentVideos = [];
 
     // Clear form
     document.getElementById('itemForm').reset();
-    document.getElementById('modalTitle').textContent = 'Добавить новую позицию';
+    renderImagePreviews();
+    renderVideoPreviews();
+
+    document.getElementById('modalTitle').innerHTML = `
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        Добавить новую позицию
+    `;
 
     // Show modal
     document.getElementById('itemModal').classList.add('active');
@@ -253,6 +283,7 @@ function deleteItem(itemIndex) {
 
     currentCategory.category.items.splice(itemIndex, 1);
     renderItems(currentCategory.category.items);
+    updateStats();
     markAsChanged();
 }
 
@@ -274,12 +305,6 @@ function saveItem(formData) {
         .map(s => s.trim())
         .filter(s => s.length > 0);
 
-    // Parse images
-    const images = formData.images.value
-        .split(/[,\n]/)
-        .map(img => img.trim())
-        .filter(img => img.length > 0);
-
     // Parse details
     let details = null;
     if (formData.details.value.trim()) {
@@ -295,13 +320,14 @@ function saveItem(formData) {
     const item = {
         nameKey,
         price: formData.price.value.trim(),
-        descKey: formData.descKk.value.trim() || formData.descEn.value.trim() ? descKey : undefined,
+        descKey: (formData.descRu.value.trim() || formData.descKk.value.trim() || formData.descEn.value.trim()) ? descKey : undefined,
         specs: specs.length > 0 ? specs : [],
-        images: images.length > 0 ? images : [],
+        images: currentImages.length > 0 ? currentImages : [],
+        ...(currentVideos.length > 0 && { videos: currentVideos }),
         ...(details && { details })
     };
 
-    // Update translations (we'll need to handle this separately)
+    // Update translations
     updateTranslations(nameKey, {
         ru: formData.nameRu.value.trim(),
         kk: formData.nameKk.value.trim(),
@@ -318,14 +344,13 @@ function saveItem(formData) {
 
     // Add or update item
     if (currentEditingItem.itemIndex === -1) {
-        // New item
         currentCategory.category.items.push(item);
     } else {
-        // Update existing
         currentCategory.category.items[currentEditingItem.itemIndex] = item;
     }
 
     renderItems(currentCategory.category.items);
+    updateStats();
     closeModal();
     markAsChanged();
 }
@@ -337,7 +362,7 @@ function generateKey(prefix, suffix) {
     return `${prefix}${timestamp}${random}${suffix}`;
 }
 
-// Update translations (stored separately)
+// Update translations
 let translationsData = {};
 
 function updateTranslations(key, translations) {
@@ -374,24 +399,158 @@ function initAdmin() {
             closeModal();
         }
     });
+
+    // Image upload
+    initImageUpload();
+    
+    // Video upload
+    initVideoUpload();
+}
+
+// Initialize image upload with drag-and-drop
+function initImageUpload() {
+    const uploadZone = document.getElementById('imageUploadZone');
+    const fileInput = document.getElementById('imageFileInput');
+
+    // Click to select files
+    uploadZone.addEventListener('click', () => fileInput.click());
+
+    // File input change
+    fileInput.addEventListener('change', (e) => {
+        handleImageFiles(Array.from(e.target.files));
+    });
+
+    // Drag and drop
+    uploadZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadZone.style.borderColor = 'var(--accent-gold)';
+        uploadZone.style.background = 'rgba(255, 215, 0, 0.1)';
+    });
+
+    uploadZone.addEventListener('dragleave', () => {
+        uploadZone.style.borderColor = 'var(--border-color)';
+        uploadZone.style.background = 'rgba(255, 255, 255, 0.02)';
+    });
+
+    uploadZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadZone.style.borderColor = 'var(--border-color)';
+        uploadZone.style.background = 'rgba(255, 255, 255, 0.02)';
+        
+        const files = Array.from(e.dataTransfer.files).filter(file => file.type.startsWith('image/'));
+        handleImageFiles(files);
+    });
+}
+
+// Handle image files
+function handleImageFiles(files) {
+    files.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            // For now, we'll use the file name as path
+            // In production, you'd upload to server and get URL
+            const imagePath = `pictures/отработка меню/${file.name}`;
+            currentImages.push(imagePath);
+            renderImagePreviews();
+            markAsChanged();
+        };
+        reader.readAsDataURL(file);
+    });
+}
+
+// Render image previews
+function renderImagePreviews() {
+    const grid = document.getElementById('imagePreviewGrid');
+    grid.innerHTML = '';
+
+    currentImages.forEach((imagePath, index) => {
+        const item = document.createElement('div');
+        item.className = 'media-preview-item';
+        item.innerHTML = `
+            <img src="${imagePath}" alt="Preview" onerror="this.src='https://placehold.co/150x150/667eea/ffffff?text=Error'">
+            <button class="remove-btn" onclick="removeImage(${index})">&times;</button>
+        `;
+        grid.appendChild(item);
+    });
+}
+
+// Remove image
+function removeImage(index) {
+    currentImages.splice(index, 1);
+    renderImagePreviews();
+    markAsChanged();
+}
+
+// Initialize video upload
+function initVideoUpload() {
+    const addVideoBtn = document.getElementById('addVideoBtn');
+    const videoUrlInput = document.getElementById('videoUrl');
+
+    addVideoBtn.addEventListener('click', () => {
+        const url = videoUrlInput.value.trim();
+        if (url) {
+            currentVideos.push(url);
+            videoUrlInput.value = '';
+            renderVideoPreviews();
+            markAsChanged();
+        }
+    });
+
+    videoUrlInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            addVideoBtn.click();
+        }
+    });
+}
+
+// Render video previews
+function renderVideoPreviews() {
+    const grid = document.getElementById('videoPreviewGrid');
+    grid.innerHTML = '';
+
+    currentVideos.forEach((videoPath, index) => {
+        const item = document.createElement('div');
+        item.className = 'media-preview-item';
+        item.innerHTML = `
+            <video src="${videoPath}" controls></video>
+            <button class="remove-btn" onclick="removeVideo(${index})">&times;</button>
+        `;
+        grid.appendChild(item);
+    });
+}
+
+// Remove video
+function removeVideo(index) {
+    currentVideos.splice(index, 1);
+    renderVideoPreviews();
+    markAsChanged();
 }
 
 // Close modal
 function closeModal() {
     document.getElementById('itemModal').classList.remove('active');
     currentEditingItem = null;
+    currentImages = [];
+    currentVideos = [];
 }
 
 // Mark as changed
 function markAsChanged() {
     hasUnsavedChanges = true;
-    document.getElementById('unsavedIndicator').style.display = 'block';
+    document.getElementById('unsavedIndicator').style.display = 'flex';
     updateStatus('Есть несохраненные изменения');
 }
 
 // Update status
 function updateStatus(message) {
     document.getElementById('statusText').textContent = message;
+}
+
+// Update stats
+function updateStats() {
+    if (!currentCategory) return;
+    const total = currentCategory.category.items.length;
+    document.getElementById('totalItems').textContent = total;
 }
 
 // Save to file
@@ -401,17 +560,13 @@ function saveToFile() {
         return;
     }
 
-    // Create data structure
     const dataToSave = {
         menu: menuData,
         translations: translationsData,
         updatedAt: new Date().toISOString()
     };
 
-    // Convert to JSON
     const json = JSON.stringify(dataToSave, null, 2);
-
-    // Create blob and download
     const blob = new Blob([json], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -422,7 +577,7 @@ function saveToFile() {
 
     hasUnsavedChanges = false;
     document.getElementById('unsavedIndicator').style.display = 'none';
-    updateStatus('Меню экспортировано в menu.json. Загрузите файл в корень сайта (рядом с index.html) через FTP/GitHub.');
+    updateStatus('Меню экспортировано в menu.json. Загрузите файл в корень сайта через FTP/GitHub.');
 }
 
 // Export JSON
@@ -447,3 +602,5 @@ function exportJSON() {
 // Make functions global for onclick handlers
 window.editItem = editItem;
 window.deleteItem = deleteItem;
+window.removeImage = removeImage;
+window.removeVideo = removeVideo;

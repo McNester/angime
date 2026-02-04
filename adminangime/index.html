@@ -15,9 +15,12 @@
         <div class="login-box">
             <div class="login-logo">🍺</div>
             <h1>Админ-панель</h1>
-            <p>Введите пароль для доступа</p>
-            <input type="password" id="passwordInput" placeholder="Пароль" autocomplete="off">
-            <button id="loginBtn" class="btn btn-primary">Войти</button>
+            <p>Войдите в систему</p>
+            <div class="login-form">
+                <input type="text" id="usernameInput" placeholder="Логин" autocomplete="username">
+                <input type="password" id="passwordInput" placeholder="Пароль" autocomplete="current-password">
+                <button id="loginBtn" class="btn btn-primary">Войти</button>
+            </div>
             <p id="loginError" class="error-message"></p>
         </div>
     </div>
