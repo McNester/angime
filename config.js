@@ -77,23 +77,15 @@ const CONFIG = {
                 items: [
                     {
                         nameKey: 'beerItem1Name',
-                        price: '1500₸',
+                        price: '1700₸',
                         descKey: 'beerItem1Desc',
                         specs: ['400мл'],
                         images: ['pictures/отработка меню/пиво аниме.JPG'],
                         details: { 'Объем': '400мл' }
                     },
                     {
-                        nameKey: 'beerItem2Name',
-                        price: '1600₸',
-                        descKey: 'beerItem2Desc',
-                        specs: ['400мл'],
-                        images: ['https://placehold.co/800x600/764ba2/ffffff?text=БИДАЙ'],
-                        details: { 'Объем': '400мл' }
-                    },
-                    {
                         nameKey: 'beerItem3Name',
-                        price: '2300₸',
+                        price: '2500₸',
                         descKey: 'beerItem3Desc',
                         specs: ['IPL', '400мл'],
                         images: ['pictures/отработка меню/пиво негейское, бланш, .JPG'],
@@ -117,7 +109,7 @@ const CONFIG = {
                     },
                     {
                         nameKey: 'beerItem6Name',
-                        price: '1800₸',
+                        price: '2100₸',
                         descKey: 'beerItem6Desc',
                         specs: ['400мл'],
                         images: ['pictures/отработка меню/пиво кельш.JPG'],
@@ -125,7 +117,7 @@ const CONFIG = {
                     },
                     {
                         nameKey: 'beerItem7Name',
-                        price: '2000₸',
+                        price: '2100₸',
                         descKey: 'beerItem7Desc',
                         specs: ['Фруктовое', '400мл'],
                         images: ['pictures/отработка меню/пиво крик.JPG'],
@@ -141,19 +133,11 @@ const CONFIG = {
                     },
                     {
                         nameKey: 'beerItem9Name',
-                        price: '1400₸',
+                        price: '1700₸',
                         descKey: 'beerItem9Desc',
                         specs: ['400мл'],
                         images: ['https://placehold.co/800x600/f5576c/ffffff?text=HAVI'],
                         details: { 'Объем': '400мл' }
-                    },
-                    {
-                        nameKey: 'beerItem10Name',
-                        price: '1400₸',
-                        descKey: 'beerItem10Desc',
-                        specs: ['400мл'],
-                        images: ['pictures/отработка меню/пиво хеллес.JPG'],
-                        details: { 'Стиль': 'Баварский', 'Объем': '400мл' }
                     },
                     {
                         nameKey: 'beerItem11Name',
@@ -165,7 +149,7 @@ const CONFIG = {
                     },
                     {
                         nameKey: 'beerItem12Name',
-                        price: '1000₸',
+                        price: '1100₸',
                         descKey: 'beerItem12Desc',
                         specs: ['Безалкогольный', '400мл'],
                         images: ['pictures/отработка меню/пиво квас.JPG'],
