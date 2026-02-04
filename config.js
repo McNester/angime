@@ -100,16 +100,8 @@ const CONFIG = {
                         details: { 'Объем': '400мл' }
                     },
                     {
-                        nameKey: 'beerItem5Name',
-                        price: '2300₸',
-                        descKey: 'beerItem5Desc',
-                        specs: ['Бельгийское', '400мл'],
-                        images: ['pictures/отработка меню/пиво негейское, бланш, .JPG'],
-                        details: { 'Стиль': 'Бельгийское', 'Объем': '400мл' }
-                    },
-                    {
                         nameKey: 'beerItem6Name',
-                        price: '2100₸',
+                        price: '2000₸',
                         descKey: 'beerItem6Desc',
                         specs: ['400мл'],
                         images: ['pictures/отработка меню/пиво кельш.JPG'],
