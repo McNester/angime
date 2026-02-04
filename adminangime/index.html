@@ -5,11 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Админ-панель — Управление меню Әңgіме</title>
     <link rel="stylesheet" href="admin.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Login Screen -->
     <div id="loginScreen" class="login-screen">
         <div class="login-box">
+            <div class="login-logo">🍺</div>
             <h1>Админ-панель</h1>
             <p>Введите пароль для доступа</p>
             <input type="password" id="passwordInput" placeholder="Пароль" autocomplete="off">
@@ -22,29 +26,64 @@
     <div id="adminPanel" class="admin-panel" style="display: none;">
         <!-- Header -->
         <header class="admin-header">
-            <h1>Управление меню Әңgіме</h1>
+            <div class="header-left">
+                <h1>🍺 Управление меню</h1>
+                <span class="header-subtitle">Әңgіме Bar</span>
+            </div>
             <div class="header-actions">
-                <button id="saveBtn" class="btn btn-success">💾 Сохранить изменения</button>
-                <button id="exportBtn" class="btn btn-secondary">📥 Экспорт JSON</button>
+                <button id="saveBtn" class="btn btn-success">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                        <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                        <polyline points="7 3 7 8 15 8"></polyline>
+                    </svg>
+                    Сохранить
+                </button>
+                <button id="exportBtn" class="btn btn-secondary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    Экспорт
+                </button>
                 <button id="logoutBtn" class="btn btn-danger">Выйти</button>
             </div>
         </header>
 
         <!-- Main Content -->
         <main class="admin-main">
-            <!-- Categories Tabs -->
-            <div class="categories-tabs" id="categoriesTabs"></div>
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="sidebar-section">
+                    <h3>Категории</h3>
+                    <div class="categories-list" id="categoriesList"></div>
+                </div>
+                <div class="sidebar-stats">
+                    <div class="stat-item">
+                        <span class="stat-value" id="totalItems">0</span>
+                        <span class="stat-label">Позиций</span>
+                    </div>
+                </div>
+            </aside>
 
-            <!-- Menu Editor -->
-            <div class="menu-editor">
-                <div class="editor-header">
+            <!-- Content Area -->
+            <div class="content-area">
+                <div class="content-header">
                     <h2 id="currentCategoryTitle">Выберите категорию</h2>
-                    <button id="addItemBtn" class="btn btn-primary" style="display: none;">+ Добавить позицию</button>
+                    <button id="addItemBtn" class="btn btn-primary" style="display: none;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        Добавить позицию
+                    </button>
                 </div>
 
-                <!-- Items List -->
-                <div class="items-list" id="itemsList">
+                <!-- Items Grid -->
+                <div class="items-grid" id="itemsGrid">
                     <div class="empty-state">
+                        <div class="empty-icon">📋</div>
                         <p>Выберите категорию для редактирования меню</p>
                     </div>
                 </div>
@@ -54,85 +93,157 @@
         <!-- Status Bar -->
         <div class="status-bar" id="statusBar">
             <span id="statusText">Готов к работе</span>
-            <span id="unsavedIndicator" class="unsaved-indicator" style="display: none;">● Несохраненные изменения</span>
+            <span id="unsavedIndicator" class="unsaved-indicator" style="display: none;">
+                <span class="pulse-dot"></span> Несохраненные изменения
+            </span>
         </div>
     </div>
 
     <!-- Item Edit Modal -->
     <div id="itemModal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content large-modal">
             <div class="modal-header">
-                <h2 id="modalTitle">Редактировать позицию</h2>
+                <h2 id="modalTitle">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                    </svg>
+                    Редактировать позицию
+                </h2>
                 <button class="modal-close" id="modalClose">&times;</button>
             </div>
             <div class="modal-body">
                 <form id="itemForm">
-                    <!-- Name (RU) -->
-                    <div class="form-group">
-                        <label>Название (RU) *</label>
-                        <input type="text" id="nameRu" required>
+                    <!-- Media Section -->
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                <polyline points="21 15 16 10 5 21"></polyline>
+                            </svg>
+                            Медиа (фото и видео)
+                        </h3>
+                        
+                        <!-- Image Upload Area -->
+                        <div class="media-upload-area" id="imageUploadArea">
+                            <div class="upload-zone" id="imageUploadZone">
+                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="17 8 12 3 7 8"></polyline>
+                                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                                </svg>
+                                <p>Перетащите изображения сюда или нажмите для выбора</p>
+                                <input type="file" id="imageFileInput" multiple accept="image/*" style="display: none;">
+                            </div>
+                            <div class="media-preview-grid" id="imagePreviewGrid"></div>
+                        </div>
+
+                        <!-- Video Upload Area -->
+                        <div class="media-upload-area" id="videoUploadArea" style="margin-top: 1.5rem;">
+                            <label class="form-label">Видео (URL или путь к файлу)</label>
+                            <div class="video-input-group">
+                                <input type="text" id="videoUrl" placeholder="https://example.com/video.mp4 или video/video.mp4">
+                                <button type="button" class="btn btn-secondary btn-small" id="addVideoBtn">Добавить</button>
+                            </div>
+                            <div class="media-preview-grid" id="videoPreviewGrid"></div>
+                        </div>
                     </div>
 
-                    <!-- Name (KK) -->
-                    <div class="form-group">
-                        <label>Название (ҚЗ)</label>
-                        <input type="text" id="nameKk">
+                    <!-- Basic Info Section -->
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                            Основная информация
+                        </h3>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Название (RU) *</label>
+                                <input type="text" id="nameRu" required placeholder="Например: ANIME">
+                            </div>
+                            <div class="form-group">
+                                <label>Цена *</label>
+                                <input type="text" id="price" required placeholder="1700₸">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Название (ҚЗ)</label>
+                                <input type="text" id="nameKk" placeholder="Қазақша атауы">
+                            </div>
+                            <div class="form-group">
+                                <label>Название (EN)</label>
+                                <input type="text" id="nameEn" placeholder="English name">
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Name (EN) -->
-                    <div class="form-group">
-                        <label>Название (EN)</label>
-                        <input type="text" id="nameEn">
+                    <!-- Description Section -->
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                            Описание
+                        </h3>
+                        
+                        <div class="form-group">
+                            <label>Описание (RU)</label>
+                            <textarea id="descRu" rows="3" placeholder="Подробное описание позиции"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Описание (ҚЗ)</label>
+                            <textarea id="descKk" rows="3" placeholder="Қазақша сипаттама"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Описание (EN)</label>
+                            <textarea id="descEn" rows="3" placeholder="English description"></textarea>
+                        </div>
                     </div>
 
-                    <!-- Price -->
-                    <div class="form-group">
-                        <label>Цена *</label>
-                        <input type="text" id="price" placeholder="1700₸" required>
-                    </div>
+                    <!-- Specs Section -->
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="8" x2="12" y2="12"></line>
+                                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                            </svg>
+                            Характеристики
+                        </h3>
+                        
+                        <div class="form-group">
+                            <label>Характеристики (через запятую)</label>
+                            <input type="text" id="specs" placeholder="400мл, Светлое, Фруктовое">
+                            <small>Пример: 400мл, Светлое, Фруктовое</small>
+                        </div>
 
-                    <!-- Description (RU) -->
-                    <div class="form-group">
-                        <label>Описание (RU)</label>
-                        <textarea id="descRu" rows="3"></textarea>
-                    </div>
-
-                    <!-- Description (KK) -->
-                    <div class="form-group">
-                        <label>Описание (ҚЗ)</label>
-                        <textarea id="descKk" rows="3"></textarea>
-                    </div>
-
-                    <!-- Description (EN) -->
-                    <div class="form-group">
-                        <label>Описание (EN)</label>
-                        <textarea id="descEn" rows="3"></textarea>
-                    </div>
-
-                    <!-- Specs -->
-                    <div class="form-group">
-                        <label>Характеристики (через запятую)</label>
-                        <input type="text" id="specs" placeholder="400мл, Светлое">
-                        <small>Пример: 400мл, Светлое, Фруктовое</small>
-                    </div>
-
-                    <!-- Images -->
-                    <div class="form-group">
-                        <label>Изображения (пути через запятую)</label>
-                        <textarea id="images" rows="3" placeholder="pictures/отработка меню/пиво аниме.JPG"></textarea>
-                        <small>Одно изображение на строку или через запятую</small>
-                    </div>
-
-                    <!-- Details -->
-                    <div class="form-group">
-                        <label>Дополнительные детали (JSON формат)</label>
-                        <textarea id="details" rows="3" placeholder='{"Объем": "400мл", "Тип": "IPL"}'></textarea>
-                        <small>Необязательно. Формат: {"Ключ": "Значение"}</small>
+                        <div class="form-group">
+                            <label>Дополнительные детали (JSON)</label>
+                            <textarea id="details" rows="3" placeholder='{"Объем": "400мл", "Тип": "IPL"}'></textarea>
+                            <small>Необязательно. Формат: {"Ключ": "Значение"}</small>
+                        </div>
                     </div>
 
                     <div class="form-actions">
                         <button type="button" class="btn btn-secondary" id="cancelBtn">Отмена</button>
-                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                        <button type="submit" class="btn btn-primary">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                                <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                                <polyline points="7 3 7 8 15 8"></polyline>
+                            </svg>
+                            Сохранить позицию
+                        </button>
                     </div>
                 </form>
             </div>
