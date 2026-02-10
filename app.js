@@ -85,23 +85,30 @@ class ImageLoader {
 
 const imageLoader = new ImageLoader();
 
-// Load menu data (from menu.json if exists, otherwise from CONFIG)
+// Load menu data: сначала из сохранений админки (localStorage), потом menu.json, иначе CONFIG
 let menuConfig = null;
 
 async function loadMenuData() {
+    try {
+        var saved = localStorage.getItem('angime_menu');
+        if (saved) {
+            var parsed = JSON.parse(saved);
+            if (parsed && parsed.menu && parsed.menu.categories && parsed.menu.categories.length) {
+                menuConfig = parsed.menu;
+                return true;
+            }
+        }
+    } catch (e) {}
+
     try {
         const response = await fetch('./menu.json');
         if (response.ok) {
             const data = await response.json();
             menuConfig = data.menu || data;
-            console.log('Menu loaded from menu.json');
             return true;
         }
-    } catch (e) {
-        console.log('menu.json not found, using CONFIG');
-    }
-    
-    // Fallback to CONFIG
+    } catch (e) {}
+
     menuConfig = CONFIG.menu;
     return false;
 }
