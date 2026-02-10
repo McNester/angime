@@ -1,0 +1,523 @@
+{
+  "menu": {
+    "categories": [
+      {
+        "id": "beer",
+        "titleKey": "menuBeerTab",
+        "items": [
+          {
+            "nameKey": "beerItem1Name",
+            "price": "1700₸",
+            "descKey": "beerItem1Desc",
+            "specs": [
+              "400мл"
+            ],
+            "images": [
+              "pictures/отработка меню/пиво аниме.JPG"
+            ],
+            "details": {
+              "Объем": "400мл"
+            }
+          },
+          {
+            "nameKey": "beerItem3Name",
+            "price": "2500₸",
+            "descKey": "beerItem3Desc",
+            "specs": [
+              "IPL",
+              "400мл"
+            ],
+            "images": [
+              "pictures/отработка меню/пиво негейское, бланш, .JPG"
+            ],
+            "details": {
+              "Тип": "IPL",
+              "Объем": "400мл"
+            }
+          },
+          {
+            "nameKey": "beerItem4Name",
+            "price": "2000₸",
+            "descKey": "beerItem4Desc",
+            "specs": [
+              "400мл"
+            ],
+            "images": [
+              "pictures/отработка меню/пиво аниме.JPG"
+            ],
+            "details": {
+              "Объем": "400мл"
+            }
+          },
+          {
+            "nameKey": "beerItem6Name",
+            "price": "2000₸",
+            "descKey": "beerItem6Desc",
+            "specs": [
+              "400мл"
+            ],
+            "images": [
+              "pictures/отработка меню/пиво кельш.JPG"
+            ],
+            "details": {
+              "Объем": "400мл"
+            }
+          },
+          {
+            "nameKey": "beerItem7Name",
+            "price": "2100₸",
+            "descKey": "beerItem7Desc",
+            "specs": [
+              "Фруктовое",
+              "400мл"
+            ],
+            "images": [
+              "pictures/отработка меню/пиво крик.JPG"
+            ],
+            "details": {
+              "Вкус": "Вишня",
+              "Объем": "400мл"
+            }
+          },
+          {
+            "nameKey": "beerItem8Name",
+            "price": "2000₸",
+            "descKey": "beerItem8Desc",
+            "specs": [
+              "Сидр",
+              "400мл"
+            ],
+            "images": [
+              "pictures/отработка меню/пиво сидр.JPG"
+            ],
+            "details": {
+              "Тип": "Сидр",
+              "Объем": "400мл"
+            }
+          },
+          {
+            "nameKey": "beerItem9Name",
+            "price": "1700₸",
+            "descKey": "beerItem9Desc",
+            "specs": [
+              "400мл"
+            ],
+            "images": [
+              "https://placehold.co/800x600/f5576c/ffffff?text=HAVI"
+            ],
+            "details": {
+              "Объем": "400мл"
+            }
+          },
+          {
+            "nameKey": "beerItem11Name",
+            "price": "2500₸",
+            "descKey": "beerItem11Desc",
+            "specs": [
+              "Темное",
+              "400мл"
+            ],
+            "images": [
+              "https://placehold.co/800x600/43e97b/ffffff?text=KOMIR"
+            ],
+            "details": {
+              "Цвет": "Темное",
+              "Объем": "400мл"
+            }
+          },
+          {
+            "nameKey": "beerItem12Name",
+            "price": "1100₸",
+            "descKey": "beerItem12Desc",
+            "specs": [
+              "Безалкогольный",
+              "400мл"
+            ],
+            "images": [
+              "pictures/отработка меню/пиво квас.JPG"
+            ],
+            "details": {
+              "Тип": "Квас",
+              "Объем": "400мл"
+            }
+          }
+        ]
+      },
+      {
+        "id": "bar",
+        "titleKey": "menuBarTab",
+        "items": [
+          {
+            "nameKey": "barItem1Name",
+            "price": "1800₸",
+            "descKey": "barItem1Desc",
+            "specs": [
+              "40мл"
+            ],
+            "images": [
+              "https://placehold.co/400x300/8B4513/ffffff?text=OAKHEART+RUM"
+            ]
+          },
+          {
+            "nameKey": "barItem2Name",
+            "price": "3000₸",
+            "descKey": "barItem2Desc",
+            "specs": [
+              "40мл"
+            ],
+            "images": [
+              "https://placehold.co/400x300/D4AF37/ffffff?text=JAMESON"
+            ]
+          },
+          {
+            "nameKey": "barItem3Name",
+            "price": "2500₸",
+            "descKey": "barItem3Desc",
+            "specs": [
+              "40мл"
+            ],
+            "images": [
+              "https://placehold.co/400x300/C19A6B/ffffff?text=BALLANTINES"
+            ]
+          },
+          {
+            "nameKey": "barItem4Name",
+            "price": "2000₸",
+            "descKey": "barItem4Desc",
+            "specs": [
+              "40мл"
+            ],
+            "images": [
+              "https://placehold.co/400x300/8B7355/ffffff?text=WILLIAM+LAWSON"
+            ]
+          },
+          {
+            "nameKey": "barItem5Name",
+            "price": "1500₸",
+            "descKey": "barItem5Desc",
+            "specs": [
+              "40мл"
+            ],
+            "images": [
+              "https://placehold.co/400x300/B8860B/ffffff?text=OLMECA+SILVER"
+            ]
+          },
+          {
+            "nameKey": "barItem6Name",
+            "price": "1700₸",
+            "descKey": "barItem6Desc",
+            "specs": [
+              "40мл"
+            ],
+            "images": [
+              "https://placehold.co/400x300/DAA520/ffffff?text=OLMECA+GOLD"
+            ]
+          },
+          {
+            "nameKey": "barItem7Name",
+            "price": "2000₸",
+            "descKey": "barItem7Desc",
+            "specs": [
+              "40мл"
+            ],
+            "images": [
+              "https://placehold.co/400x300/2F4F4F/ffffff?text=JAGERMEISTER"
+            ]
+          },
+          {
+            "nameKey": "barItem8Name",
+            "price": "5000",
+            "descKey": "barItem8Desc",
+            "specs": [
+              "330мл",
+              "~15%"
+            ],
+            "images": [
+              "https://placehold.co/400x300/E8F5E9/333333?text=SOJU"
+            ]
+          },
+          {
+            "nameKey": "barItem9Name",
+            "price": "9000₸",
+            "descKey": "barItem9Desc",
+            "specs": [
+              "750мл"
+            ],
+            "images": [
+              "https://placehold.co/400x300/8B0000/ffffff?text=WINE"
+            ]
+          },
+          {
+            "nameKey": "barItem10Name",
+            "price": "10000₸",
+            "descKey": "barItem10Desc",
+            "specs": [
+              "750мл",
+              "Игристое"
+            ],
+            "images": [
+              "https://placehold.co/400x300/FFD700/333333?text=WINE+COCKTAIL"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "food",
+        "titleKey": "menuFoodTab",
+        "items": [
+          {
+            "nameKey": "foodItem1Name",
+            "price": "1800₸",
+            "descKey": "foodItem1Desc",
+            "specs": [],
+            "images": [
+              "pictures/отработка меню/ассорти орешков.JPG"
+            ]
+          },
+          {
+            "nameKey": "foodItem2Name",
+            "price": "1800₸",
+            "descKey": "foodItem2Desc",
+            "specs": [],
+            "images": [
+              "pictures/отработка меню/ ассорти Куртов.JPG"
+            ]
+          },
+          {
+            "nameKey": "foodItem4Name",
+            "price": "4000₸",
+            "descKey": "foodItem4Desc",
+            "specs": [],
+            "images": [
+              "pictures/отработка меню/пивное ассорти.JPG"
+            ]
+          },
+          {
+            "nameKey": "foodItemNachos",
+            "price": "1800₸",
+            "descKey": "foodItemNachosDesc",
+            "specs": [],
+            "images": [
+              "pictures/отработка меню/начос-nachos.JPG"
+            ]
+          },
+          {
+            "nameKey": "foodItemChechel",
+            "price": "1500₸",
+            "descKey": "foodItemChechelDesc",
+            "specs": [],
+            "images": [
+              "pictures/отработка меню/чечил.JPG"
+            ]
+          },
+          {
+            "nameKey": "foodItemOnionRings",
+            "price": "1800₸",
+            "descKey": "foodItemOnionRingsDesc",
+            "specs": [],
+            "images": [
+              "pictures/отработка меню/луковые кольца.JPG"
+            ]
+          },
+          {
+            "nameKey": "foodItemFries",
+            "price": "1200₸",
+            "descKey": "foodItemFriesDesc",
+            "specs": [],
+            "images": [
+              "pictures/отработка меню/фрикенштейн.JPG"
+            ]
+          },
+          {
+            "nameKey": "foodItemWedges",
+            "price": "1200₸",
+            "descKey": "foodItemWedgesDesc",
+            "specs": [],
+            "images": [
+              "pictures/отработка меню/сырная деревушка.JPG"
+            ]
+          },
+          {
+            "nameKey": "foodItemCroutons",
+            "price": "1500₸",
+            "descKey": "foodItemCroutonsDesc",
+            "specs": [],
+            "images": [
+              "pictures/отработка меню/гренки.JPG"
+            ]
+          },
+          {
+            "nameKey": "foodItemBaursaki",
+            "price": "2000₸",
+            "descKey": "foodItemBaursakiDesc",
+            "specs": [],
+            "images": [
+              "pictures/отработка меню/баурсаки с сыром.JPG"
+            ]
+          },
+          {
+            "nameKey": "foodItemGarlicBaursaki",
+            "price": "1800₸",
+            "descKey": "foodItemGarlicBaursakiDesc",
+            "specs": [],
+            "images": [
+              "pictures/отработка меню/чесночные баурсаки.JPG"
+            ]
+          },
+          {
+            "nameKey": "foodItem9Name",
+            "price": "3000₸",
+            "descKey": "foodItem9Desc",
+            "specs": [],
+            "images": [
+              "pictures/отработка меню/пицца маргарита.JPG"
+            ]
+          },
+          {
+            "nameKey": "foodItem10Name",
+            "price": "3200₸",
+            "descKey": "foodItem10Desc",
+            "specs": [],
+            "images": [
+              "pictures/отработка меню/пицца пеперрони.JPG"
+            ]
+          },
+          {
+            "nameKey": "foodItem11Name",
+            "price": "3200₸",
+            "descKey": "foodItem11Desc",
+            "specs": [],
+            "images": [
+              "pictures/отработка меню/пицца с курицей и грибами.JPG"
+            ]
+          },
+          {
+            "nameKey": "foodItemBBQChicken",
+            "price": "3200₸",
+            "descKey": "foodItemBBQChickenDesc",
+            "specs": [],
+            "images": [
+              "pictures/отработка меню/пицца с цыпленком барбекью.JPG"
+            ]
+          },
+          {
+            "nameKey": "foodItem12Name",
+            "price": "3500₸",
+            "descKey": "foodItem12Desc",
+            "specs": [],
+            "images": [
+              "menu/meet_pizza.JPG"
+            ]
+          },
+          {
+            "nameKey": "foodItemShrimp",
+            "price": "3200₸",
+            "descKey": "foodItemShrimpDesc",
+            "specs": [],
+            "images": [
+              "pictures/отработка меню/тигровые креветки.JPG"
+            ]
+          },
+          {
+            "nameKey": "foodItemYannem",
+            "price": "3000₸",
+            "descKey": "foodItemYannemDesc",
+            "specs": [],
+            "images": [
+              "pictures/отработка меню/яннем чикен.JPG"
+            ]
+          },
+          {
+            "nameKey": "foodItem6Name",
+            "price": "2800₸",
+            "descKey": "foodItem6Desc",
+            "specs": [],
+            "images": [
+              "pictures/отработка меню/крылья бафаало.JPG"
+            ]
+          },
+          {
+            "nameKey": "foodItemBBQWings",
+            "price": "2800₸",
+            "descKey": "foodItemBBQWingsDesc",
+            "specs": [],
+            "images": [
+              "pictures/отработка меню/крылья барбекю.JPG"
+            ]
+          },
+          {
+            "nameKey": "foodItemCheburek",
+            "price": "3000₸",
+            "descKey": "foodItemCheburekDesc",
+            "specs": [],
+            "images": [
+              "pictures/отработка меню/чебуреки.JPG"
+            ]
+          },
+          {
+            "nameKey": "foodItemDumplings",
+            "price": "3000₸",
+            "descKey": "foodItemDumplingsDesc",
+            "specs": [],
+            "images": [
+              "https://placehold.co/400x300/E8F5E9/333333?text=Жаренные пельмени"
+            ]
+          },
+          {
+            "nameKey": "foodItemPannucio",
+            "price": "3000₸",
+            "specs": [],
+            "images": [
+              "pictures/отработка меню/пануоццо с говядиной.JPG"
+            ]
+          },
+          {
+            "nameKey": "foodItemHotDog",
+            "price": "3000₸",
+            "descKey": "foodItemHotDogDesc",
+            "specs": [],
+            "images": [
+              "pictures/отработка меню/хот дог.JPG"
+            ]
+          },
+          {
+            "nameKey": "foodItemClubSandwich",
+            "price": "3000₸",
+            "descKey": "foodItemClubSandwichDesc",
+            "specs": [],
+            "images": [
+              "pictures/отработка меню/клаб сендвич.JPG"
+            ]
+          },
+          {
+            "nameKey": "foodItemHamSandwich",
+            "price": "3200₸",
+            "descKey": "foodItemHamSandwichDesc",
+            "specs": [],
+            "images": [
+              "pictures/отработка меню/сэндвич с ветчиной.JPG"
+            ]
+          },
+          {
+            "nameKey": "foodItemSausages",
+            "price": "3200₸",
+            "descKey": "foodItemSausagesDesc",
+            "specs": [],
+            "images": [
+              "pictures/отработка меню/сосиски.JPG"
+            ]
+          },
+          {
+            "nameKey": "foodItemChefDish",
+            "price": "5000₸",
+            "descKey": "foodItemChefDishDesc",
+            "specs": [],
+            "images": [
+              "https://placehold.co/400x300/E8F5E9/333333?text=БЛЮДО ОТ ШЕФА"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

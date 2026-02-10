@@ -8,6 +8,18 @@ let currentCategory = null;
 let currentEditingItem = null;
 let hasUnsavedChanges = false;
 
+var ANGIME_MENU_KEY = 'angime_menu';
+
+function saveMenuToStorage() {
+    if (!menuData) return;
+    try {
+        localStorage.setItem(ANGIME_MENU_KEY, JSON.stringify({
+            menu: menuData,
+            updatedAt: new Date().toISOString()
+        }));
+    } catch (e) {}
+}
+
 // Initialize on load
 document.addEventListener('DOMContentLoaded', () => {
     initLogin();
@@ -80,21 +92,52 @@ function loadMenuData() {
         ? '/menu.json' 
         : '../menu.json';
     
+    function applyMenu(data, source) {
+        menuData = data;
+        renderAdmin();
+        if (source) updateStatus(source);
+    }
+    function useConfig() {
+        menuData = JSON.parse(JSON.stringify(CONFIG.menu));
+        renderAdmin();
+    }
+
+    var fromServer = null;
+    var fromLocal = null;
+    try {
+        var saved = localStorage.getItem(ANGIME_MENU_KEY);
+        if (saved) {
+            var parsed = JSON.parse(saved);
+            if (parsed && parsed.menu && parsed.menu.categories && parsed.menu.categories.length)
+                fromLocal = parsed;
+        }
+    } catch (e) {}
+
     fetch(menuJsonPath)
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            }
+        .then(function(response) {
+            if (response.ok) return response.json();
             throw new Error('menu.json not found');
         })
-        .then(data => {
-            menuData = data.menu || data;
-            renderAdmin();
+        .then(function(data) {
+            fromServer = { menu: data.menu || data, updatedAt: data.updatedAt || '' };
         })
-        .catch(() => {
-            // Use CONFIG from config.js
-            menuData = JSON.parse(JSON.stringify(CONFIG.menu));
-            renderAdmin();
+        .catch(function() { fromServer = null; })
+        .then(function() {
+            var serverTime = fromServer && fromServer.updatedAt ? fromServer.updatedAt : '';
+            var localTime = fromLocal && fromLocal.updatedAt ? fromLocal.updatedAt : '';
+            if (fromLocal && (!fromServer || localTime > serverTime)) {
+                applyMenu(fromLocal.menu, 'Меню загружено из сохранённой копии');
+                return;
+            }
+            if (fromServer) {
+                applyMenu(fromServer.menu, 'Меню загружено');
+                return;
+            }
+            if (fromLocal) {
+                applyMenu(fromLocal.menu, 'Меню загружено из сохранённой копии');
+                return;
+            }
+            useConfig();
         });
 }
 
@@ -272,6 +315,7 @@ function deleteItem(itemIndex) {
 
     currentCategory.category.items.splice(itemIndex, 1);
     renderItems(currentCategory.category.items);
+    saveMenuToStorage();
     markAsChanged();
 }
 
@@ -333,6 +377,7 @@ function saveItem() {
     }
 
     renderItems(currentCategory.category.items);
+    saveMenuToStorage();
     closeModal();
     markAsChanged();
     updateStatus('Позиция сохранена');
@@ -432,9 +477,10 @@ function saveToFile() {
     a.click();
     URL.revokeObjectURL(url);
 
+    saveMenuToStorage();
     hasUnsavedChanges = false;
     document.getElementById('unsavedIndicator').style.display = 'none';
-    updateStatus('Меню экспортировано в menu.json. Загрузите файл в корень сайта (рядом с index.html) через FTP/GitHub.');
+    updateStatus('Меню экспортировано. Положите menu.json в корень сайта и обновите страницу.');
 }
 
 // Export JSON
