@@ -15,6 +15,7 @@ function saveMenuToStorage() {
     try {
         localStorage.setItem(ANGIME_MENU_KEY, JSON.stringify({
             menu: menuData,
+            translations: translationsData,
             updatedAt: new Date().toISOString()
         }));
     } catch (e) {}
@@ -126,6 +127,14 @@ function loadMenuData() {
             var serverTime = fromServer && fromServer.updatedAt ? fromServer.updatedAt : '';
             var localTime = fromLocal && fromLocal.updatedAt ? fromLocal.updatedAt : '';
             if (fromLocal && (!fromServer || localTime > serverTime)) {
+                if (fromLocal.translations && typeof TRANSLATIONS !== 'undefined') {
+                    try {
+                        for (var lang in fromLocal.translations)
+                            if (TRANSLATIONS[lang])
+                                Object.assign(TRANSLATIONS[lang], fromLocal.translations[lang]);
+                    } catch (e) {}
+                }
+                if (fromLocal.translations) translationsData = fromLocal.translations;
                 applyMenu(fromLocal.menu, 'Меню загружено из сохранённой копии');
                 return;
             }
@@ -364,7 +373,7 @@ function saveItem() {
         specs: specs,
         images: images
     };
-    if (getVal('descKk') || getVal('descEn')) item.descKey = descKey;
+    if (getVal('descRu') || getVal('descKk') || getVal('descEn')) item.descKey = descKey;
     if (details) item.details = details;
 
     updateTranslations(nameKey, { ru: nameRu, kk: getVal('nameKk'), en: getVal('nameEn') });

@@ -95,6 +95,11 @@ async function loadMenuData() {
             var parsed = JSON.parse(saved);
             if (parsed && parsed.menu && parsed.menu.categories && parsed.menu.categories.length) {
                 menuConfig = parsed.menu;
+                if (parsed.translations && typeof TRANSLATIONS !== 'undefined') {
+                    for (var lang in parsed.translations)
+                        if (TRANSLATIONS[lang])
+                            Object.assign(TRANSLATIONS[lang], parsed.translations[lang]);
+                }
                 return true;
             }
         }
