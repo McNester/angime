@@ -219,11 +219,13 @@ function getTranslation(key, lang = 'ru') {
 
 // Edit item
 function editItem(itemIndex) {
+    if (!currentCategory || !currentCategory.category || !currentCategory.category.items) return;
     const item = currentCategory.category.items[itemIndex];
+    if (!item) return;
     currentEditingItem = { item, itemIndex };
 
     // Populate form
-    document.getElementById('nameRu').value = getTranslation(item.nameKey, 'ru') || '';
+    document.getElementById('nameRu').value = getTranslation(item.nameKey, 'ru') || item.nameKey || '';
     document.getElementById('nameKk').value = getTranslation(item.nameKey, 'kk') || '';
     document.getElementById('nameEn').value = getTranslation(item.nameKey, 'en') || '';
     document.getElementById('price').value = item.price || '';
@@ -231,12 +233,15 @@ function editItem(itemIndex) {
     document.getElementById('descKk').value = item.descKey ? (getTranslation(item.descKey, 'kk') || '') : '';
     document.getElementById('descEn').value = item.descKey ? (getTranslation(item.descKey, 'en') || '') : '';
     document.getElementById('specs').value = item.specs ? item.specs.join(', ') : '';
-    document.getElementById('images').value = item.images ? item.images.join('\n') : '';
+    const imagesEl = document.getElementById('images');
+    if (imagesEl) imagesEl.value = item.images ? item.images.join('\n') : '';
     document.getElementById('details').value = item.details ? JSON.stringify(item.details, null, 2) : '';
 
     // Show modal
-    document.getElementById('itemModal').classList.add('active');
-    document.getElementById('modalTitle').textContent = 'Редактировать позицию';
+    const modal = document.getElementById('itemModal');
+    if (modal) modal.classList.add('active');
+    const titleEl = document.getElementById('modalTitle');
+    if (titleEl) titleEl.textContent = 'Редактировать позицию';
 }
 
 // Add new item
@@ -280,8 +285,9 @@ function saveItem(formData) {
         .map(s => s.trim())
         .filter(s => s.length > 0);
 
-    // Parse images
-    const images = formData.images.value
+    // Parse images (поле "images" — textarea с URL, по одному на строку)
+    const imagesRaw = formData.images ? formData.images.value : '';
+    const images = imagesRaw
         .split(/[,\n]/)
         .map(img => img.trim())
         .filter(img => img.length > 0);
