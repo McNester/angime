@@ -129,9 +129,10 @@ function loadMenuData() {
             if (fromLocal && (!fromServer || localTime > serverTime)) {
                 if (fromLocal.translations && typeof TRANSLATIONS !== 'undefined') {
                     try {
-                        for (var lang in fromLocal.translations)
-                            if (TRANSLATIONS[lang])
-                                Object.assign(TRANSLATIONS[lang], fromLocal.translations[lang]);
+                        var tr = fromLocal.translations;
+                        for (var key in tr)
+                            for (var lang in tr[key])
+                                if (TRANSLATIONS[lang]) TRANSLATIONS[lang][key] = tr[key][lang];
                     } catch (e) {}
                 }
                 if (fromLocal.translations) translationsData = fromLocal.translations;

@@ -96,9 +96,10 @@ async function loadMenuData() {
             if (parsed && parsed.menu && parsed.menu.categories && parsed.menu.categories.length) {
                 menuConfig = parsed.menu;
                 if (parsed.translations && typeof TRANSLATIONS !== 'undefined') {
-                    for (var lang in parsed.translations)
-                        if (TRANSLATIONS[lang])
-                            Object.assign(TRANSLATIONS[lang], parsed.translations[lang]);
+                    var tr = parsed.translations;
+                    for (var key in tr)
+                        for (var lang in tr[key])
+                            if (TRANSLATIONS[lang]) TRANSLATIONS[lang][key] = tr[key][lang];
                 }
                 return true;
             }
