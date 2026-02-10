@@ -36,7 +36,7 @@ function initLogin() {
 
     loginBtn.addEventListener('click', () => {
         const username = usernameInput.value.trim();
-        const password = passwordInput.value;
+        const password = passwordInput.value.trim();
         
         if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
             localStorage.setItem('adminLoggedIn', 'true');
