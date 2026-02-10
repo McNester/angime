@@ -175,22 +175,22 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label>Название (RU) *</label>
-                                <input type="text" id="nameRu" required placeholder="Например: ANIME">
+                                <input type="text" id="nameRu" name="nameRu" required placeholder="Например: ANIME">
                             </div>
                             <div class="form-group">
                                 <label>Цена *</label>
-                                <input type="text" id="price" required placeholder="1700₸">
+                                <input type="text" id="price" name="price" required placeholder="1700₸">
                             </div>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group">
                                 <label>Название (ҚЗ)</label>
-                                <input type="text" id="nameKk" placeholder="Қазақша атауы">
+                                <input type="text" id="nameKk" name="nameKk" placeholder="Қазақша атауы">
                             </div>
                             <div class="form-group">
                                 <label>Название (EN)</label>
-                                <input type="text" id="nameEn" placeholder="English name">
+                                <input type="text" id="nameEn" name="nameEn" placeholder="English name">
                             </div>
                         </div>
                     </div>
@@ -210,15 +210,15 @@
                         
                         <div class="form-group">
                             <label>Описание (RU)</label>
-                            <textarea id="descRu" rows="3" placeholder="Подробное описание позиции"></textarea>
+                            <textarea id="descRu" name="descRu" rows="3" placeholder="Подробное описание позиции"></textarea>
                         </div>
                         <div class="form-group">
                             <label>Описание (ҚЗ)</label>
-                            <textarea id="descKk" rows="3" placeholder="Қазақша сипаттама"></textarea>
+                            <textarea id="descKk" name="descKk" rows="3" placeholder="Қазақша сипаттама"></textarea>
                         </div>
                         <div class="form-group">
                             <label>Описание (EN)</label>
-                            <textarea id="descEn" rows="3" placeholder="English description"></textarea>
+                            <textarea id="descEn" name="descEn" rows="3" placeholder="English description"></textarea>
                         </div>
                     </div>
 
@@ -235,13 +235,13 @@
                         
                         <div class="form-group">
                             <label>Характеристики (через запятую)</label>
-                            <input type="text" id="specs" placeholder="400мл, Светлое, Фруктовое">
+                            <input type="text" id="specs" name="specs" placeholder="400мл, Светлое, Фруктовое">
                             <small>Пример: 400мл, Светлое, Фруктовое</small>
                         </div>
 
                         <div class="form-group">
                             <label>Дополнительные детали (JSON)</label>
-                            <textarea id="details" rows="3" placeholder='{"Объем": "400мл", "Тип": "IPL"}'></textarea>
+                            <textarea id="details" name="details" rows="3" placeholder='{"Объем": "400мл", "Тип": "IPL"}'></textarea>
                             <small>Необязательно. Формат: {"Ключ": "Значение"}</small>
                         </div>
                     </div>

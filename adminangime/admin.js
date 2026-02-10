@@ -275,10 +275,12 @@ function deleteItem(itemIndex) {
     markAsChanged();
 }
 
-// Save item
+// Save item (formData = форма #itemForm; поля должны иметь name="...")
 function saveItem(formData) {
-    const nameRu = formData.nameRu.value.trim();
-    if (!nameRu || !formData.price.value.trim()) {
+    var getF = function(id) { return formData[id] || formData.elements[id] || document.getElementById(id); };
+    var nameRu = (getF('nameRu') && getF('nameRu').value || '').trim();
+    var priceVal = (getF('price') && getF('price').value || '').trim();
+    if (!nameRu || !priceVal) {
         alert('Заполните обязательные поля: Название (RU) и Цена');
         return;
     }
@@ -288,13 +290,15 @@ function saveItem(formData) {
     const descKey = currentEditingItem.item?.descKey || generateKey('item', 'Desc');
 
     // Parse specs
-    const specs = formData.specs.value
+    var specsEl = getF('specs');
+    const specs = (specsEl && specsEl.value || '')
         .split(',')
         .map(s => s.trim())
         .filter(s => s.length > 0);
 
     // Parse images (поле "images" — textarea с URL, по одному на строку)
-    const imagesRaw = formData.images ? formData.images.value : '';
+    var imagesEl = getF('images');
+    const imagesRaw = imagesEl ? imagesEl.value : '';
     const images = imagesRaw
         .split(/[,\n]/)
         .map(img => img.trim())
@@ -302,9 +306,10 @@ function saveItem(formData) {
 
     // Parse details
     let details = null;
-    if (formData.details.value.trim()) {
+    var detailsEl = getF('details');
+    if (detailsEl && detailsEl.value.trim()) {
         try {
-            details = JSON.parse(formData.details.value);
+            details = JSON.parse(detailsEl.value);
         } catch (e) {
             alert('Ошибка в формате JSON для деталей. Исправьте и попробуйте снова.');
             return;
@@ -314,25 +319,26 @@ function saveItem(formData) {
     // Create/update item
     const item = {
         nameKey,
-        price: formData.price.value.trim(),
-        descKey: formData.descKk.value.trim() || formData.descEn.value.trim() ? descKey : undefined,
+        price: priceVal,
+        descKey: (getF('descKk') && getF('descKk').value.trim()) || (getF('descEn') && getF('descEn').value.trim()) ? descKey : undefined,
         specs: specs.length > 0 ? specs : [],
         images: images.length > 0 ? images : [],
         ...(details && { details })
     };
 
-    // Update translations (we'll need to handle this separately)
+    // Update translations
     updateTranslations(nameKey, {
-        ru: formData.nameRu.value.trim(),
-        kk: formData.nameKk.value.trim(),
-        en: formData.nameEn.value.trim()
+        ru: nameRu,
+        kk: (getF('nameKk') && getF('nameKk').value || '').trim(),
+        en: (getF('nameEn') && getF('nameEn').value || '').trim()
     });
 
-    if (formData.descRu.value.trim()) {
+    var descRuEl = getF('descRu');
+    if (descRuEl && descRuEl.value.trim()) {
         updateTranslations(descKey, {
-            ru: formData.descRu.value.trim(),
-            kk: formData.descKk.value.trim(),
-            en: formData.descEn.value.trim()
+            ru: descRuEl.value.trim(),
+            kk: (getF('descKk') && getF('descKk').value || '').trim(),
+            en: (getF('descEn') && getF('descEn').value || '').trim()
         });
     }
 
