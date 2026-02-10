@@ -275,85 +275,71 @@ function deleteItem(itemIndex) {
     markAsChanged();
 }
 
-// Save item (formData = форма #itemForm; поля должны иметь name="...")
-function saveItem(formData) {
-    var getF = function(id) { return formData[id] || formData.elements[id] || document.getElementById(id); };
-    var nameRu = (getF('nameRu') && getF('nameRu').value || '').trim();
-    var priceVal = (getF('price') && getF('price').value || '').trim();
-    if (!nameRu || !priceVal) {
-        alert('Заполните обязательные поля: Название (RU) и Цена');
-        return;
-    }
+function getVal(id) {
+    var el = document.getElementById(id);
+    return el ? (el.value || '').trim() : '';
+}
 
-    // Generate keys
-    const nameKey = currentEditingItem.item?.nameKey || generateKey('item', 'Name');
-    const descKey = currentEditingItem.item?.descKey || generateKey('item', 'Desc');
+// Save item — читает поля по id из DOM, сохраняет в меню
+function saveItem() {
+    try {
+        if (!currentCategory || !currentCategory.category || !currentCategory.category.items) {
+            alert('Сначала выберите категорию.');
+            return;
+        }
+        if (!currentEditingItem || currentEditingItem.itemIndex === undefined) {
+            alert('Ошибка: нет выбранной позиции.');
+            return;
+        }
+        var nameRu = getVal('nameRu');
+        var priceVal = getVal('price');
+        if (!nameRu || !priceVal) {
+            alert('Заполните обязательные поля: Название (RU) и Цена');
+            return;
+        }
 
-    // Parse specs
-    var specsEl = getF('specs');
-    const specs = (specsEl && specsEl.value || '')
-        .split(',')
-        .map(s => s.trim())
-        .filter(s => s.length > 0);
+    var nameKey = currentEditingItem.item ? currentEditingItem.item.nameKey : generateKey('item', 'Name');
+    var descKey = (currentEditingItem.item && currentEditingItem.item.descKey) ? currentEditingItem.item.descKey : generateKey('item', 'Desc');
 
-    // Parse images (поле "images" — textarea с URL, по одному на строку)
-    var imagesEl = getF('images');
-    const imagesRaw = imagesEl ? imagesEl.value : '';
-    const images = imagesRaw
-        .split(/[,\n]/)
-        .map(img => img.trim())
-        .filter(img => img.length > 0);
+    var specs = (getVal('specs') || '').split(',').map(function(s) { return s.trim(); }).filter(Boolean);
+    var imagesRaw = getVal('images') || '';
+    var images = imagesRaw.split(/[,\n]/).map(function(s) { return s.trim(); }).filter(Boolean);
 
-    // Parse details
-    let details = null;
-    var detailsEl = getF('details');
-    if (detailsEl && detailsEl.value.trim()) {
-        try {
-            details = JSON.parse(detailsEl.value);
-        } catch (e) {
-            alert('Ошибка в формате JSON для деталей. Исправьте и попробуйте снова.');
+    var details = null;
+    var detailsStr = getVal('details');
+    if (detailsStr) {
+        try { details = JSON.parse(detailsStr); } catch (e) {
+            alert('Ошибка в формате JSON для деталей.');
             return;
         }
     }
 
-    // Create/update item
-    const item = {
-        nameKey,
+    var item = {
+        nameKey: nameKey,
         price: priceVal,
-        descKey: (getF('descKk') && getF('descKk').value.trim()) || (getF('descEn') && getF('descEn').value.trim()) ? descKey : undefined,
-        specs: specs.length > 0 ? specs : [],
-        images: images.length > 0 ? images : [],
-        ...(details && { details })
+        specs: specs,
+        images: images
     };
+    if (getVal('descKk') || getVal('descEn')) item.descKey = descKey;
+    if (details) item.details = details;
 
-    // Update translations
-    updateTranslations(nameKey, {
-        ru: nameRu,
-        kk: (getF('nameKk') && getF('nameKk').value || '').trim(),
-        en: (getF('nameEn') && getF('nameEn').value || '').trim()
-    });
+    updateTranslations(nameKey, { ru: nameRu, kk: getVal('nameKk'), en: getVal('nameEn') });
+    if (getVal('descRu')) updateTranslations(descKey, { ru: getVal('descRu'), kk: getVal('descKk'), en: getVal('descEn') });
 
-    var descRuEl = getF('descRu');
-    if (descRuEl && descRuEl.value.trim()) {
-        updateTranslations(descKey, {
-            ru: descRuEl.value.trim(),
-            kk: (getF('descKk') && getF('descKk').value || '').trim(),
-            en: (getF('descEn') && getF('descEn').value || '').trim()
-        });
-    }
-
-    // Add or update item
     if (currentEditingItem.itemIndex === -1) {
-        // New item
         currentCategory.category.items.push(item);
     } else {
-        // Update existing
         currentCategory.category.items[currentEditingItem.itemIndex] = item;
     }
 
     renderItems(currentCategory.category.items);
     closeModal();
     markAsChanged();
+    updateStatus('Позиция сохранена');
+    } catch (e) {
+        console.error('saveItem', e);
+        alert('Ошибка сохранения: ' + (e.message || e));
+    }
 }
 
 // Generate unique key
@@ -382,13 +368,13 @@ function initAdmin() {
     document.getElementById('modalClose')?.addEventListener('click', closeModal);
     document.getElementById('cancelBtn')?.addEventListener('click', closeModal);
 
-    // Form submit
-    document.getElementById('itemForm')?.addEventListener('submit', (e) => {
+    document.getElementById('saveItemBtn')?.addEventListener('click', saveItem);
+    document.getElementById('itemForm')?.addEventListener('submit', function(e) {
         e.preventDefault();
-        saveItem(e.target);
+        saveItem();
     });
 
-    // Save button
+    // Save button (шапка — скачать menu.json)
     document.getElementById('saveBtn')?.addEventListener('click', saveToFile);
 
     // Export button
