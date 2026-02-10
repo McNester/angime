@@ -4,18 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Админ-панель — Управление меню Әңgіме</title>
-    <link rel="stylesheet" href="admin.css">
+    <style>
+        /* Critical: dark page and only login visible until CSS loads */
+        body { background: #0a0a0a; color: #fff; }
+        body.login-page #adminPanel,
+        body.login-page #itemModal { display: none !important; }
+    </style>
+    <link rel="stylesheet" href="admin.css?v=2">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="login-page">
     <!-- Login Screen -->
     <div id="loginScreen" class="login-screen">
         <div class="login-box">
+            <span class="login-step">Вход в систему</span>
             <div class="login-logo">🍺</div>
-            <h1>Админ-панель</h1>
-            <p>Войдите в систему</p>
+            <h1>Админ-панель Әңgіме</h1>
+            <p>Введите логин и пароль для доступа к управлению меню</p>
             <div class="login-form">
                 <input type="text" id="usernameInput" placeholder="Логин" autocomplete="username">
                 <input type="password" id="passwordInput" placeholder="Пароль" autocomplete="current-password">
@@ -102,8 +109,8 @@
         </div>
     </div>
 
-    <!-- Item Edit Modal -->
-    <div id="itemModal" class="modal">
+    <!-- Item Edit Modal (hidden until after login and "Edit" / "Add" click) -->
+    <div id="itemModal" class="modal" aria-hidden="true">
         <div class="modal-content large-modal">
             <div class="modal-header">
                 <h2 id="modalTitle">

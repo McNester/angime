@@ -35,6 +35,17 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+/* Until login: only login screen is visible */
+body.login-page #adminPanel,
+body.login-page #itemModal {
+    display: none !important;
+}
+
+/* After login: hide login screen */
+body.admin-page .login-screen {
+    display: none !important;
+}
+
 /* Login Screen */
 .login-screen {
     display: flex;
@@ -56,11 +67,22 @@ body {
     padding: 3rem;
     border-radius: var(--radius-lg);
     border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-lg), 0 0 60px rgba(255, 215, 0, 0.08);
     max-width: 420px;
     width: 90%;
     text-align: center;
     backdrop-filter: blur(10px);
+}
+
+.login-step {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent-gold);
+    margin-bottom: 1rem;
+    opacity: 0.95;
 }
 
 .login-logo {
@@ -119,6 +141,7 @@ body {
 .error-message {
     color: var(--danger);
     margin-top: 1rem;
+    min-height: 1.4em;
     display: block;
     font-size: 0.9rem;
 }

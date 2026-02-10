@@ -25,11 +25,14 @@ function initLogin() {
 
     // Check if already logged in
     if (localStorage.getItem('adminLoggedIn') === 'true') {
+        document.body.className = 'admin-page';
         loginScreen.style.display = 'none';
         adminPanel.style.display = 'flex';
         loadMenuData();
         return;
     }
+
+    document.body.className = 'login-page';
 
     loginBtn.addEventListener('click', () => {
         const username = usernameInput.value.trim();
@@ -37,6 +40,7 @@ function initLogin() {
         
         if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
             localStorage.setItem('adminLoggedIn', 'true');
+            document.body.className = 'admin-page';
             loginScreen.style.display = 'none';
             adminPanel.style.display = 'flex';
             loadMenuData();
