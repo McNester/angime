@@ -189,19 +189,19 @@ function createItemCard(item, itemIndex) {
     const descRu = item.descKey ? (getTranslation(item.descKey, 'ru') || '') : '';
 
     card.innerHTML = `
-        <img src="${imageSrc}" alt="${nameRu}" class="item-image" onerror="this.src='https://placehold.co/120x120/667eea/ffffff?text=Error'">
-        <div class="item-content">
-            <div class="item-header">
-                <h3 class="item-name">${nameRu}</h3>
-                <span class="item-price">${item.price}</span>
+        <img src="${imageSrc}" alt="${nameRu}" class="item-card-image" onerror="this.src='https://placehold.co/400x200/2d2d2d/888?text=No+Image'">
+        <div class="item-card-content">
+            <div class="item-card-header">
+                <h3 class="item-card-name">${nameRu}</h3>
+                <span class="item-card-price">${item.price}</span>
             </div>
-            <p class="item-description">${descRu}</p>
-            <div class="item-specs">
+            <p class="item-card-description">${descRu}</p>
+            <div class="item-card-specs">
                 ${item.specs ? item.specs.map(spec => `<span class="spec-badge">${spec}</span>`).join('') : ''}
             </div>
-            <div class="item-actions">
-                <button class="btn btn-primary btn-small" onclick="editItem(${itemIndex})">✏️ Редактировать</button>
-                <button class="btn btn-danger btn-small" onclick="deleteItem(${itemIndex})">🗑️ Удалить</button>
+            <div class="item-card-actions">
+                <button type="button" class="btn btn-primary btn-small" onclick="editItem(${itemIndex})">✏️ Редактировать</button>
+                <button type="button" class="btn btn-danger btn-small" onclick="deleteItem(${itemIndex})">🗑️ Удалить</button>
             </div>
         </div>
     `;

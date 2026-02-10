@@ -397,12 +397,16 @@ body.admin-page .login-screen {
     box-shadow: var(--shadow-md);
 }
 
+/* Фото в карточке: фиксированная высота, обрезка по центру */
 .item-card-image {
     width: 100%;
     height: 200px;
+    min-height: 200px;
     object-fit: cover;
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    object-position: center;
+    background: var(--bg-hover);
     display: block;
+    vertical-align: middle;
 }
 
 .item-card-content {
