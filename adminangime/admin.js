@@ -219,29 +219,37 @@ function getTranslation(key, lang = 'ru') {
 
 // Edit item
 function editItem(itemIndex) {
-    if (!currentCategory || !currentCategory.category || !currentCategory.category.items) return;
-    const item = currentCategory.category.items[itemIndex];
-    if (!item) return;
-    currentEditingItem = { item, itemIndex };
+    try {
+        if (!currentCategory || !currentCategory.category || !currentCategory.category.items) return;
+        var idx = typeof itemIndex === 'string' ? parseInt(itemIndex, 10) : itemIndex;
+        if (isNaN(idx) || idx < 0) return;
+        const item = currentCategory.category.items[idx];
+        if (!item) return;
+        currentEditingItem = { item, itemIndex: idx };
 
-    // Populate form
-    document.getElementById('nameRu').value = getTranslation(item.nameKey, 'ru') || item.nameKey || '';
-    document.getElementById('nameKk').value = getTranslation(item.nameKey, 'kk') || '';
-    document.getElementById('nameEn').value = getTranslation(item.nameKey, 'en') || '';
-    document.getElementById('price').value = item.price || '';
-    document.getElementById('descRu').value = item.descKey ? (getTranslation(item.descKey, 'ru') || '') : '';
-    document.getElementById('descKk').value = item.descKey ? (getTranslation(item.descKey, 'kk') || '') : '';
-    document.getElementById('descEn').value = item.descKey ? (getTranslation(item.descKey, 'en') || '') : '';
-    document.getElementById('specs').value = item.specs ? item.specs.join(', ') : '';
-    const imagesEl = document.getElementById('images');
-    if (imagesEl) imagesEl.value = item.images ? item.images.join('\n') : '';
-    document.getElementById('details').value = item.details ? JSON.stringify(item.details, null, 2) : '';
+        // Сначала открываем модалку — пользователь сразу видит реакцию
+        var modal = document.getElementById('itemModal');
+        if (modal) modal.classList.add('active');
+        var titleEl = document.getElementById('modalTitle');
+        if (titleEl) titleEl.textContent = 'Редактировать позицию';
 
-    // Show modal
-    const modal = document.getElementById('itemModal');
-    if (modal) modal.classList.add('active');
-    const titleEl = document.getElementById('modalTitle');
-    if (titleEl) titleEl.textContent = 'Редактировать позицию';
+        // Безопасно заполняем поля (каждый элемент проверяем)
+        function setVal(id, val) { var el = document.getElementById(id); if (el && val !== undefined) el.value = val; }
+        setVal('nameRu', getTranslation(item.nameKey, 'ru') || item.nameKey || '');
+        setVal('nameKk', getTranslation(item.nameKey, 'kk') || '');
+        setVal('nameEn', getTranslation(item.nameKey, 'en') || '');
+        setVal('price', item.price || '');
+        setVal('descRu', item.descKey ? (getTranslation(item.descKey, 'ru') || '') : '');
+        setVal('descKk', item.descKey ? (getTranslation(item.descKey, 'kk') || '') : '');
+        setVal('descEn', item.descKey ? (getTranslation(item.descKey, 'en') || '') : '');
+        setVal('specs', item.specs ? item.specs.join(', ') : '');
+        setVal('images', item.images ? item.images.join('\n') : '');
+        setVal('details', item.details ? JSON.stringify(item.details, null, 2) : '');
+    } catch (e) {
+        console.error('editItem error', e);
+        var m = document.getElementById('itemModal');
+        if (m) m.classList.add('active');
+    }
 }
 
 // Add new item
