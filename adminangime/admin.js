@@ -377,7 +377,8 @@ function saveItem() {
     if (details) item.details = details;
 
     updateTranslations(nameKey, { ru: nameRu, kk: getVal('nameKk'), en: getVal('nameEn') });
-    if (getVal('descRu')) updateTranslations(descKey, { ru: getVal('descRu'), kk: getVal('descKk'), en: getVal('descEn') });
+    if (getVal('descRu') || getVal('descKk') || getVal('descEn'))
+        updateTranslations(descKey, { ru: getVal('descRu'), kk: getVal('descKk'), en: getVal('descEn') });
 
     if (currentEditingItem.itemIndex === -1) {
         currentCategory.category.items.push(item);
@@ -411,6 +412,11 @@ function updateTranslations(key, translations) {
         translationsData[key] = {};
     }
     Object.assign(translationsData[key], translations);
+    if (typeof TRANSLATIONS !== 'undefined') {
+        for (var lang in translations) {
+            if (TRANSLATIONS[lang]) TRANSLATIONS[lang][key] = translations[lang];
+        }
+    }
 }
 
 // Initialize admin
