@@ -100,18 +100,27 @@ function loadMenuData() {
 
 // Render admin interface
 function renderAdmin() {
+    if (!menuData || !menuData.categories) {
+        updateStatus('Нет данных меню');
+        return;
+    }
     renderCategories();
+    const total = menuData.categories.reduce((sum, cat) => sum + (cat.items ? cat.items.length : 0), 0);
+    const totalEl = document.getElementById('totalItems');
+    if (totalEl) totalEl.textContent = total;
     updateStatus('Меню загружено');
 }
 
-// Render category tabs
+// Render category tabs (sidebar: categoriesList)
 function renderCategories() {
-    const tabsContainer = document.getElementById('categoriesTabs');
+    const tabsContainer = document.getElementById('categoriesList');
+    if (!tabsContainer) return;
     tabsContainer.innerHTML = '';
 
     menuData.categories.forEach((category, index) => {
         const tab = document.createElement('button');
-        tab.className = `category-tab ${index === 0 ? 'active' : ''}`;
+        tab.type = 'button';
+        tab.className = `category-item ${index === 0 ? 'active' : ''}`;
         tab.textContent = getCategoryTitle(category);
         tab.addEventListener('click', () => selectCategory(category, index));
         tabsContainer.appendChild(tab);
@@ -137,7 +146,7 @@ function selectCategory(category, index) {
     currentCategory = { category, index };
     
     // Update tabs
-    document.querySelectorAll('.category-tab').forEach((tab, i) => {
+    document.querySelectorAll('.category-item').forEach((tab, i) => {
         tab.classList.toggle('active', i === index);
     });
 
@@ -149,20 +158,21 @@ function selectCategory(category, index) {
     renderItems(category.items);
 }
 
-// Render items list
+// Render items list (content: itemsGrid)
 function renderItems(items) {
-    const itemsList = document.getElementById('itemsList');
-    
+    const itemsGrid = document.getElementById('itemsGrid');
+    if (!itemsGrid) return;
+
     if (items.length === 0) {
-        itemsList.innerHTML = '<div class="empty-state"><p>В этой категории пока нет позиций</p></div>';
+        itemsGrid.innerHTML = '<div class="empty-state"><p>В этой категории пока нет позиций</p></div>';
         return;
     }
 
-    itemsList.innerHTML = '';
+    itemsGrid.innerHTML = '';
 
     items.forEach((item, itemIndex) => {
         const itemCard = createItemCard(item, itemIndex);
-        itemsList.appendChild(itemCard);
+        itemsGrid.appendChild(itemCard);
     });
 }
 
