@@ -1,9 +1,8 @@
 // Configuration file for Әңgіме Bar Website
 
 const CONFIG = {
-    // URL меню в облаке (JSONBin): если задан, сайт и админка загружают меню оттуда для всех устройств.
-    // Создайте бин на https://jsonbin.io , вставьте сюда: https://api.jsonbin.io/v3/b/ВАШ_BIN_ID/latest
-    REMOTE_MENU_URL: '',
+    // URL меню в облаке (JSONBin)
+    REMOTE_MENU_URL: 'https://api.jsonbin.io/v3/b/69b6b143c3097a1dd528decd/latest',
 
     // Logo configuration
     logo: {

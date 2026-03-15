@@ -482,8 +482,34 @@ function initAdmin() {
         var key = prompt('Ключ API JSONBin (для сохранения в облако):\n\nПолучить: jsonbin.io → API Keys. Вставьте сюда Master Key.');
         if (key != null && key.trim()) {
             localStorage.setItem('angime_jsonbin_key', key.trim());
-            alert('Ключ сохранён. В config.js задайте REMOTE_MENU_URL:\nhttps://api.jsonbin.io/v3/b/ВАШ_BIN_ID/latest\n\nСоздайте бин на jsonbin.io, скопируйте ссылку. После этого при нажатии «Сохранить» меню будет отправляться в облако и отображаться на всех устройствах.');
+            alert('Ключ сохранён. В config.js задайте REMOTE_MENU_URL:\nhttps://api.jsonbin.io/v3/b/ВАШ_BIN_ID/latest\n\nСоздайте бин на jsonbin.io, скопируйте ссылку. После этого нажмите «Сделать бин публичным», чтобы сайт загружал меню на всех устройствах без ключа.');
         }
+    });
+
+    document.getElementById('cloudPublicBtn')?.addEventListener('click', function() {
+        if (typeof CONFIG === 'undefined' || !CONFIG.REMOTE_MENU_URL) {
+            alert('Сначала в config.js задайте REMOTE_MENU_URL (ссылка на ваш бин).');
+            return;
+        }
+        var key = localStorage.getItem('angime_jsonbin_key');
+        if (!key) {
+            alert('Сначала нажмите «Облако» и введите API-ключ JSONBin.');
+            return;
+        }
+        var m = CONFIG.REMOTE_MENU_URL.match(/\/b\/([^/]+)/);
+        if (!m) {
+            alert('В REMOTE_MENU_URL должен быть путь вида .../b/BIN_ID/latest');
+            return;
+        }
+        var binId = m[1];
+        fetch('https://api.jsonbin.io/v3/b/' + binId + '/meta/privacy', {
+            method: 'PUT',
+            headers: { 'X-Master-Key': key, 'X-Bin-Private': 'false', 'Content-Type': 'application/json' },
+            body: '{}'
+        }).then(function(r) {
+            if (r.ok) alert('Готово. Бин теперь публичный — сайт будет загружать меню на всех устройствах (Safari, телефоны) без ключа.');
+            else r.text().then(function(t) { alert('Ошибка: ' + t); });
+        }).catch(function(e) { alert('Ошибка: ' + e.message); });
     });
 
     document.getElementById('saveBtn')?.addEventListener('click', saveToFile);
