@@ -13,12 +13,27 @@ var ANGIME_MENU_KEY = 'angime_menu';
 function saveMenuToStorage() {
     if (!menuData) return;
     try {
-        localStorage.setItem(ANGIME_MENU_KEY, JSON.stringify({
-            menu: menuData,
-            translations: translationsData,
-            updatedAt: new Date().toISOString()
-        }));
+        var payload = { menu: menuData, translations: translationsData, updatedAt: new Date().toISOString() };
+        localStorage.setItem(ANGIME_MENU_KEY, JSON.stringify(payload));
+        pushToRemote(payload);
     } catch (e) {}
+}
+
+function pushToRemote(payload) {
+    if (typeof CONFIG === 'undefined' || !CONFIG.REMOTE_MENU_URL) return;
+    var key = localStorage.getItem('angime_jsonbin_key');
+    if (!key) return;
+    var m = CONFIG.REMOTE_MENU_URL.match(/\/b\/([^/]+)/);
+    if (!m) return;
+    var binId = m[1];
+    fetch('https://api.jsonbin.io/v3/b/' + binId, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', 'X-Master-Key': key },
+        body: JSON.stringify(payload || { menu: menuData, translations: translationsData, updatedAt: new Date().toISOString() })
+    }).then(function(r) {
+        if (r.ok) updateStatus('Меню сохранено в облако — изменения видны на всех устройствах');
+        else r.text().then(function(t) { console.warn('JSONBin:', t); });
+    }).catch(function(e) { console.warn('pushToRemote', e); });
 }
 
 // Initialize on load
@@ -86,13 +101,8 @@ document.getElementById('logoutBtn')?.addEventListener('click', () => {
 
 // Load menu data
 function loadMenuData() {
-    // Try to load from menu.json first, fallback to CONFIG
-    // menu.json is in root, not in admin folder
-    // Use absolute path for production compatibility
-    const menuJsonPath = window.location.pathname.includes('/adminangime') 
-        ? '/menu.json' 
-        : '../menu.json';
-    
+    const menuJsonPath = window.location.pathname.includes('/adminangime') ? '/menu.json' : '../menu.json';
+
     function applyMenu(data, source) {
         menuData = data;
         renderAdmin();
@@ -102,19 +112,51 @@ function loadMenuData() {
         menuData = JSON.parse(JSON.stringify(CONFIG.menu));
         renderAdmin();
     }
-
-    var fromServer = null;
-    var fromLocal = null;
-    try {
-        var saved = localStorage.getItem(ANGIME_MENU_KEY);
-        if (saved) {
-            var parsed = JSON.parse(saved);
-            if (parsed && parsed.menu && parsed.menu.categories && parsed.menu.categories.length)
-                fromLocal = parsed;
+    function applyRemote(record) {
+        if (!record || !record.menu || !record.menu.categories) return false;
+        menuData = record.menu;
+        if (record.translations && typeof TRANSLATIONS !== 'undefined') {
+            try {
+                var tr = record.translations;
+                for (var key in tr)
+                    for (var lang in tr[key])
+                        if (TRANSLATIONS[lang]) TRANSLATIONS[lang][key] = tr[key][lang];
+            } catch (e) {}
         }
-    } catch (e) {}
+        if (record.translations) translationsData = record.translations;
+        applyMenu(record.menu, 'Меню загружено из облака');
+        return true;
+    }
 
-    fetch(menuJsonPath)
+    if (typeof CONFIG !== 'undefined' && CONFIG.REMOTE_MENU_URL) {
+        var opts = {};
+        var key = localStorage.getItem('angime_jsonbin_key');
+        if (key) opts.headers = { 'X-Master-Key': key };
+        fetch(CONFIG.REMOTE_MENU_URL, opts)
+            .then(function(r) { return r.ok ? r.json() : null; })
+            .then(function(data) {
+                var record = data && (data.record || data);
+                if (applyRemote(record)) return;
+                runLocalOrFile();
+            })
+            .catch(function() { runLocalOrFile(); });
+        return;
+    }
+    runLocalOrFile();
+
+    function runLocalOrFile() {
+        var fromServer = null;
+        var fromLocal = null;
+        try {
+            var saved = localStorage.getItem(ANGIME_MENU_KEY);
+            if (saved) {
+                var parsed = JSON.parse(saved);
+                if (parsed && parsed.menu && parsed.menu.categories && parsed.menu.categories.length)
+                    fromLocal = parsed;
+            }
+        } catch (e) {}
+
+        fetch(menuJsonPath)
         .then(function(response) {
             if (response.ok) return response.json();
             throw new Error('menu.json not found');
@@ -149,6 +191,7 @@ function loadMenuData() {
             }
             useConfig();
         });
+    }
 }
 
 // Render admin interface
@@ -435,7 +478,14 @@ function initAdmin() {
         saveItem();
     });
 
-    // Save button (шапка — скачать menu.json)
+    document.getElementById('cloudSetupBtn')?.addEventListener('click', function() {
+        var key = prompt('Ключ API JSONBin (для сохранения в облако):\n\nПолучить: jsonbin.io → API Keys. Вставьте сюда Master Key.');
+        if (key != null && key.trim()) {
+            localStorage.setItem('angime_jsonbin_key', key.trim());
+            alert('Ключ сохранён. В config.js задайте REMOTE_MENU_URL:\nhttps://api.jsonbin.io/v3/b/ВАШ_BIN_ID/latest\n\nСоздайте бин на jsonbin.io, скопируйте ссылку. После этого при нажатии «Сохранить» меню будет отправляться в облако и отображаться на всех устройствах.');
+        }
+    });
+
     document.getElementById('saveBtn')?.addEventListener('click', saveToFile);
 
     // Export button
@@ -494,9 +544,10 @@ function saveToFile() {
     URL.revokeObjectURL(url);
 
     saveMenuToStorage();
+    pushToRemote(dataToSave);
     hasUnsavedChanges = false;
     document.getElementById('unsavedIndicator').style.display = 'none';
-    updateStatus('Меню экспортировано. Положите menu.json в корень сайта и обновите страницу.');
+    updateStatus('Меню экспортировано. Если настроено облако — изменения уже на всех устройствах.');
 }
 
 // Export JSON

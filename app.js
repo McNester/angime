@@ -89,6 +89,29 @@ const imageLoader = new ImageLoader();
 let menuConfig = null;
 
 async function loadMenuData() {
+    if (typeof CONFIG !== 'undefined' && CONFIG.REMOTE_MENU_URL) {
+        try {
+            var opts = {};
+            var key = localStorage.getItem('angime_jsonbin_key');
+            if (key) opts.headers = { 'X-Master-Key': key };
+            var r = await fetch(CONFIG.REMOTE_MENU_URL, opts);
+            if (r.ok) {
+                var data = await r.json();
+                var record = data.record || data;
+                if (record && record.menu && record.menu.categories && record.menu.categories.length) {
+                    menuConfig = record.menu;
+                    if (record.translations && typeof TRANSLATIONS !== 'undefined') {
+                        var tr = record.translations;
+                        for (var key in tr)
+                            for (var lang in tr[key])
+                                if (TRANSLATIONS[lang]) TRANSLATIONS[lang][key] = tr[key][lang];
+                    }
+                    return true;
+                }
+            }
+        } catch (e) {}
+    }
+
     try {
         var saved = localStorage.getItem('angime_menu');
         if (saved) {
