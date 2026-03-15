@@ -341,6 +341,7 @@ function editItem(itemIndex) {
         setVal('specs', item.specs ? item.specs.join(', ') : '');
         setVal('images', item.images ? item.images.join('\n') : '');
         setVal('details', item.details ? JSON.stringify(item.details, null, 2) : '');
+        if (typeof renderImagePreviews === 'function') renderImagePreviews();
     } catch (e) {
         console.error('editItem error', e);
         var m = document.getElementById('itemModal');
@@ -351,12 +352,10 @@ function editItem(itemIndex) {
 // Add new item
 function addNewItem() {
     currentEditingItem = { item: null, itemIndex: -1 };
-
-    // Clear form
+    imageDataUrls = {};
     document.getElementById('itemForm').reset();
     document.getElementById('modalTitle').textContent = 'Добавить новую позицию';
-
-    // Show modal
+    if (typeof renderImagePreviews === 'function') renderImagePreviews();
     document.getElementById('itemModal').classList.add('active');
 }
 
@@ -448,6 +447,9 @@ function generateKey(prefix, suffix) {
     return `${prefix}${timestamp}${random}${suffix}`;
 }
 
+// Превью загруженных файлов (path -> dataUrl), чтобы показывать до загрузки на сервер
+var imageDataUrls = {};
+
 // Update translations (stored separately)
 let translationsData = {};
 
@@ -463,9 +465,111 @@ function updateTranslations(key, translations) {
     }
 }
 
+// Загрузка изображений: клик и drag-and-drop
+function initImageUpload() {
+    var zone = document.getElementById('imageUploadZone');
+    var fileInput = document.getElementById('imageFileInput');
+    if (!zone || !fileInput) return;
+
+    zone.addEventListener('click', function(e) {
+        if (e.target === fileInput) return;
+        fileInput.click();
+    });
+
+    fileInput.addEventListener('change', function() {
+        var files = Array.from(fileInput.files || []);
+        handleImageFiles(files);
+        fileInput.value = '';
+    });
+
+    zone.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        zone.style.borderColor = 'var(--accent-gold)';
+        zone.style.background = 'rgba(255, 215, 0, 0.1)';
+    });
+    zone.addEventListener('dragleave', function(e) {
+        e.preventDefault();
+        zone.style.borderColor = '';
+        zone.style.background = '';
+    });
+    zone.addEventListener('drop', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        zone.style.borderColor = '';
+        zone.style.background = '';
+        var files = Array.from(e.dataTransfer.files || []).filter(function(f) { return f.type.indexOf('image/') === 0; });
+        handleImageFiles(files);
+    });
+}
+
+function handleImageFiles(files) {
+    if (!files.length) return;
+    var textarea = document.getElementById('images');
+    if (!textarea) return;
+    var current = (textarea.value || '').trim();
+    var lines = current ? current.split(/\r?\n/) : [];
+
+    files.forEach(function(file) {
+        var path = 'pictures/отработка меню/' + file.name;
+        if (lines.indexOf(path) === -1) lines.push(path);
+
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            imageDataUrls[path] = e.target.result;
+            renderImagePreviews();
+        };
+        reader.readAsDataURL(file);
+    });
+
+    textarea.value = lines.join('\n');
+    renderImagePreviews();
+    markAsChanged();
+}
+
+function renderImagePreviews() {
+    var grid = document.getElementById('imagePreviewGrid');
+    var textarea = document.getElementById('images');
+    if (!grid || !textarea) return;
+    var text = (textarea.value || '').trim();
+    var paths = text ? text.split(/\r?\n/).filter(Boolean) : [];
+
+    grid.innerHTML = '';
+    paths.forEach(function(path, i) {
+        var item = document.createElement('div');
+        item.className = 'media-preview-item';
+        var img = document.createElement('img');
+        img.alt = '';
+        img.src = imageDataUrls[path] || path;
+        img.onerror = function() { this.src = 'https://placehold.co/150x150/2d2d2d/888?text=No+Image'; };
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'remove-btn';
+        btn.setAttribute('aria-label', 'Удалить');
+        btn.textContent = '\u00D7';
+        btn.dataset.index = String(i);
+        item.appendChild(img);
+        item.appendChild(btn);
+        grid.appendChild(item);
+    });
+
+    grid.querySelectorAll('.remove-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var i = parseInt(btn.getAttribute('data-index'), 10);
+            var text = (textarea.value || '').trim();
+            var lines = text ? text.split(/\r?\n/) : [];
+            lines.splice(i, 1);
+            textarea.value = lines.join('\n');
+            renderImagePreviews();
+            markAsChanged();
+        });
+    });
+}
+
 // Initialize admin
 function initAdmin() {
-    // Add item button
+    initImageUpload();
+
     document.getElementById('addItemBtn')?.addEventListener('click', addNewItem);
 
     // Modal handlers
