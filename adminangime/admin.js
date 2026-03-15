@@ -23,21 +23,43 @@ function saveMenuToStorage() {
     }
 }
 
-function pushToRemote(payload) {
-    if (typeof CONFIG === 'undefined' || !CONFIG.REMOTE_MENU_URL) return;
+function pushToRemote(payload, onDone) {
+    if (typeof CONFIG === 'undefined' || !CONFIG.REMOTE_MENU_URL) {
+        if (onDone) onDone(false, 'REMOTE_MENU_URL не задан в config.js');
+        return;
+    }
     var key = localStorage.getItem('angime_jsonbin_key');
-    if (!key) return;
+    if (!key) {
+        if (onDone) onDone(false, 'Введите API-ключ: кнопка «Облако» в шапке');
+        return;
+    }
     var m = CONFIG.REMOTE_MENU_URL.match(/\/b\/([^/]+)/);
-    if (!m) return;
+    if (!m) {
+        if (onDone) onDone(false, 'Неверный REMOTE_MENU_URL');
+        return;
+    }
     var binId = m[1];
+    var body = JSON.stringify(payload || { menu: menuData, translations: translationsData || {}, updatedAt: new Date().toISOString() });
     fetch('https://api.jsonbin.io/v3/b/' + binId, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'X-Master-Key': key },
-        body: JSON.stringify(payload || { menu: menuData, translations: translationsData, updatedAt: new Date().toISOString() })
+        body: body
     }).then(function(r) {
-        if (r.ok) updateStatus('Меню сохранено в облако — изменения видны на всех устройствах');
-        else r.text().then(function(t) { console.warn('JSONBin:', t); });
-    }).catch(function(e) { console.warn('pushToRemote', e); });
+        if (r.ok) {
+            updateStatus('Меню сохранено в облако — изменения видны на всех устройствах');
+            if (onDone) onDone(true);
+        } else {
+            r.text().then(function(t) {
+                console.warn('JSONBin PUT', r.status, t);
+                if (onDone) onDone(false, t || 'Ошибка ' + r.status);
+                else alert('Не удалось сохранить в облако: ' + (t || r.status) + '\n\nПроверьте API-ключ и ссылку в config.js.');
+            });
+        }
+    }).catch(function(e) {
+        console.warn('pushToRemote', e);
+        if (onDone) onDone(false, e.message);
+        else alert('Ошибка сети при сохранении в облако: ' + (e.message || e));
+    });
 }
 
 // Initialize on load
@@ -137,17 +159,63 @@ function loadMenuData() {
         var opts = {};
         var key = localStorage.getItem('angime_jsonbin_key');
         if (key) opts.headers = { 'X-Master-Key': key };
-        fetch(CONFIG.REMOTE_MENU_URL, opts)
+        var fromLocal = null;
+        try {
+            var saved = localStorage.getItem(ANGIME_MENU_KEY);
+            if (saved) {
+                var parsed = JSON.parse(saved);
+                if (parsed && parsed.menu && parsed.menu.categories && parsed.menu.categories.length)
+                    fromLocal = parsed;
+            }
+        } catch (e) {}
+        var remoteUrl = CONFIG.REMOTE_MENU_URL + (CONFIG.REMOTE_MENU_URL.indexOf('?') >= 0 ? '&' : '?') + '_=' + Date.now();
+        fetch(remoteUrl, opts)
             .then(function(r) { return r.ok ? r.json() : null; })
             .then(function(data) {
                 var record = data && (data.record || data);
+                var remoteTime = (record && record.updatedAt) ? record.updatedAt : '';
+                var localTime = (fromLocal && fromLocal.updatedAt) ? fromLocal.updatedAt : '';
+                if (fromLocal && (!remoteTime || localTime > remoteTime)) {
+                    applyFromPayload(fromLocal);
+                    updateStatus('Меню загружено из сохранённой копии (новее облака)');
+                    return;
+                }
                 if (applyRemote(record)) return;
+                if (fromLocal) {
+                    applyFromPayload(fromLocal);
+                    updateStatus('Меню загружено из сохранённой копии');
+                    return;
+                }
                 runLocalOrFile();
             })
-            .catch(function() { runLocalOrFile(); });
+            .catch(function() {
+                if (fromLocal) {
+                    applyFromPayload(fromLocal);
+                    updateStatus('Меню загружено из сохранённой копии (облако недоступно)');
+                } else {
+                    runLocalOrFile();
+                }
+            });
         return;
     }
     runLocalOrFile();
+
+    function applyFromPayload(payload) {
+        if (!payload || !payload.menu || !payload.menu.categories) return;
+        menuData = JSON.parse(JSON.stringify(payload.menu));
+        if (payload.translations) {
+            translationsData = payload.translations;
+            if (typeof TRANSLATIONS !== 'undefined') {
+                try {
+                    var tr = payload.translations;
+                    for (var key in tr)
+                        for (var lang in tr[key])
+                            if (TRANSLATIONS[lang]) TRANSLATIONS[lang][key] = tr[key][lang];
+                } catch (e) {}
+            }
+        }
+        renderAdmin();
+    }
 
     function runLocalOrFile() {
         var fromServer = null;
