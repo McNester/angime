@@ -423,13 +423,20 @@ function saveItem() {
     if (getVal('descRu') || getVal('descKk') || getVal('descEn'))
         updateTranslations(descKey, { ru: getVal('descRu'), kk: getVal('descKk'), en: getVal('descEn') });
 
+    var cat = currentCategory && menuData && menuData.categories && menuData.categories[currentCategory.index];
+    if (!cat) {
+        alert('Ошибка: категория не найдена. Выберите категорию в сайдбаре и попробуйте снова.');
+        return;
+    }
+    if (!Array.isArray(cat.items)) cat.items = [];
+
     if (currentEditingItem.itemIndex === -1) {
-        currentCategory.category.items.push(item);
+        cat.items.push(item);
     } else {
-        currentCategory.category.items[currentEditingItem.itemIndex] = item;
+        cat.items[currentEditingItem.itemIndex] = item;
     }
 
-    renderItems(currentCategory.category.items);
+    renderItems(cat.items);
     saveMenuToStorage();
     closeModal();
     markAsChanged();
