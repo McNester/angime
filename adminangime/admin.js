@@ -7,16 +7,20 @@ let menuData = null;
 let currentCategory = null;
 let currentEditingItem = null;
 let hasUnsavedChanges = false;
+var translationsData = {};
 
 var ANGIME_MENU_KEY = 'angime_menu';
 
 function saveMenuToStorage() {
     if (!menuData) return;
     try {
-        var payload = { menu: menuData, translations: translationsData, updatedAt: new Date().toISOString() };
+        var payload = { menu: menuData, translations: translationsData || {}, updatedAt: new Date().toISOString() };
         localStorage.setItem(ANGIME_MENU_KEY, JSON.stringify(payload));
         pushToRemote(payload);
-    } catch (e) {}
+    } catch (e) {
+        console.error('saveMenuToStorage', e);
+        if (typeof updateStatus === 'function') updateStatus('Ошибка сохранения: ' + (e.message || e));
+    }
 }
 
 function pushToRemote(payload) {
@@ -114,7 +118,8 @@ function loadMenuData() {
     }
     function applyRemote(record) {
         if (!record || !record.menu || !record.menu.categories) return false;
-        menuData = record.menu;
+        // Клонируем меню, чтобы объект был точно изменяемым (добавление новых позиций)
+        menuData = JSON.parse(JSON.stringify(record.menu));
         if (record.translations && typeof TRANSLATIONS !== 'undefined') {
             try {
                 var tr = record.translations;
@@ -124,7 +129,7 @@ function loadMenuData() {
             } catch (e) {}
         }
         if (record.translations) translationsData = record.translations;
-        applyMenu(record.menu, 'Меню загружено из облака');
+        applyMenu(menuData, 'Меню загружено из облака');
         return true;
     }
 
@@ -351,6 +356,14 @@ function editItem(itemIndex) {
 
 // Add new item
 function addNewItem() {
+    if (!currentCategory || currentCategory.index == null) {
+        alert('Сначала выберите категорию в сайдбаре слева (например «Разливное пиво»).');
+        return;
+    }
+    if (!menuData || !menuData.categories || !menuData.categories[currentCategory.index]) {
+        alert('Меню не загружено. Обновите страницу и выберите категорию снова.');
+        return;
+    }
     currentEditingItem = { item: null, itemIndex: -1 };
     imageDataUrls = {};
     document.getElementById('itemForm').reset();
@@ -379,8 +392,12 @@ function getVal(id) {
 // Save item — читает поля по id из DOM, сохраняет в меню
 function saveItem() {
     try {
-        if (!currentCategory || !currentCategory.category || !currentCategory.category.items) {
-            alert('Сначала выберите категорию.');
+        if (!currentCategory || currentCategory.index == null || currentCategory.index < 0) {
+            alert('Сначала выберите категорию в сайдбаре слева.');
+            return;
+        }
+        if (!menuData || !menuData.categories || !menuData.categories[currentCategory.index]) {
+            alert('Ошибка: меню не загружено. Обновите страницу.');
             return;
         }
         if (!currentEditingItem || currentEditingItem.itemIndex === undefined) {
@@ -456,9 +473,6 @@ function generateKey(prefix, suffix) {
 
 // Превью загруженных файлов (path -> dataUrl), чтобы показывать до загрузки на сервер
 var imageDataUrls = {};
-
-// Update translations (stored separately)
-let translationsData = {};
 
 function updateTranslations(key, translations) {
     if (!translationsData[key]) {
