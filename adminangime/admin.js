@@ -465,15 +465,21 @@ function updateTranslations(key, translations) {
     }
 }
 
-// Загрузка изображений: клик и drag-and-drop
+// Загрузка изображений: кнопка, клик по зоне и drag-and-drop
 function initImageUpload() {
     var zone = document.getElementById('imageUploadZone');
     var fileInput = document.getElementById('imageFileInput');
-    if (!zone || !fileInput) return;
+    var addBtn = document.getElementById('addImageBtn');
+    if (!fileInput) return;
 
-    zone.addEventListener('click', function(e) {
-        if (e.target === fileInput) return;
+    function openFileDialog() {
         fileInput.click();
+    }
+
+    if (addBtn) addBtn.addEventListener('click', function(e) { e.preventDefault(); e.stopPropagation(); openFileDialog(); });
+    if (zone) zone.addEventListener('click', function(e) {
+        if (e.target === fileInput || (addBtn && addBtn.contains(e.target))) return;
+        openFileDialog();
     });
 
     fileInput.addEventListener('change', function() {
